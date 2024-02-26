@@ -2535,9 +2535,44 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
 
             # TODO: Add global conditional like: if (UVA==true) then do the following
+            # Set email to userID@virginia.edu
             email="$userName@virginia.edu"
 
+            # Set email to the following format:
+            # EXA-USERID-MBP22
+            # Getting the year is incredibly difficult and requires a lot of code, which changes
+            #   based on whether the device is ARM or Intel.
+            # if ARM, collecting Marketing model string from ioreg
+            # if com.apple.SystemProfiler.plist does not exist, create it
+            # if Intel, collect Marketing Model string from com.apple.SystemProfiler.plist
+            if [ "$(/usr/sbin/sysctl -in hw.optional.arm64)" = 1 ] && /usr/sbin/sysctl -n machdep.cpu.brand_string | /usr/bin/grep -q 'Apple' && /usr/bin/uname -v | /usr/bin/grep -q 'ARM64' then
+                marketModel="$(/usr/libexec/PlistBuddy -c 'print 0:product-name' /dev/stdin <<< "$(/usr/sbin/ioreg -ar -k product-name)")"
+            else
+                if ! [ -e "$plistsp" ]
+                then
+                    # This is a REALLY stupid way of doing it, but the model name doesn't get filled in unless
+                    #   'About This Mac' gets opened.
+                    /usr/bin/open '/System/Library/CoreServices/Applications/About This Mac.app'; /bin/sleep 1
+                    /usr/bin/pkill -ail 'System Information'; /bin/sleep 1
+                    /usr/bin/killall cfprefsd; /bin/sleep 1
+                fi
+                marketModel="$(/usr/libexec/PlistBuddy -c "print 'CPU Names':$srlnmbr-en-US_US" "$plistsp" 2> /dev/null)"
+            fi
 
+            # If the above didn't work, print to log
+            if [ -z "$marketModel" ] then
+                updateScriptLog "Market Model not found! Model Identifier: <result>$(/usr/sbin/sysctl -n hw.model)</result>"
+            fi
+
+            # parse the Marketing Model string for the year
+            modelYear="$(echo "$marketModel" | /usr/bin/sed 's/)//;s/(//;s/,//' | /usr/bin/grep -E -o '2[0-9]{3}')"
+
+            # Rename computer properly
+            computerName="EXA-$userName-$modelYear"
+            updateScriptLog "UserID: $userName"
+            updateScriptLog "Model year: $modelYear"
+            updateScriptLog "Setting computerName to $computerName"
+            
             ###
             # End UVA specific logic
             ###
