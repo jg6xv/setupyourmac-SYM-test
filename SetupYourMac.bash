@@ -562,7 +562,8 @@ failureCommandFile=$( mktemp -u /var/tmp/dialogCommandFileFailure.XXX )
 # "Welcome" dialog Title, Message and Icon
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-welcomeTitle="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
+welcomeTitle="University of Virginia | Exectech"
+# "Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
 
 welcomeMessage="Please enter the **required** information for your ${modelName}, select your preferred **Configuration** then click **Continue** to start applying settings to your new Mac. \n\nOnce completed, the **Wait** button will be enabled and you‘ll be able to review the results before restarting your ${modelName}."
 
