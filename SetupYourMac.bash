@@ -2566,8 +2566,8 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                 updateScriptLog "EXA - Market Model not found! Model Identifier: <result>$(/usr/sbin/sysctl -n hw.model)</result>"
             fi
 
-            # parse the Marketing Model string for the year
-            modelYear="$(echo "$marketModel" | /usr/bin/sed 's/)//;s/(//;s/,//' | /usr/bin/grep -E -o '2[0-9]{3}')"
+            # parse the Marketing Model string for the year and only grab the last two digits
+            modelYear="$(echo "$marketModel" | /usr/bin/sed 's/)//;s/(//;s/,//' | /usr/bin/grep -E -o '2[0-9]{3}' | /usr/bin/grep -E -o '^.{2}' )"
 
             # Rename computer properly
             capsUserName=$(echo "$userName" | awk '{print toupper($0)}')
