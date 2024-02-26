@@ -2545,7 +2545,8 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             # if ARM, collecting Marketing model string from ioreg
             # if com.apple.SystemProfiler.plist does not exist, create it
             # if Intel, collect Marketing Model string from com.apple.SystemProfiler.plist
-            if [ "$(/usr/sbin/sysctl -in hw.optional.arm64)" = 1 ] && /usr/sbin/sysctl -n machdep.cpu.brand_string | /usr/bin/grep -q 'Apple' && /usr/bin/uname -v | /usr/bin/grep -q 'ARM64' then
+            if [ "$(/usr/sbin/sysctl -in hw.optional.arm64)" = 1 ] && /usr/sbin/sysctl -n machdep.cpu.brand_string | /usr/bin/grep -q 'Apple' && /usr/bin/uname -v | /usr/bin/grep -q 'ARM64'
+            then
                 marketModel="$(/usr/libexec/PlistBuddy -c 'print 0:product-name' /dev/stdin <<< "$(/usr/sbin/ioreg -ar -k product-name)")"
             else
                 if ! [ -e "$plistsp" ]
@@ -2560,19 +2561,21 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             fi
 
             # If the above didn't work, print to log
-            if [ -z "$marketModel" ] then
-                updateScriptLog "Market Model not found! Model Identifier: <result>$(/usr/sbin/sysctl -n hw.model)</result>"
+            if [ -z "$marketModel" ]
+            then
+                updateScriptLog "EXA - Market Model not found! Model Identifier: <result>$(/usr/sbin/sysctl -n hw.model)</result>"
             fi
 
             # parse the Marketing Model string for the year
             modelYear="$(echo "$marketModel" | /usr/bin/sed 's/)//;s/(//;s/,//' | /usr/bin/grep -E -o '2[0-9]{3}')"
 
             # Rename computer properly
-            computerName="EXA-$userName-$modelYear"
-            updateScriptLog "UserID: $userName"
-            updateScriptLog "Model year: $modelYear"
-            updateScriptLog "Setting computerName to $computerName"
-            
+            capsUserName=$(echo "$userName" | awk '{print toupper($0)}')
+            computerName="EXA-$capsUserName-$modelYear"
+            updateScriptLog "EXA - Uppercase UserID: $capsUserName"
+            updateScriptLog "EXA - Model year: $modelYear"
+            updateScriptLog "EXA - Setting Computer Name to $computerName"
+
             ###
             # End UVA specific logic
             ###
