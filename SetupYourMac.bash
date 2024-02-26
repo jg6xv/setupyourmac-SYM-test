@@ -118,7 +118,7 @@ brandingIconDark="https://cdn-icons-png.flaticon.com/512/740/740878.png"
 # [SYM-Helper] IT Support Variables - Use these if the default text is fine but you want your org's info inserted instead
 supportTeamName="Support Team Name"
 supportTeamPhone="+1 (801) 555-1212"
-supportTeamEmail="support@domain.com"
+supportTeamEmail="testchange@testchange.edu"
 supportTeamWebsite="support.domain.com"
 supportTeamHyperlink="[${supportTeamWebsite}](https://${supportTeamWebsite})"
 supportKB="KB8675309"
