@@ -685,6 +685,8 @@ welcomeVideo="--title \"$welcomeTitle\" \
 # Text Fields
 if [ "$prefillUsername" == "true" ]; then usernamePrefil=',"value" : "'${loggedInUser}'"'; fi
 if [ "$prefillRealname" == "true" ]; then realnamePrefil=',"value" : "'${loggedInUserFullname}'"'; fi
+# TODO: Add UVA-specific conditional
+# if [ "$promptForUsername" == "true" ]; then usernameJSON='{ "title" : "User Name","required" : false,"prompt" : "User Name"'${usernamePrefil}'},'; fi
 if [ "$promptForUsername" == "true" ]; then usernameJSON='{ "title" : "User ID","required" : false,"prompt" : "User ID"'${usernamePrefil}'},'; fi
 if [ "$promptForRealName" == "true" ]; then realNameJSON='{ "title" : "Full Name","required" : false,"prompt" : "Full Name"'${realnamePrefil}'},'; fi
 if [ "$promptForEmail" == "true" ]; then
@@ -2510,6 +2512,8 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
 
             computerName=$(get_json_value_welcomeDialog "$welcomeResults" "Computer Name")
+            # TODO: Add UVA-specific conditional
+            # userName=$(get_json_value_welcomeDialog "$welcomeResults" "User Name")
             userName=$(get_json_value_welcomeDialog "$welcomeResults" "User ID")
             realName=$(get_json_value_welcomeDialog "$welcomeResults" "Full Name")
             email=$(get_json_value_welcomeDialog "$welcomeResults" "E-mail")
@@ -2545,6 +2549,8 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
 
             updateScriptLog "WELCOME DIALOG: • Computer Name: $computerName"
+            # TODO: Add conditional for UVA logic
+            # updateScriptLog "WELCOME DIALOG: • User Name: $userName"
             updateScriptLog "WELCOME DIALOG: • User ID: $userName"
             updateScriptLog "WELCOME DIALOG: • Real Name: $realName"
             updateScriptLog "WELCOME DIALOG: • E-mail: $email"
