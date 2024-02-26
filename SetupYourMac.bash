@@ -2538,9 +2538,11 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             # Set email to userID@virginia.edu
             email="$userName@virginia.edu"
 
-            # Set email to the following format:
-            # EXA-USERID-MBP22
-            # Getting the year is incredibly difficult and requires a lot of code, which changes
+            # Set computer name to the following format:
+            # EXA-USERID-MODELYY
+            # example:
+            # EXA-JG6XV-MBP20
+            # Getting the year is unfortunately difficult and requires a lot of code, which changes
             #   based on whether the device is ARM or Intel.
             # if ARM, collecting Marketing model string from ioreg
             # if com.apple.SystemProfiler.plist does not exist, create it
@@ -2570,6 +2572,10 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             modelYear="$(echo "$marketModel" | /usr/bin/sed 's/)//;s/(//;s/,//' | /usr/bin/grep -E -o '2[0-9]{3}' | /usr/bin/grep -E -o '^.{2}' )"
 
             # Rename computer properly
+
+            # TODO: Add model in MBP, IM, MM, etc format
+            # currently prints in EXA-USERID-YY when we want EXA-USERID-MODELYY
+
             capsUserName=$(echo "$userName" | awk '{print toupper($0)}')
             computerName="EXA-$capsUserName-$modelYear"
             updateScriptLog "EXA - Uppercase UserID: $capsUserName"
