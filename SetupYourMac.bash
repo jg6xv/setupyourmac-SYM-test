@@ -111,7 +111,7 @@ positionList=$( echo "${positionListRaw}" | tr ',' '\n' | sort -f | uniq | sed -
 
 # [SYM-Helper] Branding overrides
 brandingBanner="https://img.freepik.com/free-vector/green-abstract-geometric-wallpaper_52683-29623.jpg" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
-brandingBannerDisplayText="true"
+brandingBannerDisplayText="false"
 brandingIconLight="https://cdn-icons-png.flaticon.com/512/979/979585.png"
 brandingIconDark="https://cdn-icons-png.flaticon.com/512/740/740878.png"
 
@@ -601,7 +601,7 @@ fi
 if [[ "${brandingBannerDisplayText}" == "true" ]]; then
     welcomeBannerText="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
 else
-    welcomeBannerText=" "
+    welcomeBannerText="University of Virginia | Exectech"
 fi
 welcomeCaption="Please review the above video, then click Continue."
 welcomeVideoID="vimeoid=909473114"
