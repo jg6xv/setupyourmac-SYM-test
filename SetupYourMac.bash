@@ -47,7 +47,7 @@
 scriptVersion="1.14.2"
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 scriptLog="${4:-"/var/log/org.churchofjesuschrist.log"}"                        # Parameter 4: Script Log Location [ /var/log/org.churchofjesuschrist.log ] (i.e., Your organization's default location for client-side logs)
-debugMode="${5:-"verbose"}"                                                     # Parameter 5: Debug Mode [ verbose (default) | true | false ]
+debugMode="${5:-"false"}"                                                     # Parameter 5: Debug Mode [ verbose (default) | true | false ]
 welcomeDialog="${6:-"userInput"}"                                               # Parameter 6: Welcome dialog [ userInput (default) | video | messageOnly | false ]
 completionActionOption="${7:-"Restart Attended"}"                               # Parameter 7: Completion Action [ wait | sleep (with seconds) | Shut Down | Shut Down Attended | Shut Down Confirm | Restart | Restart Attended (default) | Restart Confirm | Log Out | Log Out Attended | Log Out Confirm ]
 requiredMinimumBuild="${8:-"disabled"}"                                         # Parameter 8: Required Minimum Build [ disabled (default) | 22E ] (i.e., Your organization's required minimum build of macOS to allow users to proceed; use "22E" for macOS 13.3)
@@ -73,32 +73,32 @@ failureDialog="true"        # Display the so-called "Failure" dialog (after the 
 
 # [SYM-Helper] These control which user input boxes are added to the first page of Setup Your Mac. If you do not want to ask about a value, set it to any other value
 promptForUsername="true"
-prefillUsername="true"          # prefills the currently logged in user's username
+prefillUsername="false"          # prefills the currently logged in user's username
 promptForRealName="true"
-prefillRealname="true"          # prefills the currently logged in user's fullname
-promptForEmail="true"
+prefillRealname="false"          # prefills the currently logged in user's fullname
+promptForEmail="false"
 promptForComputerName="true"
-promptForAssetTag="true"
-promptForRoom="true"
-promptForBuilding="true"
-promptForDepartment="true"
-promptForPosition="true"        # When set to true dynamically prompts the user to select from a list of positions or manually enter one at the welcomeDialog, see "positionListRaw" to define the selection / entry type
-promptForConfiguration="true"   # Removes the Configuration dropdown entirely and uses the "Catch-all (i.e., used when `welcomeDialog` is set to `video` or `false`)" or presetConfiguration policyJSON
+promptForAssetTag="false"
+promptForRoom="false"
+promptForBuilding="false"
+promptForDepartment="false"
+promptForPosition="false"        # When set to true dynamically prompts the user to select from a list of positions or manually enter one at the welcomeDialog, see "positionListRaw" to define the selection / entry type
+promptForConfiguration="false"   # Removes the Configuration dropdown entirely and uses the "Catch-all (i.e., used when `welcomeDialog` is set to `video` or `false`)" or presetConfiguration policyJSON
 
 # Set to "true" to suppress the Update Inventory option on policies that are called
 suppressReconOnPolicy="false"
 
 # [SYM-Helper] Disables the Blurscreen enabled by default in Production
-moveableInProduction="false"
+moveableInProduction="true"
 
 # [SYM-Helper] An unsorted, comma-separated list of buildings (with possible duplication). If empty, this will be hidden from the user info prompt
-buildingsListRaw="Benson (Ezra Taft) Building,Brimhall (George H.) Building,BYU Conference Center,Centennial Carillon Tower,Chemicals Management Building,Clark (Herald R.) Building,Clark (J. Reuben) Building,Clyde (W.W.) Engineering Building,Crabtree (Roland A.) Technology Building,Ellsworth (Leo B.) Building,Engineering Building,Eyring (Carl F.) Science Center,Grant (Heber J.) Building,Harman (Caroline Hemenway) Building,Harris (Franklin S.) Fine Arts Center,Johnson (Doran) House East,Kimball (Spencer W.) Tower,Knight (Jesse) Building,Lee (Harold B.) Library,Life Sciences Building,Life Sciences Greenhouses,Maeser (Karl G.) Building,Martin (Thomas L.) Building,McKay (David O.) Building,Nicholes (Joseph K.) Building,Smith (Joseph F.) Building,Smith (Joseph) Building,Snell (William H.) Building,Talmage (James E.) Math Sciences/Computer Building,Tanner (N. Eldon) Building,Taylor (John) Building,Wells (Daniel H.) Building"
+buildingsListRaw=""
 
 # A sorted, unique, JSON-compatible list of buildings
 buildingsList=$( echo "${buildingsListRaw}" | tr ',' '\n' | sort -f | uniq | sed -e 's/^/\"/' -e 's/$/\",/' -e '$ s/.$//' )
 
 # [SYM-Helper] An unsorted, comma-separated list of departments (with possible duplication). If empty, this will be hidden from the user info prompt
-departmentListRaw="Asset Management,Sales,Australia Area Office,Purchasing / Sourcing,Board of Directors,Strategic Initiatives & Programs,Operations,Business Development,Marketing,Creative Services,Customer Service / Customer Experience,Risk Management,Engineering,Finance / Accounting,Sales,General Management,Human Resources,Marketing,Investor Relations,Legal,Marketing,Sales,Product Management,Production,Corporate Communications,Information Technology / Technology,Quality Assurance,Project Management Office,Sales,Technology"
+departmentListRaw=""
 
 # A sorted, unique, JSON-compatible list of departments
 departmentList=$( echo "${departmentListRaw}" | tr ',' '\n' | sort -f | uniq | sed -e 's/^/\"/' -e 's/$/\",/' -e '$ s/.$//' )
@@ -110,7 +110,7 @@ positionListRaw="Developer,Management,Sales,Marketing"
 positionList=$( echo "${positionListRaw}" | tr ',' '\n' | sort -f | uniq | sed -e 's/^/\"/' -e 's/$/\",/' -e '$ s/.$//' )
 
 # [SYM-Helper] Branding overrides
-brandingBanner="https://img.freepik.com/free-photo/liquid-marbling-paint-texture-background-fluid-painting-abstract-texture-intensive-color-mix-wallpaper_1258-101465.jpg" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
+brandingBanner="https://img.freepik.com/free-vector/green-abstract-geometric-wallpaper_52683-29623.jpg" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
 brandingBannerDisplayText="true"
 brandingIconLight="https://cdn-icons-png.flaticon.com/512/979/979585.png"
 brandingIconDark="https://cdn-icons-png.flaticon.com/512/740/740878.png"
@@ -118,11 +118,11 @@ brandingIconDark="https://cdn-icons-png.flaticon.com/512/740/740878.png"
 # [SYM-Helper] IT Support Variables - Use these if the default text is fine but you want your org's info inserted instead
 supportTeamName="Support Team Name"
 supportTeamPhone="+1 (801) 555-1212"
-supportTeamEmail="testchange@testchange.edu"
+supportTeamEmail="support@domain.com"
 supportTeamWebsite="support.domain.com"
 supportTeamHyperlink="[${supportTeamWebsite}](https://${supportTeamWebsite})"
 supportKB="KB8675309"
-supportTeamErrorKB="[${supportKB}](https://servicenow.company.com/support?id=kb_article_view&sysparm_article=${supportKB}#Failures)"
+supportTeamErrorKB="[KB8675309](https://servicenow.company.com/support?id=kb_article_view&sysparm_article=KB8675309#Failures)"
 
 # Disable the "Continue" button in the User Input "Welcome" dialog until Dynamic Download Estimates have complete [ true | false ] (thanks, @Eltord!)
 lockContinueBeforeEstimations="false"
@@ -941,547 +941,130 @@ function policyJSONConfiguration() {
 
     case ${symConfiguration} in
 
-        "${configurationOneName}" )
+        * ) # Catch-all )
 
-            overlayoverride=""
             policyJSON='
             {
                 "steps": [
+        
                     {
-                        "listitem": "Rosetta",
-                        "subtitle": "Enables a Mac with Apple silicon to use apps built for an Intel processor",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8bac19160fabb0c8e7bac97b37b51d2ac8f38b7100b6357642d9505645d37b52",
-                        "progresstext": "Rosetta enables a Mac with Apple silicon to use apps built for a Mac with an Intel processor.",
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
                         "trigger_list": [
-                            {
-                                "trigger": "rosettaInstall",
-                                "validation": "None"
-                            },
-                            {
-                                "trigger": "rosetta",
-                                "validation": "Local"
-                            }
+                                         {
+                                            "trigger": "1766",
+                                            "validation": "None"
+                                         }
                         ]
                     },
                     {
-                        "listitem": "FileVault Disk Encryption",
-                        "subtitle": "FileVault provides full-disk encryption",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_f9ba35bd55488783456d64ec73372f029560531ca10dfa0e8154a46d7732b913",
-                        "progresstext": "FileVault is built-in to macOS and provides full-disk encryption to help prevent unauthorized access to your Mac.",
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
                         "trigger_list": [
-                            {
-                                "trigger": "filevault",
-                                "validation": "Local"
-                            }
+                                         {
+                                            "trigger": "1794",
+                                            "validation": "None"
+                                         }
                         ]
                     },
                     {
-                        "listitem": "Sophos Endpoint",
-                        "subtitle": "Catches malware without relying on signatures",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_c70f1acf8c96b99568fec83e165d2a534d111b0510fb561a283d32aa5b01c60c",
-                        "progresstext": "You’ll enjoy next-gen protection with Sophos Endpoint which doesn’t rely on signatures to catch malware.",
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
                         "trigger_list": [
-                            {
-                                "trigger": "sophosEndpoint",
-                                "validation": "/Applications/Sophos/Sophos Endpoint.app/Contents/Info.plist"
-                            }
+                                         {
+                                            "trigger": "1764",
+                                            "validation": "None"
+                                         }
                         ]
                     },
                     {
-                        "listitem": "Sophos Endpoint Services (Remote)",
-                        "subtitle": "Ensures Sophos Endpoint services are running",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_0f68be689684a00a3a054d71a31e43e2362f96c16efa5a560fb61bc1bf41901c",
-                        "progresstext": "Remotely validating Sophos Endpoint services …",
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
                         "trigger_list": [
-                            {
-                                "trigger": "symvSophosEndpointRTS",
-                                "validation": "Remote"
-                            }
+                                         {
+                                            "trigger": "1793",
+                                            "validation": "None"
+                                         }
                         ]
                     },
                     {
-                        "listitem": "Palo Alto GlobalProtect",
-                        "subtitle": "Virtual Private Network (VPN) connection to Church headquarters",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_acbf39d8904ad1a772cf71c45d93e373626d379a24f8b1283b88134880acb8ef",
-                        "progresstext": "Use Palo Alto GlobalProtect to establish a Virtual Private Network (VPN) connection to Church headquarters.",
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
                         "trigger_list": [
-                            {
-                                "trigger": "globalProtect",
-                                "validation": "/Applications/GlobalProtect.app/Contents/Info.plist"
-                            }
+                                         {
+                                            "trigger": "1810",
+                                            "validation": "None"
+                                         }
                         ]
                     },
                     {
-                        "listitem": "Palo Alto GlobalProtect Services (Remote)",
-                        "subtitle": "Ensures GlobalProtect services are running",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_709e8bdf0019e8faf9df85ec0a68545bfdb8bfa1227ac9bed9bba40a1fa8ff42",
-                        "progresstext": "Remotely validating Palo Alto GlobalProtect services …",
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
                         "trigger_list": [
-                            {
-                                "trigger": "symvGlobalProtect",
-                                "validation": "Remote"
-                            }
+                                         {
+                                            "trigger": "1765",
+                                            "validation": "None"
+                                         }
                         ]
                     },
                     {
-                        "listitem": "Final Configuration",
-                        "subtitle": "Configures remaining Church settings",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_4723e3e341a7e11e6881e418cf91b157fcc081bdb8948697750e5da3562df728",
-                        "progresstext": "Finalizing Configuration …",
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
                         "trigger_list": [
-                            {
-                                "trigger": "finalConfiguration",
-                                "validation": "None"
-                            },
-                            {
-                                "trigger": "reconAtReboot",
-                                "validation": "None"
-                            }
+                                         {
+                                            "trigger": "981",
+                                            "validation": "None"
+                                         }
                         ]
                     },
                     {
-                        "listitem": "Computer Inventory",
-                        "subtitle": "The listing of your Mac’s apps and settings",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_ff2147a6c09f5ef73d1c4406d00346811a9c64c0b6b7f36eb52fcb44943d26f9",
-                        "progresstext": "A listing of your Mac’s apps and settings — its inventory — is sent automatically to the Jamf Pro server daily.",
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
                         "trigger_list": [
-                            {
-                                "trigger": "recon",
-                                "validation": "recon"
-                            }
-                        ]
-                    }
-                ]
-            }
-            '
-            ;;
-
-        "${configurationTwoName}" )
-
-            overlayoverride=""
-            policyJSON='
-            {
-                "steps": [
-                    {
-                        "listitem": "Rosetta",
-                        "subtitle": "Enables a Mac with Apple silicon to use apps built for an Intel processor",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8bac19160fabb0c8e7bac97b37b51d2ac8f38b7100b6357642d9505645d37b52",
-                        "progresstext": "Rosetta enables a Mac with Apple silicon to use apps built for a Mac with an Intel processor.",
-                        "trigger_list": [
-                            {
-                                "trigger": "rosettaInstall",
-                                "validation": "None"
-                            },
-                            {
-                                "trigger": "rosetta",
-                                "validation": "Local"
-                            }
+                                         {
+                                            "trigger": "1767",
+                                            "validation": "None"
+                                         }
                         ]
                     },
                     {
-                        "listitem": "FileVault Disk Encryption",
-                        "subtitle": "FileVault provides full-disk encryption",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_f9ba35bd55488783456d64ec73372f029560531ca10dfa0e8154a46d7732b913",
-                        "progresstext": "FileVault is built-in to macOS and provides full-disk encryption to help prevent unauthorized access to your Mac.",
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
                         "trigger_list": [
-                            {
-                                "trigger": "filevault",
-                                "validation": "Local"
-                            }
+                                         {
+                                            "trigger": "1768",
+                                            "validation": "None"
+                                         }
                         ]
                     },
                     {
-                        "listitem": "Sophos Endpoint",
-                        "subtitle": "Catches malware without relying on signatures",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_c70f1acf8c96b99568fec83e165d2a534d111b0510fb561a283d32aa5b01c60c",
-                        "progresstext": "You’ll enjoy next-gen protection with Sophos Endpoint which doesn’t rely on signatures to catch malware.",
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
                         "trigger_list": [
-                            {
-                                "trigger": "sophosEndpoint",
-                                "validation": "/Applications/Sophos/Sophos Endpoint.app/Contents/Info.plist"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Sophos Endpoint Services (Local)",
-                        "subtitle": "Ensures Sophos Endpoint services are running",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_0f68be689684a00a3a054d71a31e43e2362f96c16efa5a560fb61bc1bf41901c",
-                        "progresstext": "Locally validating Sophos Endpoint services …",
-                        "trigger_list": [
-                            {
-                                "trigger": "sophosEndpointServices",
-                                "validation": "Local"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Palo Alto GlobalProtect",
-                        "subtitle": "Virtual Private Network (VPN) connection to Church headquarters",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_acbf39d8904ad1a772cf71c45d93e373626d379a24f8b1283b88134880acb8ef",
-                        "progresstext": "Use Palo Alto GlobalProtect to establish a Virtual Private Network (VPN) connection to Church headquarters.",
-                        "trigger_list": [
-                            {
-                                "trigger": "globalProtect",
-                                "validation": "/Applications/GlobalProtect.app/Contents/Info.plist"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Palo Alto GlobalProtect Services (Local)",
-                        "subtitle": "Ensures GlobalProtect services are running",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_709e8bdf0019e8faf9df85ec0a68545bfdb8bfa1227ac9bed9bba40a1fa8ff42",
-                        "progresstext": "Locally validating Palo Alto GlobalProtect services …",
-                        "trigger_list": [
-                            {
-                                "trigger": "globalProtect",
-                                "validation": "Local"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Microsoft 365",
-                        "subtitle": "Microsoft Office is now Microsoft 365",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_1801d1fdd81e19ce5eb0e567371377e7995bff32947adb7a94c5feea760edcb5",
-                        "progresstext": "Office is now Microsoft 365. Create, share, and collaborate with your favorite apps — all in one place — with Microsoft 365.",
-                        "trigger_list": [
-                            {
-                                "trigger": "microsoftOffice365",
-                                "validation": "/Applications/Microsoft Outlook.app/Contents/Info.plist"
-                            },
-                            {
-                                "trigger": "symvMicrosoftOffice365",
-                                "validation": "Remote"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Microsoft Teams",
-                        "subtitle": "The hub for teamwork in Microsoft 365",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_dcb65709dba6cffa90a5eeaa54cb548d5ecc3b051f39feadd39e02744f37c19e",
-                        "progresstext": "Microsoft Teams is a hub for teamwork in Microsoft 365. Keep all your team’s chats, meetings and files together in one place.",
-                        "trigger_list": [
-                            {
-                                "trigger": "microsoftTeams",
-                                "validation": "/Applications/Microsoft Teams classic.app/Contents/Info.plist"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Final Configuration",
-                        "subtitle": "Configures remaining Church settings",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_4723e3e341a7e11e6881e418cf91b157fcc081bdb8948697750e5da3562df728",
-                        "progresstext": "Finalizing Configuration …",
-                        "trigger_list": [
-                            {
-                                "trigger": "finalConfiguration",
-                                "validation": "None"
-                            },
-                            {
-                                "trigger": "reconAtReboot",
-                                "validation": "None"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Computer Inventory",
-                        "subtitle": "The listing of your Mac’s apps and settings",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_ff2147a6c09f5ef73d1c4406d00346811a9c64c0b6b7f36eb52fcb44943d26f9",
-                        "progresstext": "A listing of your Mac’s apps and settings — its inventory — is sent automatically to the Jamf Pro server daily.",
-                        "trigger_list": [
-                            {
-                                "trigger": "recon",
-                                "validation": "recon"
-                            }
-                        ]
-                    }
-                ]
-            }
-            '
-            ;;
-
-        "${configurationThreeName}" )
-
-            overlayoverride=""
-            policyJSON='
-            {
-                "steps": [
-                    {
-                        "listitem": "Rosetta",
-                        "subtitle": "Enables a Mac with Apple silicon to use apps built for an Intel processor",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8bac19160fabb0c8e7bac97b37b51d2ac8f38b7100b6357642d9505645d37b52",
-                        "progresstext": "Rosetta enables a Mac with Apple silicon to use apps built for a Mac with an Intel processor.",
-                        "trigger_list": [
-                            {
-                                "trigger": "rosettaInstall",
-                                "validation": "None"
-                            },
-                            {
-                                "trigger": "rosetta",
-                                "validation": "Local"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "FileVault Disk Encryption",
-                        "subtitle": "FileVault provides full-disk encryption",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_f9ba35bd55488783456d64ec73372f029560531ca10dfa0e8154a46d7732b913",
-                        "progresstext": "FileVault is built-in to macOS and provides full-disk encryption to help prevent unauthorized access to your Mac.",
-                        "trigger_list": [
-                            {
-                                "trigger": "filevault",
-                                "validation": "Local"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Sophos Endpoint",
-                        "subtitle": "Catches malware without relying on signatures",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_c70f1acf8c96b99568fec83e165d2a534d111b0510fb561a283d32aa5b01c60c",
-                        "progresstext": "You’ll enjoy next-gen protection with Sophos Endpoint which doesn’t rely on signatures to catch malware.",
-                        "trigger_list": [
-                            {
-                                "trigger": "sophosEndpoint",
-                                "validation": "/Applications/Sophos/Sophos Endpoint.app/Contents/Info.plist"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Sophos Endpoint Services (Local)",
-                        "subtitle": "Ensures Sophos Endpoint services are running",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_0f68be689684a00a3a054d71a31e43e2362f96c16efa5a560fb61bc1bf41901c",
-                        "progresstext": "Locally validating Sophos Endpoint services …",
-                        "trigger_list": [
-                            {
-                                "trigger": "sophosEndpointServices",
-                                "validation": "Local"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Sophos Endpoint Services (Remote)",
-                        "subtitle": "Ensures Sophos Endpoint services are running",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_0f68be689684a00a3a054d71a31e43e2362f96c16efa5a560fb61bc1bf41901c",
-                        "progresstext": "Remotely validating Sophos Endpoint services …",
-                        "trigger_list": [
-                            {
-                                "trigger": "symvSophosEndpointRTS",
-                                "validation": "Remote"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Palo Alto GlobalProtect",
-                        "subtitle": "Virtual Private Network (VPN) connection to Church headquarters",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_acbf39d8904ad1a772cf71c45d93e373626d379a24f8b1283b88134880acb8ef",
-                        "progresstext": "Use Palo Alto GlobalProtect to establish a Virtual Private Network (VPN) connection to Church headquarters.",
-                        "trigger_list": [
-                            {
-                                "trigger": "globalProtect",
-                                "validation": "/Applications/GlobalProtect.app/Contents/Info.plist"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Palo Alto GlobalProtect Services (Local)",
-                        "subtitle": "Ensures GlobalProtect services are running",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_709e8bdf0019e8faf9df85ec0a68545bfdb8bfa1227ac9bed9bba40a1fa8ff42",
-                        "progresstext": "Locally validating Palo Alto GlobalProtect services …",
-                        "trigger_list": [
-                            {
-                                "trigger": "globalProtect",
-                                "validation": "Local"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Palo Alto GlobalProtect Services (Remote)",
-                        "subtitle": "Ensures GlobalProtect services are running",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_709e8bdf0019e8faf9df85ec0a68545bfdb8bfa1227ac9bed9bba40a1fa8ff42",
-                        "progresstext": "Remotely validating Palo Alto GlobalProtect services …",
-                        "trigger_list": [
-                            {
-                                "trigger": "symvGlobalProtect",
-                                "validation": "Remote"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Microsoft 365",
-                        "subtitle": "Microsoft Office is now Microsoft 365",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_1801d1fdd81e19ce5eb0e567371377e7995bff32947adb7a94c5feea760edcb5",
-                        "progresstext": "Office is now Microsoft 365. Create, share, and collaborate with your favorite apps — all in one place — with Microsoft 365.",
-                        "trigger_list": [
-                            {
-                                "trigger": "microsoftOffice365",
-                                "validation": "/Applications/Microsoft Outlook.app/Contents/Info.plist"
-                            },
-                            {
-                                "trigger": "symvMicrosoftOffice365",
-                                "validation": "Remote"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Microsoft Teams",
-                        "subtitle": "The hub for teamwork in Microsoft 365",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_dcb65709dba6cffa90a5eeaa54cb548d5ecc3b051f39feadd39e02744f37c19e",
-                        "progresstext": "Microsoft Teams is a hub for teamwork in Microsoft 365. Keep all your team’s chats, meetings and files together in one place.",
-                        "trigger_list": [
-                            {
-                                "trigger": "microsoftTeams",
-                                "validation": "/Applications/Microsoft Teams classic.app/Contents/Info.plist"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Adobe Acrobat Reader",
-                        "subtitle": "Full-featured PDF reader",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_988b669ca27eab93a9bcd53bb7e2873fb98be4eaa95ae8974c14d611bea1d95f",
-                        "progresstext": "Views, prints, and comments on PDF documents, and connects to Adobe Document Cloud.",
-                        "trigger_list": [
-                            {
-                                "trigger": "adobeAcrobatReader",
-                                "validation": "/Applications/Adobe Acrobat Reader.app/Contents/Info.plist"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Google Chrome",
-                        "subtitle": "Third-party Web browser",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_12d3d198f40ab2ac237cff3b5cb05b09f7f26966d6dffba780e4d4e5325cc701",
-                        "progresstext": "Google Chrome is a browser that combines a minimal design with sophisticated technology to make the Web faster.",
-                        "trigger_list": [
-                            {
-                                "trigger": "googleChrome",
-                                "validation": "/Applications/Google Chrome.app/Contents/Info.plist"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Final Configuration",
-                        "subtitle": "Configures remaining Church settings",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_4723e3e341a7e11e6881e418cf91b157fcc081bdb8948697750e5da3562df728",
-                        "progresstext": "Finalizing Configuration …",
-                        "trigger_list": [
-                            {
-                                "trigger": "finalConfiguration",
-                                "validation": "None"
-                            },
-                            {
-                                "trigger": "reconAtReboot",
-                                "validation": "None"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Computer Inventory",
-                        "subtitle": "The listing of your Mac’s apps and settings",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_ff2147a6c09f5ef73d1c4406d00346811a9c64c0b6b7f36eb52fcb44943d26f9",
-                        "progresstext": "A listing of your Mac’s apps and settings — its inventory — is sent automatically to the Jamf Pro server daily.",
-                        "trigger_list": [
-                            {
-                                "trigger": "recon",
-                                "validation": "recon"
-                            }
-                        ]
-                    }
-                ]
-            }
-            '
-            ;;
-
-        * ) # Catch-all (i.e., used when `welcomeDialog` is set to `video`, `messageOnly` or `false`)
-
-            overlayoverride=""
-            policyJSON='
-            {
-                "steps": [
-                    {
-                        "listitem": "Rosetta",
-                        "subtitle": "Enables a Mac with Apple silicon to use apps built for an Intel processor",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8bac19160fabb0c8e7bac97b37b51d2ac8f38b7100b6357642d9505645d37b52",
-                        "progresstext": "Rosetta enables a Mac with Apple silicon to use apps built for a Mac with an Intel processor.",
-                        "trigger_list": [
-                            {
-                                "trigger": "rosettaInstall",
-                                "validation": "None"
-                            },
-                            {
-                                "trigger": "rosetta",
-                                "validation": "Local"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "FileVault Disk Encryption",
-                        "subtitle": "FileVault provides full-disk encryption",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_f9ba35bd55488783456d64ec73372f029560531ca10dfa0e8154a46d7732b913",
-                        "progresstext": "FileVault is built-in to macOS and provides full-disk encryption to help prevent unauthorized access to your Mac.",
-                        "trigger_list": [
-                            {
-                                "trigger": "filevault",
-                                "validation": "Local"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Sophos Endpoint",
-                        "subtitle": "Catches malware without relying on signatures",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_c70f1acf8c96b99568fec83e165d2a534d111b0510fb561a283d32aa5b01c60c",
-                        "progresstext": "You’ll enjoy next-gen protection with Sophos Endpoint which doesn’t rely on signatures to catch malware.",
-                        "trigger_list": [
-                            {
-                                "trigger": "sophosEndpoint",
-                                "validation": "/Applications/Sophos/Sophos Endpoint.app/Contents/Info.plist"
-                            },
-                            {
-                                "trigger": "symvSophosEndpointRTS",
-                                "validation": "Remote"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Palo Alto GlobalProtect",
-                        "subtitle": "Virtual Private Network (VPN) connection to Church headquarters",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_acbf39d8904ad1a772cf71c45d93e373626d379a24f8b1283b88134880acb8ef",
-                        "progresstext": "Use Palo Alto GlobalProtect to establish a Virtual Private Network (VPN) connection to Church headquarters.",
-                        "trigger_list": [
-                            {
-                                "trigger": "globalProtect",
-                                "validation": "/Applications/GlobalProtect.app/Contents/Info.plist"
-                            },
-                            {
-                                "trigger": "symvGlobalProtect",
-                                "validation": "Remote"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Final Configuration",
-                        "subtitle": "Configures remaining Church settings",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_4723e3e341a7e11e6881e418cf91b157fcc081bdb8948697750e5da3562df728",
-                        "progresstext": "Finalizing Configuration …",
-                        "trigger_list": [
-                            {
-                                "trigger": "finalConfiguration",
-                                "validation": "None"
-                            },
-                            {
-                                "trigger": "reconAtReboot",
-                                "validation": "None"
-                            }
-                        ]
-                    },
-                    {
-                        "listitem": "Computer Inventory",
-                        "subtitle": "The listing of your Mac’s apps and settings",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_ff2147a6c09f5ef73d1c4406d00346811a9c64c0b6b7f36eb52fcb44943d26f9",
-                        "progresstext": "A listing of your Mac’s apps and settings — its inventory — is sent automatically to the Jamf Pro server daily.",
-                        "trigger_list": [
-                            {
-                                "trigger": "recon",
-                                "validation": "recon"
-                            }
+                                         {
+                                            "trigger": "1771",
+                                            "validation": "None"
+                                         }
                         ]
                     }
                 ]
@@ -2360,7 +1943,7 @@ function completionAction() {
 
 function welcomeDialogInfoboxAnimation() {
     callingPID=$1
-    # clock_emojis=("🕐" "🕑" "🕒" "🕓" "🕔" "🕕" "🕖" "🕗" "🕘" "🕙" "🕚" "🕛")
+    # clock_emojis=("�" "�" "�" "�" "�" "�" "�" "�" "�" "�" "�" "�")
     clock_emojis=("&#128336;" "&#128337;" "&#128338;" "&#128339;" "&#128340;" "&#128341;" "&#128342;" "&#128343;" "&#128344;" "&#128345;" "&#128346;" "&#128347;")
     while true; do
         for emoji in "${clock_emojis[@]}"; do
@@ -2383,7 +1966,7 @@ function welcomeDialogInfoboxAnimation() {
 
 function setupYourMacDialogInfoboxAnimation() {
     callingPID=$1
-    # clock_emojis=("🕐" "🕑" "🕒" "🕓" "🕔" "🕕" "🕖" "🕗" "🕘" "🕙" "🕚" "🕛")
+    # clock_emojis=("�" "�" "�" "�" "�" "�" "�" "�" "�" "�" "�" "�")
     clock_emojis=("&#128336;" "&#128337;" "&#128338;" "&#128339;" "&#128340;" "&#128341;" "&#128342;" "&#128343;" "&#128344;" "&#128345;" "&#128346;" "&#128347;")
     while true; do
         for emoji in "${clock_emojis[@]}"; do
