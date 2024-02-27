@@ -2664,7 +2664,19 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                 if [[ "${debugMode}" == "true" ]] || [[ "${debugMode}" == "verbose" ]] ; then
 
                     updateScriptLog "WELCOME DIALOG: DEBUG MODE: Would have renamed computer from: \"${currentComputerName}\" to \"${computerName}\" "
-                    updateScriptLog "WELCOME DIALOG: DEBUG MODE: Would have renamed LocalHostName from: \"${currentLocalHostName}\" to \"${newLocalHostName}\" "
+
+                    ###
+                    # UVA LOGIC
+                    ###
+                    
+                    #uncomment the following line to return to original logic
+                    #updateScriptLog "WELCOME DIALOG: DEBUG MODE: Would have renamed LocalHostName from: \"${currentLocalHostName}\" to \"${newLocalHostName}\" "
+
+                    updateScriptLog "WELCOME DIALOG: DEBUG MODE: EXA - Would have renamed LocalHostName from: \"${currentLocalHostName}\" to \"${computerName}\" "
+
+                    ###
+                    # END UVA LOGIC
+                    ###
 
                 else
 
