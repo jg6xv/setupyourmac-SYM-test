@@ -2672,7 +2672,19 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     scutil --set ComputerName "${computerName}"
 
                     # Set the LocalHostName to `newLocalHostName`
-                    scutil --set LocalHostName "${newLocalHostName}"
+
+                    ###
+                    # UVA LOGIC
+                    ###
+
+                    # scutil --set LocalHostName "${newLocalHostName}"
+                    scutil --set LocalHostName "${computerName}"
+
+                    ###
+                    # END UVA LOGIC
+                    ###
+
+
 
                     # Delay required to reflect change …
                     # … side-effect is a delay in the "Setup Your Mac" dialog appearing
