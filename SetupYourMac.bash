@@ -2568,19 +2568,48 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                 updateScriptLog "EXA - Market Model not found! Model Identifier: <result>$(/usr/sbin/sysctl -n hw.model)</result>"
             fi
 
+            updateScriptLog "EXA - Market Model is reporting as \"$marketModel\"."
             # parse the Marketing Model string for the year and only grab the last two digits
             modelYear="$(echo "$marketModel" | /usr/bin/sed 's/)//;s/(//;s/,//' | /usr/bin/grep -E -o '2[0-9]{3}' | /usr/bin/grep -E -o '^.{2}' )"
-
-            # Rename computer properly
-
+            updateScriptLog "EXA - Last two digits of marketing model appear to be \"$modelYear\"."
             # TODO: Add model in MBP, IM, MM, etc format
             # currently prints in EXA-USERID-YY when we want EXA-USERID-MODELYY
 
+            # parse model
+            # Macbook Pro = MBP
+            # Mac Mini = MM
+            # iMac = IM
+            # Macbook Air = MBA
+
+            computerModel="UNKMDL"
+            #reportedModel="$(sysctl -n hw.model)"
+            #updateScriptLog "EXA - System is reporting model as $reportedModel"
+            updateScriptLog "EXA - Attempting to parse and shorten device model..."
+            MBPRegex="^MacBook Pro.*"
+            MBARegex="^MacBook Air.*"
+            MMRegex="^Mac Mini.*"
+
+            if [[ "$marketModel" =~ $MBPRegex ]]; then
+                computerModel="MBP"
+            elif [[ "$marketModel" =~ $MBARegex ]]; then
+                computerModel="MBA"
+            elif [[ "$marketModel" =~ \^iMac.* ]]; then
+                computerModel="IM"
+            elif [[ "$marketModel" =~ $MMRegex ]]; then
+                computerModel="MM"
+            fi
+
+            updateScriptLog "EXA - Shortened device model appears to be \"$computerModel\"."
+
+
+            # Rename computer properly
             capsUserName=$(echo "$userName" | awk '{print toupper($0)}')
-            computerName="EXA-$capsUserName-$modelYear"
+            computerName="EXA-$capsUserName-$computerModel$modelYear"
             updateScriptLog "EXA - Uppercase UserID: $capsUserName"
             updateScriptLog "EXA - Model year: $modelYear"
             updateScriptLog "EXA - Setting Computer Name to $computerName"
+
+            # TODO: Add logic for loaners, override default network name if network name field is filled out
 
             ###
             # End UVA specific logic
