@@ -2677,6 +2677,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     # UVA LOGIC
                     ###
 
+                    # uncomment the following line to return to the original logic
                     # scutil --set LocalHostName "${newLocalHostName}"
                     scutil --set LocalHostName "${computerName}"
 
