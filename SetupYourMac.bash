@@ -110,7 +110,8 @@ positionListRaw="Developer,Management,Sales,Marketing"
 positionList=$( echo "${positionListRaw}" | tr ',' '\n' | sort -f | uniq | sed -e 's/^/\"/' -e 's/$/\",/' -e '$ s/.$//' )
 
 # [SYM-Helper] Branding overrides
-brandingBanner="https://img.freepik.com/free-vector/green-abstract-geometric-wallpaper_52683-29623.jpg" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
+#brandingBanner="https://img.freepik.com/free-vector/green-abstract-geometric-wallpaper_52683-29623.jpg" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
+brandingBanner="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-02/SYMBannerv1.png"
 brandingBannerDisplayText="false"
 brandingIconLight="https://cdn-icons-png.flaticon.com/512/979/979585.png"
 brandingIconDark="https://cdn-icons-png.flaticon.com/512/740/740878.png"
