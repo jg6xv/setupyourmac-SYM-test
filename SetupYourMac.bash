@@ -117,9 +117,9 @@ if [ "$UVALogic" = true ]; then
     brandingIconDark="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-02/SYM-logo-icon.png"
 else
     brandingBanner="https://img.freepik.com/free-vector/green-abstract-geometric-wallpaper_52683-29623.jpg" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
-    brandingBannerDisplayText="false"
-    brandingIconLight="false"
-    brandingIconDark="false"
+    brandingBannerDisplayText="true"
+    brandingIconLight="https://cdn-icons-png.flaticon.com/512/979/979585.png"
+    brandingIconDark="https://cdn-icons-png.flaticon.com/512/740/740878.png"
 fi
 # [SYM-Helper] IT Support Variables - Use these if the default text is fine but you want your org's info inserted instead
 supportTeamName="ExecTech team"
