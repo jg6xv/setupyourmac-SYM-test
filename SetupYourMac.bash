@@ -111,10 +111,10 @@ positionList=$( echo "${positionListRaw}" | tr ',' '\n' | sort -f | uniq | sed -
 
 # [SYM-Helper] Branding overrides
 if [ "$UVALogic" = true ]; then
-    brandingBanner="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-02/SYMBannerv1.png"
+    brandingBanner="https://imgur.com/Q3QXaqS"
     brandingBannerDisplayText="false"
-    brandingIconLight="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-02/SYM-logo-icon.png"
-    brandingIconDark="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-02/SYM-logo-icon.png"
+    brandingIconLight="https://imgur.com/16ceGWv"
+    brandingIconDark="https://imgur.com/16ceGWv"
 else
     brandingBanner="https://img.freepik.com/free-vector/green-abstract-geometric-wallpaper_52683-29623.jpg" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
     brandingBannerDisplayText="true"
@@ -654,7 +654,7 @@ esac
 
 
 
-# Welcome icon set to either light or dark, based on user's Apperance setting (thanks, @mm2270!)
+# Welcome icon set to either light or dark, based on user's Appearance setting (thanks, @mm2270!)
 appleInterfaceStyle=$( /usr/bin/defaults read /Users/"${loggedInUser}"/Library/Preferences/.GlobalPreferences.plist AppleInterfaceStyle 2>&1 )
 if [[ "${appleInterfaceStyle}" == "Dark" ]]; then
     if [[ -n "$brandingIconDark" ]]; then welcomeIcon="$brandingIconDark";
