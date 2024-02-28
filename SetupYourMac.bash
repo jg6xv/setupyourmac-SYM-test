@@ -64,7 +64,7 @@ swiftDialogMinimumRequiredVersion="2.4.0.4750"                                  
 
 debugModeSleepAmount="3"    # Delay for various actions when running in Debug Mode
 failureDialog="true"        # Display the so-called "Failure" dialog (after the main SYM dialog) [ true | false ]
-
+UVALogic="true"             # True= use added UVA behavior, false= default behavior
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -110,12 +110,17 @@ positionListRaw="Developer,Management,Sales,Marketing"
 positionList=$( echo "${positionListRaw}" | tr ',' '\n' | sort -f | uniq | sed -e 's/^/\"/' -e 's/$/\",/' -e '$ s/.$//' )
 
 # [SYM-Helper] Branding overrides
-#brandingBanner="https://img.freepik.com/free-vector/green-abstract-geometric-wallpaper_52683-29623.jpg" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
-brandingBanner="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-02/SYMBannerv1.png"
-brandingBannerDisplayText="false"
-brandingIconLight="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-02/SYM-logo-icon.png"
-brandingIconDark="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-02/SYM-logo-icon.png"
-
+if [ "$UVALogic" = true ]; then
+    brandingBanner="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-02/SYMBannerv1.png"
+    brandingBannerDisplayText="false"
+    brandingIconLight="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-02/SYM-logo-icon.png"
+    brandingIconDark="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-02/SYM-logo-icon.png"
+else
+    brandingBanner="https://img.freepik.com/free-vector/green-abstract-geometric-wallpaper_52683-29623.jpg" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
+    brandingBannerDisplayText="false"
+    brandingIconLight="false"
+    brandingIconDark="false"
+fi
 # [SYM-Helper] IT Support Variables - Use these if the default text is fine but you want your org's info inserted instead
 supportTeamName="ExecTech team"
 supportTeamPhone="+1 (434) 924-8324"
@@ -686,9 +691,12 @@ welcomeVideo="--title \"$welcomeTitle\" \
 # Text Fields
 if [ "$prefillUsername" == "true" ]; then usernamePrefil=',"value" : "'${loggedInUser}'"'; fi
 if [ "$prefillRealname" == "true" ]; then realnamePrefil=',"value" : "'${loggedInUserFullname}'"'; fi
-# TODO: Add UVA-specific conditional
-# if [ "$promptForUsername" == "true" ]; then usernameJSON='{ "title" : "User Name","required" : false,"prompt" : "User Name"'${usernamePrefil}'},'; fi
-if [ "$promptForUsername" == "true" ]; then usernameJSON='{ "title" : "User ID","required" : false,"prompt" : "User ID"'${usernamePrefil}'},'; fi
+if [ "$UVALogic" = true ]; then
+    if [ "$promptForUsername" == "true" ]; then usernameJSON='{ "title" : "User ID","required" : false,"prompt" : "User ID"'${usernamePrefil}'},'; fi
+else
+    if [ "$promptForUsername" == "true" ]; then usernameJSON='{ "title" : "User Name","required" : false,"prompt" : "User Name"'${usernamePrefil}'},'; fi
+fi
+
 if [ "$promptForRealName" == "true" ]; then realNameJSON='{ "title" : "Full Name","required" : false,"prompt" : "Full Name"'${realnamePrefil}'},'; fi
 if [ "$promptForEmail" == "true" ]; then
     emailJSON='{   "title" : "E-mail",
@@ -2513,9 +2521,12 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
 
             computerName=$(get_json_value_welcomeDialog "$welcomeResults" "Computer Name")
-            # TODO: Add UVA-specific conditional
-            # userName=$(get_json_value_welcomeDialog "$welcomeResults" "User Name")
-            userName=$(get_json_value_welcomeDialog "$welcomeResults" "User ID")
+            if [ "$UVALogic" = true ]; then
+                userName=$(get_json_value_welcomeDialog "$welcomeResults" "User ID")
+            else
+                userName=$(get_json_value_welcomeDialog "$welcomeResults" "User Name")
+            fi
+            
             realName=$(get_json_value_welcomeDialog "$welcomeResults" "Full Name")
             email=$(get_json_value_welcomeDialog "$welcomeResults" "E-mail")
             assetTag=$(get_json_value_welcomeDialog "$welcomeResults" "Asset Tag")
@@ -2532,88 +2543,89 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             fi
 
             ###
-            # UVA specific logic here
+            # UVA LOGIC
             ###
 
-            # TODO: Add global conditional like: if (UVA==true) then do the following
-            # Set email to userID@virginia.edu
-            email="$userName@virginia.edu"
+            if [ "$UVALogic" = true ]; then
+                # Set email to userID@virginia.edu
+                email="$userName@virginia.edu"
 
-            # Set computer name to the following format:
-            # EXA-USERID-MODELYY
-            # example:
-            # EXA-JG6XV-MBP20
-            # Getting the year is unfortunately difficult and requires a lot of code, which changes
-            #   based on whether the device is ARM or Intel.
-            # if ARM, collecting Marketing model string from ioreg
-            # if com.apple.SystemProfiler.plist does not exist, create it
-            # if Intel, collect Marketing Model string from com.apple.SystemProfiler.plist
-            if [ "$(/usr/sbin/sysctl -in hw.optional.arm64)" = 1 ] && /usr/sbin/sysctl -n machdep.cpu.brand_string | /usr/bin/grep -q 'Apple' && /usr/bin/uname -v | /usr/bin/grep -q 'ARM64'
-            then
-                marketModel="$(/usr/libexec/PlistBuddy -c 'print 0:product-name' /dev/stdin <<< "$(/usr/sbin/ioreg -ar -k product-name)")"
-            else
-                if ! [ -e "$plistsp" ]
+                # Set computer name to the following format:
+                # EXA-USERID-MODELYY
+                # example:
+                # EXA-JG6XV-MBP20
+                # Getting the year is unfortunately difficult and requires a lot of code, which changes
+                #   based on whether the device is ARM or Intel.
+                # if ARM, collecting Marketing model string from ioreg
+                # if com.apple.SystemProfiler.plist does not exist, create it
+                # if Intel, collect Marketing Model string from com.apple.SystemProfiler.plist
+                if [ "$(/usr/sbin/sysctl -in hw.optional.arm64)" = 1 ] && /usr/sbin/sysctl -n machdep.cpu.brand_string | /usr/bin/grep -q 'Apple' && /usr/bin/uname -v | /usr/bin/grep -q 'ARM64'
                 then
-                    # This is a REALLY stupid way of doing it, but the model name doesn't get filled in unless
-                    #   'About This Mac' gets opened.
-                    /usr/bin/open '/System/Library/CoreServices/Applications/About This Mac.app'; /bin/sleep 1
-                    /usr/bin/pkill -ail 'System Information'; /bin/sleep 1
-                    /usr/bin/killall cfprefsd; /bin/sleep 1
+                    marketModel="$(/usr/libexec/PlistBuddy -c 'print 0:product-name' /dev/stdin <<< "$(/usr/sbin/ioreg -ar -k product-name)")"
+                else
+                    if ! [ -e "$plistsp" ]
+                    then
+                        # This is a REALLY stupid way of doing it, but the model name doesn't get filled in unless
+                        #   'About This Mac' gets opened.
+                        /usr/bin/open '/System/Library/CoreServices/Applications/About This Mac.app'; /bin/sleep 1
+                        /usr/bin/pkill -ail 'System Information'; /bin/sleep 1
+                        /usr/bin/killall cfprefsd; /bin/sleep 1
+                    fi
+                    marketModel="$(/usr/libexec/PlistBuddy -c "print 'CPU Names':$srlnmbr-en-US_US" "$plistsp" 2> /dev/null)"
                 fi
-                marketModel="$(/usr/libexec/PlistBuddy -c "print 'CPU Names':$srlnmbr-en-US_US" "$plistsp" 2> /dev/null)"
+
+                # If the above didn't work, print to log
+                if [ -z "$marketModel" ]
+                then
+                    updateScriptLog "EXA - Market Model not found! Model Identifier: <result>$(/usr/sbin/sysctl -n hw.model)</result>"
+                fi
+
+                updateScriptLog "EXA - Market Model is reporting as \"$marketModel\"."
+                # parse the Marketing Model string for the year and only grab the last two digits
+                modelYear="$(echo "$marketModel" | /usr/bin/sed 's/)//;s/(//;s/,//' | /usr/bin/grep -E -o '2[0-9]{3}' | /usr/bin/grep -E -o '^.{2}' )"
+                updateScriptLog "EXA - Last two digits of marketing model appear to be \"$modelYear\"."
+                # TODO: Add model in MBP, IM, MM, etc format
+                # currently prints in EXA-USERID-YY when we want EXA-USERID-MODELYY
+
+                # parse model
+                # Macbook Pro = MBP
+                # Mac Mini = MM
+                # iMac = IM
+                # Macbook Air = MBA
+
+                computerModel="UNKMDL"
+                #reportedModel="$(sysctl -n hw.model)"
+                #updateScriptLog "EXA - System is reporting model as $reportedModel"
+                updateScriptLog "EXA - Attempting to parse and shorten device model..."
+                MBPRegex="^MacBook Pro.*"
+                MBARegex="^MacBook Air.*"
+                MMRegex="^Mac Mini.*"
+
+                if [[ "$marketModel" =~ $MBPRegex ]]; then
+                    computerModel="MBP"
+                elif [[ "$marketModel" =~ $MBARegex ]]; then
+                    computerModel="MBA"
+                elif [[ "$marketModel" =~ \^iMac.* ]]; then
+                    computerModel="IM"
+                elif [[ "$marketModel" =~ $MMRegex ]]; then
+                    computerModel="MM"
+                fi
+
+                updateScriptLog "EXA - Shortened device model appears to be \"$computerModel\"."
+
+
+                # Rename computer properly
+                capsUserName=$(echo "$userName" | awk '{print toupper($0)}')
+                computerName="EXA-$capsUserName-$computerModel$modelYear"
+                updateScriptLog "EXA - Uppercase UserID: $capsUserName"
+                updateScriptLog "EXA - Model year: $modelYear"
+                updateScriptLog "EXA - Setting Computer Name to $computerName"
+
+                # TODO: Add logic for loaners, override default network name if network name field is filled out
+
             fi
-
-            # If the above didn't work, print to log
-            if [ -z "$marketModel" ]
-            then
-                updateScriptLog "EXA - Market Model not found! Model Identifier: <result>$(/usr/sbin/sysctl -n hw.model)</result>"
-            fi
-
-            updateScriptLog "EXA - Market Model is reporting as \"$marketModel\"."
-            # parse the Marketing Model string for the year and only grab the last two digits
-            modelYear="$(echo "$marketModel" | /usr/bin/sed 's/)//;s/(//;s/,//' | /usr/bin/grep -E -o '2[0-9]{3}' | /usr/bin/grep -E -o '^.{2}' )"
-            updateScriptLog "EXA - Last two digits of marketing model appear to be \"$modelYear\"."
-            # TODO: Add model in MBP, IM, MM, etc format
-            # currently prints in EXA-USERID-YY when we want EXA-USERID-MODELYY
-
-            # parse model
-            # Macbook Pro = MBP
-            # Mac Mini = MM
-            # iMac = IM
-            # Macbook Air = MBA
-
-            computerModel="UNKMDL"
-            #reportedModel="$(sysctl -n hw.model)"
-            #updateScriptLog "EXA - System is reporting model as $reportedModel"
-            updateScriptLog "EXA - Attempting to parse and shorten device model..."
-            MBPRegex="^MacBook Pro.*"
-            MBARegex="^MacBook Air.*"
-            MMRegex="^Mac Mini.*"
-
-            if [[ "$marketModel" =~ $MBPRegex ]]; then
-                computerModel="MBP"
-            elif [[ "$marketModel" =~ $MBARegex ]]; then
-                computerModel="MBA"
-            elif [[ "$marketModel" =~ \^iMac.* ]]; then
-                computerModel="IM"
-            elif [[ "$marketModel" =~ $MMRegex ]]; then
-                computerModel="MM"
-            fi
-
-            updateScriptLog "EXA - Shortened device model appears to be \"$computerModel\"."
-
-
-            # Rename computer properly
-            capsUserName=$(echo "$userName" | awk '{print toupper($0)}')
-            computerName="EXA-$capsUserName-$computerModel$modelYear"
-            updateScriptLog "EXA - Uppercase UserID: $capsUserName"
-            updateScriptLog "EXA - Model year: $modelYear"
-            updateScriptLog "EXA - Setting Computer Name to $computerName"
-
-            # TODO: Add logic for loaners, override default network name if network name field is filled out
-
             ###
-            # End UVA specific logic
+            # END UVA LOGIC
             ###
 
 
@@ -2623,9 +2635,11 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
 
             updateScriptLog "WELCOME DIALOG: • Computer Name: $computerName"
-            # TODO: Add conditional for UVA logic
-            # updateScriptLog "WELCOME DIALOG: • User Name: $userName"
-            updateScriptLog "WELCOME DIALOG: • User ID: $userName"
+            if [ "$UVALogic" = true ]; then
+                updateScriptLog "WELCOME DIALOG: • User ID: $userName"
+            else
+                updateScriptLog "WELCOME DIALOG: • User Name: $userName"
+            fi
             updateScriptLog "WELCOME DIALOG: • Real Name: $realName"
             updateScriptLog "WELCOME DIALOG: • E-mail: $email"
             updateScriptLog "WELCOME DIALOG: • Asset Tag: $assetTag"
@@ -2670,10 +2684,12 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     # UVA LOGIC
                     ###
                     
-                    #uncomment the following line to return to original logic
-                    #updateScriptLog "WELCOME DIALOG: DEBUG MODE: Would have renamed LocalHostName from: \"${currentLocalHostName}\" to \"${newLocalHostName}\" "
-
-                    updateScriptLog "WELCOME DIALOG: DEBUG MODE: EXA - Would have renamed LocalHostName from: \"${currentLocalHostName}\" to \"${computerName}\" "
+                    if [ "$UVALogic" = true ]; then
+                        updateScriptLog "WELCOME DIALOG: DEBUG MODE: EXA - Would have renamed LocalHostName from: \"${currentLocalHostName}\" to \"${computerName}\" "
+                    else
+                        updateScriptLog "WELCOME DIALOG: DEBUG MODE: Would have renamed LocalHostName from: \"${currentLocalHostName}\" to \"${newLocalHostName}\" "
+                    fi
+                    
 
                     ###
                     # END UVA LOGIC
@@ -2691,8 +2707,11 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     ###
 
                     # uncomment the following line to return to the original logic
-                    # scutil --set LocalHostName "${newLocalHostName}"
-                    scutil --set LocalHostName "${computerName}"
+                    if [ "$UVALogic" = true ]; then
+                        scutil --set LocalHostName "${computerName}"
+                    else
+                        scutil --set LocalHostName "${newLocalHostName}"
+                    fi
 
                     ###
                     # END UVA LOGIC
