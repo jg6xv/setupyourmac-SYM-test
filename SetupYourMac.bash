@@ -609,7 +609,7 @@ fi
 
 if [[ "${brandingBannerDisplayText}" == "true" ]]; then
     if [ "$UVALogic" = true ]; then
-        welcomeBannerText="ExecTech | University of Virginia"
+        welcomeBannerText="University of Virginia | Exectech"
     else
         welcomeBannerText="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
     fi
