@@ -2609,7 +2609,6 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
 
                 updateScriptLog "EXA - Shortened device model appears to be \"$computerModel\"."
 
-
                 # Rename computer properly
                 capsUserName=$(echo "$userName" | awk '{print toupper($0)}')
                 computerName="EXA-$capsUserName-$computerModel$modelYear"
