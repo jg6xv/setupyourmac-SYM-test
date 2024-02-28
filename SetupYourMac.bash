@@ -112,7 +112,7 @@ positionList=$( echo "${positionListRaw}" | tr ',' '\n' | sort -f | uniq | sed -
 # [SYM-Helper] Branding overrides
 if [ "$UVALogic" = true ]; then
     brandingBanner="https://i.imgur.com/Q3QXaqS.png"
-    brandingBannerDisplayText="false"
+    brandingBannerDisplayText="true"
     brandingIconLight="https://i.imgur.com/16ceGWv.png"
     brandingIconDark="https://i.imgur.com/16ceGWv.png"
 else
@@ -605,9 +605,13 @@ fi
 
 
 if [[ "${brandingBannerDisplayText}" == "true" ]]; then
-    welcomeBannerText="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
+    if [ "$UVALogic" = true ]; then
+        welcomeBannerText="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
+    else
+        welcomeBannerText="ExecTech | University of Virginia"
+    fi
 else
-    welcomeBannerText="University of Virginia | Exectech"
+    welcomeBannerText=" "
 fi
 welcomeCaption="Please review the above video, then click Continue."
 welcomeVideoID="vimeoid=909473114"
