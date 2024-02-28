@@ -2584,8 +2584,6 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                 # parse the Marketing Model string for the year and only grab the last two digits
                 modelYear="$(echo "$marketModel" | /usr/bin/sed 's/)//;s/(//;s/,//' | /usr/bin/grep -E -o '2[0-9]{3}' | /usr/bin/grep -E -o '^.{2}' )"
                 updateScriptLog "EXA - Last two digits of marketing model appear to be \"$modelYear\"."
-                # TODO: Add model in MBP, IM, MM, etc format
-                # currently prints in EXA-USERID-YY when we want EXA-USERID-MODELYY
 
                 # parse model
                 # Macbook Pro = MBP
@@ -2593,9 +2591,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                 # iMac = IM
                 # Macbook Air = MBA
 
-                computerModel="UNKMDL"
-                #reportedModel="$(sysctl -n hw.model)"
-                #updateScriptLog "EXA - System is reporting model as $reportedModel"
+                computerModel="UNKMDL" # set default name (for errors)
                 updateScriptLog "EXA - Attempting to parse and shorten device model..."
                 MBPRegex="^MacBook Pro.*"
                 MBARegex="^MacBook Air.*"
