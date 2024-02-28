@@ -568,8 +568,11 @@ failureCommandFile=$( mktemp -u /var/tmp/dialogCommandFileFailure.XXX )
 # "Welcome" dialog Title, Message and Icon
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-welcomeTitle="University of Virginia | Exectech"
-# "Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
+if [ "$UVALogic" = true ]; then
+    welcomeTitle="University of Virginia | Exectech"
+else
+    welcomeTitle="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
+fi
 
 welcomeMessage="Please enter the **required** information for your ${modelName}, select your preferred **Configuration** then click **Continue** to start applying settings to your new Mac. \n\nOnce completed, the **Wait** button will be enabled and you‘ll be able to review the results before restarting your ${modelName}."
 
@@ -606,9 +609,9 @@ fi
 
 if [[ "${brandingBannerDisplayText}" == "true" ]]; then
     if [ "$UVALogic" = true ]; then
-        welcomeBannerText="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
-    else
         welcomeBannerText="ExecTech | University of Virginia"
+    else
+        welcomeBannerText="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
     fi
 else
     welcomeBannerText=" "
