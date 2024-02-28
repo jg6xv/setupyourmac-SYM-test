@@ -111,10 +111,10 @@ positionList=$( echo "${positionListRaw}" | tr ',' '\n' | sort -f | uniq | sed -
 
 # [SYM-Helper] Branding overrides
 if [ "$UVALogic" = true ]; then
-    brandingBanner="https://imgur.com/Q3QXaqS"
+    brandingBanner="https://i.imgur.com/Q3QXaqS.png"
     brandingBannerDisplayText="false"
-    brandingIconLight="https://imgur.com/16ceGWv"
-    brandingIconDark="https://imgur.com/16ceGWv"
+    brandingIconLight="https://i.imgur.com/16ceGWv.png"
+    brandingIconDark="https://i.imgur.com/16ceGWv.png"
 else
     brandingBanner="https://img.freepik.com/free-vector/green-abstract-geometric-wallpaper_52683-29623.jpg" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
     brandingBannerDisplayText="true"
