@@ -960,121 +960,121 @@ function policyJSONConfiguration() {
                 "steps": [
         
                     {
-                        "listitem": "",
+                        "listitem": "Adobe_Reader",
                         "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_04949ed3a2ebb5e0c5afc608302237239a0be8d361f9d6a069c05d85c805a9a4",
+                        "progresstext": "Processing policy: Adobe_Reader",
                         "trigger_list": [
                                          {
-                                            "trigger": "1766",
+                                            "trigger": "enrolladobereader",
                                             "validation": "None"
                                          }
                         ]
                     },
                     {
-                        "listitem": "",
+                        "listitem": "Alertus_210",
                         "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_9395d6c52b5a933979e385ac546375ef53ceec024386f3314ce03fde04986bb3",
+                        "progresstext": "Processing policy: Alertus_210",
                         "trigger_list": [
                                          {
-                                            "trigger": "1794",
+                                            "trigger": "enrollalertus",
                                             "validation": "None"
                                          }
                         ]
                     },
                     {
-                        "listitem": "",
+                        "listitem": "Cisco_Secure_Client",
                         "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8e68d082a0011eadaf623dce082457fa254351e09c4e31cbab6953936ac8d3f5",
+                        "progresstext": "Processing policy: Cisco_Secure_Client",
                         "trigger_list": [
                                          {
-                                            "trigger": "1764",
+                                            "trigger": "enrollciscosecureclient",
                                             "validation": "None"
                                          }
                         ]
                     },
                     {
-                        "listitem": "",
+                        "listitem": "Defender_with_PLIST",
                         "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_27dd79496b55c84f74f83312ed2d517d7953b4000d28e15183064b04f5e0430b",
+                        "progresstext": "Processing policy: Defender_with_PLIST",
                         "trigger_list": [
                                          {
-                                            "trigger": "1793",
+                                            "trigger": "enrolldefenderplist",
                                             "validation": "None"
                                          }
                         ]
                     },
                     {
-                        "listitem": "",
+                        "listitem": "EXA-DeployUVABranding",
                         "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_493dc86b9c89618238ff5ac77d974fc7ba1c4edb441b7e891607c711c32b0a7f",
+                        "progresstext": "Processing policy: EXA-DeployUVABranding",
                         "trigger_list": [
                                          {
-                                            "trigger": "1810",
+                                            "trigger": "deployUVABranding",
                                             "validation": "None"
                                          }
                         ]
                     },
                     {
-                        "listitem": "",
+                        "listitem": "GoogleChrome",
                         "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_ad65a11c8dc65711f96c1411404bc0210cd4c80c606b6f2351c578592aa5a2c5",
+                        "progresstext": "Processing policy: GoogleChrome",
                         "trigger_list": [
                                          {
-                                            "trigger": "1765",
+                                            "trigger": "chrome",
                                             "validation": "None"
                                          }
                         ]
                     },
                     {
-                        "listitem": "",
+                        "listitem": "MicrosoftOffice",
                         "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_e3247dad6880725ff22a771beb51a910a37c1afd41c67d0d4d113c58543b9591",
+                        "progresstext": "Processing policy: MicrosoftOffice",
                         "trigger_list": [
                                          {
-                                            "trigger": "981",
+                                            "trigger": "microsoftoffice",
                                             "validation": "None"
                                          }
                         ]
                     },
                     {
-                        "listitem": "",
+                        "listitem": "exa-enroll-Ricoh-All Drivers-EN",
                         "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_63cb37a26f5485268d01bfae67f563d184a8a0f2201afac86abb167e57344746",
+                        "progresstext": "Processing policy: exa-enroll-Ricoh-All Drivers-EN",
                         "trigger_list": [
                                          {
-                                            "trigger": "1767",
+                                            "trigger": "enrollRicohAllDrivers",
                                             "validation": "None"
                                          }
                         ]
                     },
                     {
-                        "listitem": "",
+                        "listitem": "SplashTop_SOS",
                         "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8b576cfb98521cd35cae02e1deda772fbf7e556324d6d57af4ef1e54d3977b38",
+                        "progresstext": "Processing policy: SplashTop_SOS",
                         "trigger_list": [
                                          {
-                                            "trigger": "1768",
+                                            "trigger": "enrollsplashtop",
                                             "validation": "None"
                                          }
                         ]
                     },
                     {
-                        "listitem": "",
+                        "listitem": "Zoom",
                         "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_718973185fd616241746a55e28a8c103ff404dba356c1e708a7baa06b4700799",
+                        "progresstext": "Processing policy: Zoom",
                         "trigger_list": [
                                          {
-                                            "trigger": "1771",
+                                            "trigger": "zoominstall",
                                             "validation": "None"
                                          }
                         ]
@@ -1955,7 +1955,7 @@ function completionAction() {
 
 function welcomeDialogInfoboxAnimation() {
     callingPID=$1
-    # clock_emojis=("�" "�" "�" "�" "�" "�" "�" "�" "�" "�" "�" "�")
+    # clock_emojis=("🕐" "🕑" "🕒" "🕓" "🕔" "🕕" "🕖" "🕗" "🕘" "🕙" "🕚" "🕛")
     clock_emojis=("&#128336;" "&#128337;" "&#128338;" "&#128339;" "&#128340;" "&#128341;" "&#128342;" "&#128343;" "&#128344;" "&#128345;" "&#128346;" "&#128347;")
     while true; do
         for emoji in "${clock_emojis[@]}"; do
@@ -1978,7 +1978,7 @@ function welcomeDialogInfoboxAnimation() {
 
 function setupYourMacDialogInfoboxAnimation() {
     callingPID=$1
-    # clock_emojis=("�" "�" "�" "�" "�" "�" "�" "�" "�" "�" "�" "�")
+    # clock_emojis=("🕐" "🕑" "🕒" "🕓" "🕔" "🕕" "🕖" "🕗" "🕘" "🕙" "🕚" "🕛")
     clock_emojis=("&#128336;" "&#128337;" "&#128338;" "&#128339;" "&#128340;" "&#128341;" "&#128342;" "&#128343;" "&#128344;" "&#128345;" "&#128346;" "&#128347;")
     while true; do
         for emoji in "${clock_emojis[@]}"; do
