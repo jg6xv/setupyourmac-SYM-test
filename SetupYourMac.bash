@@ -2615,7 +2615,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
 
             if [ "$UVALogic" = true ]; then
-                overrideNetworkName=$(get_json_value_welcomeDialog "$welcomeResults" "Network Name Override")
+                # overrideNetworkName=$(get_json_value_welcomeDialog "$welcomeResults" "Network Name Override")
                 # Set email to userID@virginia.edu
                 email="$userName@virginia.edu"
 
@@ -2719,6 +2719,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             updateScriptLog "WELCOME DIALOG: • Building: $building"
             updateScriptLog "WELCOME DIALOG: • Room: $room"
             updateScriptLog "WELCOME DIALOG: • Position: $position"
+            updateScriptLog "WELCOME DIALOG: EXA - Override Network Name: $overrideNetworkName "
 
 
             ###
