@@ -684,7 +684,7 @@ welcomeVideo="--title \"$welcomeTitle\" \
 --button1text \"Continue …\" \
 --autoplay \
 --moveable \
---ontop \
+
 --width '800' \
 --height '600' \
 --commandfile \"$welcomeCommandFile\" "
@@ -804,7 +804,7 @@ welcomeJSON='
     "button2text" : "Quit",
     "infotext" : "'"${scriptVersion}"'",
     "blurscreen" : "true",
-    "ontop" : "true",
+    
     "titlefont" : "shadow=true, size=36, colour=#FFFDF4",
     "messagefont" : "size=14",
     "textfield" : [
@@ -905,7 +905,7 @@ dialogSetupYourMacCMD="$dialogBinary \
 --height '800' \
 --position 'centre' \
 --blurscreen \
---ontop \
+
 --overlayicon \"$overlayicon\" \
 --quitkey k \
 --commandfile \"$setupYourMacCommandFile\" "
@@ -2440,7 +2440,7 @@ elif [[ "${welcomeDialog}" == "messageOnly" ]]; then
         "timer" : "60",
         "infotext" : "'"${scriptVersion}"'",
         "blurscreen" : "true",
-        "ontop" : "true",
+        
         "titlefont" : "shadow=true, size=36, colour=#FFFDF4",
         "messagefont" : "size=14",
         "height" : "800"
