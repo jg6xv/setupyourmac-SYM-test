@@ -813,7 +813,7 @@ welcomeJSON='
     "selectitems" : [
         '${selectItemsJSON}'
     ],
-    "height" : "800"
+    "height" : "600"
 }
 '
 
@@ -902,7 +902,7 @@ dialogSetupYourMacCMD="$dialogBinary \
 --infotext \"$scriptVersion\" \
 --titlefont 'shadow=true, size=36, colour=#FFFDF4' \
 --messagefont 'size=14' \
---height '800' \
+--height '600' \
 --position 'centre' \
 --blurscreen \
 
@@ -1124,7 +1124,7 @@ dialogFailureCMD="$dialogBinary \
 --icon \"$failureIcon\" \
 --iconsize 125 \
 --width 625 \
---height 45% \
+--height 40% \
 --position topright \
 --button1text \"Close\" \
 --infotext \"$scriptVersion\" \
@@ -2443,7 +2443,7 @@ elif [[ "${welcomeDialog}" == "messageOnly" ]]; then
         
         "titlefont" : "shadow=true, size=36, colour=#FFFDF4",
         "messagefont" : "size=14",
-        "height" : "800"
+        "height" : "600"
     }
     '
 
