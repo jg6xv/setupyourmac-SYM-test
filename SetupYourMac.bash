@@ -2657,7 +2657,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
 
                     updateScriptLog "EXA - Market Model is reporting as \"$marketModel\"."
                     # parse the Marketing Model string for the year and only grab the last two digits
-                    modelYear="$(echo "$marketModel" | /usr/bin/sed 's/)//;s/(//;s/,//' | /usr/bin/grep -E -o '2[0-9]{3}' | /usr/bin/grep -E -o '^.{2}' )"
+                    modelYear="$(echo "$marketModel" | /usr/bin/sed 's/)//;s/(//;s/,//' | /usr/bin/grep -E -o '2[0-9]{3}' | /usr/bin/grep -E -o '\d{2}$' )"
                     updateScriptLog "EXA - Last two digits of marketing model appear to be \"$modelYear\"."
 
                     # parse model
