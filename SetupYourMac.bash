@@ -64,7 +64,7 @@ swiftDialogMinimumRequiredVersion="2.4.0.4750"                                  
 
 debugModeSleepAmount="3"    # Delay for various actions when running in Debug Mode
 failureDialog="true"        # Display the so-called "Failure" dialog (after the main SYM dialog) [ true | false ]
-
+ExecTechLogic="true"
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
