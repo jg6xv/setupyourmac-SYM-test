@@ -64,7 +64,7 @@ swiftDialogMinimumRequiredVersion="2.4.0.4750"                                  
 
 debugModeSleepAmount="3"    # Delay for various actions when running in Debug Mode
 failureDialog="true"        # Display the so-called "Failure" dialog (after the main SYM dialog) [ true | false ]
-
+UVALogic="true"             # True= use added UVA behavior, false= default behavior
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -77,7 +77,7 @@ prefillUsername="false"          # prefills the currently logged in user's usern
 promptForRealName="true"
 prefillRealname="false"          # prefills the currently logged in user's fullname
 promptForEmail="false"
-promptForComputerName="true"
+promptForComputerName="false"
 promptForAssetTag="false"
 promptForRoom="false"
 promptForBuilding="false"
@@ -110,19 +110,25 @@ positionListRaw="Developer,Management,Sales,Marketing"
 positionList=$( echo "${positionListRaw}" | tr ',' '\n' | sort -f | uniq | sed -e 's/^/\"/' -e 's/$/\",/' -e '$ s/.$//' )
 
 # [SYM-Helper] Branding overrides
-brandingBanner="https://i.imgur.com/Q3QXaqS.png" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
-brandingBannerDisplayText="true"
-brandingIconLight="https://i.imgur.com/16ceGWv.png"
-brandingIconDark="https://i.imgur.com/16ceGWv.png"
-
+if [ "$UVALogic" = true ]; then
+    brandingBanner="https://i.imgur.com/Q3QXaqS.png"
+    brandingBannerDisplayText="true"
+    brandingIconLight="https://i.imgur.com/16ceGWv.png"
+    brandingIconDark="https://i.imgur.com/16ceGWv.png"
+else
+    brandingBanner="https://img.freepik.com/free-vector/green-abstract-geometric-wallpaper_52683-29623.jpg" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
+    brandingBannerDisplayText="true"
+    brandingIconLight="https://cdn-icons-png.flaticon.com/512/979/979585.png"
+    brandingIconDark="https://cdn-icons-png.flaticon.com/512/740/740878.png"
+fi
 # [SYM-Helper] IT Support Variables - Use these if the default text is fine but you want your org's info inserted instead
-supportTeamName="Exectech"
+supportTeamName="ExecTech team"
 supportTeamPhone="+1 (434) 924-8324"
 supportTeamEmail="exectech@virginia.edu"
-supportTeamWebsite="https://exectech.president.virginia.edu"
+supportTeamWebsite="support.domain.com"
 supportTeamHyperlink="[${supportTeamWebsite}](https://${supportTeamWebsite})"
-supportKB=""
-supportTeamErrorKB=""
+supportKB="KB8675309"
+supportTeamErrorKB="[KB8675309](https://servicenow.company.com/support?id=kb_article_view&sysparm_article=KB8675309#Failures)"
 
 # Disable the "Continue" button in the User Input "Welcome" dialog until Dynamic Download Estimates have complete [ true | false ] (thanks, @Eltord!)
 lockContinueBeforeEstimations="false"
@@ -168,6 +174,17 @@ configurationThreeName="Complete"
 configurationThreeDescription="Recommended apps, Adobe Acrobat Reader and Google Chrome"
 configurationThreeSize="106"                # Configuration Three in Gibibits (i.e., Total File Size in Gigabytes * 7.451) 
 configurationThreeInstallBuffer="0"         # Buffer time added to estimates to include installation time of packages, in seconds. Set to 0 to disable. 
+
+###
+# UVA LOGIC
+###
+
+NotALoaner="Yes"
+IsALoaner="No"
+
+###
+# END UVA LOGIC
+###
 
 
 
@@ -562,7 +579,11 @@ failureCommandFile=$( mktemp -u /var/tmp/dialogCommandFileFailure.XXX )
 # "Welcome" dialog Title, Message and Icon
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-welcomeTitle="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
+if [ "$UVALogic" = true ]; then
+    welcomeTitle="University of Virginia | Exectech"
+else
+    welcomeTitle="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
+fi
 
 welcomeMessage="Please enter the **required** information for your ${modelName}, select your preferred **Configuration** then click **Continue** to start applying settings to your new Mac. \n\nOnce completed, the **Wait** button will be enabled and you‘ll be able to review the results before restarting your ${modelName}."
 
@@ -598,7 +619,11 @@ fi
 
 
 if [[ "${brandingBannerDisplayText}" == "true" ]]; then
-    welcomeBannerText="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
+    if [ "$UVALogic" = true ]; then
+        welcomeBannerText="University of Virginia | Exectech"
+    else
+        welcomeBannerText="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
+    fi
 else
     welcomeBannerText=" "
 fi
@@ -647,7 +672,7 @@ esac
 
 
 
-# Welcome icon set to either light or dark, based on user's Apperance setting (thanks, @mm2270!)
+# Welcome icon set to either light or dark, based on user's Appearance setting (thanks, @mm2270!)
 appleInterfaceStyle=$( /usr/bin/defaults read /Users/"${loggedInUser}"/Library/Preferences/.GlobalPreferences.plist AppleInterfaceStyle 2>&1 )
 if [[ "${appleInterfaceStyle}" == "Dark" ]]; then
     if [[ -n "$brandingIconDark" ]]; then welcomeIcon="$brandingIconDark";
@@ -670,7 +695,7 @@ welcomeVideo="--title \"$welcomeTitle\" \
 --button1text \"Continue …\" \
 --autoplay \
 --moveable \
---ontop \
+
 --width '800' \
 --height '600' \
 --commandfile \"$welcomeCommandFile\" "
@@ -684,7 +709,12 @@ welcomeVideo="--title \"$welcomeTitle\" \
 # Text Fields
 if [ "$prefillUsername" == "true" ]; then usernamePrefil=',"value" : "'${loggedInUser}'"'; fi
 if [ "$prefillRealname" == "true" ]; then realnamePrefil=',"value" : "'${loggedInUserFullname}'"'; fi
-if [ "$promptForUsername" == "true" ]; then usernameJSON='{ "title" : "User Name","required" : false,"prompt" : "User Name"'${usernamePrefil}'},'; fi
+if [ "$UVALogic" = true ]; then
+    if [ "$promptForUsername" == "true" ]; then usernameJSON='{ "title" : "User ID","required" : false,"prompt" : "User ID"'${usernamePrefil}'},'; fi
+else
+    if [ "$promptForUsername" == "true" ]; then usernameJSON='{ "title" : "User Name","required" : false,"prompt" : "User Name"'${usernamePrefil}'},'; fi
+fi
+
 if [ "$promptForRealName" == "true" ]; then realNameJSON='{ "title" : "Full Name","required" : false,"prompt" : "Full Name"'${realnamePrefil}'},'; fi
 if [ "$promptForEmail" == "true" ]; then
     emailJSON='{   "title" : "E-mail",
@@ -706,7 +736,28 @@ fi
 if [ "$promptForRoom" == "true" ]; then roomJSON='{ "title" : "Room","required" : false,"prompt" : "Optional" },'; fi
 if [[ "$promptForPosition" == "true" && -z "$positionListRaw" ]]; then positionJSON='{ "title" : "Position","required" : false,"prompt" : "Position" },'; fi
 
-textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}"
+###
+# UVA LOGIC
+###
+
+if [ "$UVALogic" = true ]; then
+    overrideNetworkNameJSON='{
+        "title" : "Network Name Override",
+        "required" : false,
+        "prompt" : "Loaners use EXA-LOANUSERID"
+    }'
+fi
+
+###
+# END UVA LOGIC
+###
+
+if [ "$UVALogic" = true ]; then
+    textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}${overrideNetworkNameJSON}"
+else
+    textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}"
+fi
+
 textFieldJSON=$( echo ${textFieldJSON} | sed 's/,$//' )
 
 # Dropdowns
@@ -762,6 +813,31 @@ if [ "$promptForConfiguration" == "true" ] && [ -z "${presetConfiguration}" ]; t
         }'
 fi
 
+###
+# UVA LOGIC
+###
+
+# TODO: Toggle for "loaner" and text field for override network name
+# Toggles do not work, and I don't understand enough about SwiftDialog to be able to fix it.
+# It has something to do with how SYM parses the JSON files; it only expects text boxes and dropdowns.
+
+# loanerJSON='{
+#     "checkbox" : [
+#         { "label" : "Is this machine a loaner", "checked" : false, "disabled" : false }
+#     ],
+#     "checkboxstyle" : {
+#         "style" : "switch",
+#         "size" : "regular"
+#     }
+# }'
+
+#checkboxItemsJSON="${loanerJSON}"
+# checkboxItemsJSON=$( echo $checkboxItemsJSON | sed 's/,$//' )
+
+###
+# END UVA LOGIC
+###
+
 selectItemsJSON="${buildingJSON}${departmentJSON}${positionSelectJSON}${configurationJSON}"
 selectItemsJSON=$( echo $selectItemsJSON | sed 's/,$//' )
 
@@ -785,7 +861,7 @@ welcomeJSON='
     "button2text" : "Quit",
     "infotext" : "'"${scriptVersion}"'",
     "blurscreen" : "true",
-    "ontop" : "true",
+    
     "titlefont" : "shadow=true, size=36, colour=#FFFDF4",
     "messagefont" : "size=14",
     "textfield" : [
@@ -794,10 +870,14 @@ welcomeJSON='
     "selectitems" : [
         '${selectItemsJSON}'
     ],
-    "height" : "800"
+    "height" : "700"
 }
 '
 
+# My attempt at adding a checkbox to the above JSON:
+# "checkboxitems" : [
+#        '${checkboxItemsJSON}'
+#  ]
 
 
 ####################################################################################################
@@ -883,10 +963,10 @@ dialogSetupYourMacCMD="$dialogBinary \
 --infotext \"$scriptVersion\" \
 --titlefont 'shadow=true, size=36, colour=#FFFDF4' \
 --messagefont 'size=14' \
---height '800' \
+--height '600' \
 --position 'centre' \
 --blurscreen \
---ontop \
+
 --overlayicon \"$overlayicon\" \
 --quitkey k \
 --commandfile \"$setupYourMacCommandFile\" "
@@ -1105,7 +1185,7 @@ dialogFailureCMD="$dialogBinary \
 --icon \"$failureIcon\" \
 --iconsize 125 \
 --width 625 \
---height 45% \
+--height 40% \
 --position topright \
 --button1text \"Close\" \
 --infotext \"$scriptVersion\" \
@@ -2421,10 +2501,10 @@ elif [[ "${welcomeDialog}" == "messageOnly" ]]; then
         "timer" : "60",
         "infotext" : "'"${scriptVersion}"'",
         "blurscreen" : "true",
-        "ontop" : "true",
+        
         "titlefont" : "shadow=true, size=36, colour=#FFFDF4",
         "messagefont" : "size=14",
-        "height" : "800"
+        "height" : "700"
     }
     '
 
@@ -2509,7 +2589,12 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
 
             computerName=$(get_json_value_welcomeDialog "$welcomeResults" "Computer Name")
-            userName=$(get_json_value_welcomeDialog "$welcomeResults" "User Name")
+            if [ "$UVALogic" = true ]; then
+                userName=$(get_json_value_welcomeDialog "$welcomeResults" "User ID")
+            else
+                userName=$(get_json_value_welcomeDialog "$welcomeResults" "User Name")
+            fi
+            
             realName=$(get_json_value_welcomeDialog "$welcomeResults" "Full Name")
             email=$(get_json_value_welcomeDialog "$welcomeResults" "E-mail")
             assetTag=$(get_json_value_welcomeDialog "$welcomeResults" "Asset Tag")
@@ -2525,6 +2610,95 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                 position=$(get_json_value_welcomeDialog "$welcomeResults" "Position")
             fi
 
+            ###
+            # UVA LOGIC
+            ###
+
+            if [ "$UVALogic" = true ]; then
+                # overrideNetworkName=$(get_json_value_welcomeDialog "$welcomeResults" "Network Name Override")
+                # Set email to userID@virginia.edu
+                email="$userName@virginia.edu"
+
+                if [ ! -z $overrideNetworkName ]; then
+                    # Someone entered text in the Network Name field, so we must give priority
+                    updateScriptLog  "EXA - Setting Network Name to \"$overrideNetworkName\"..."
+                    computerName=$overrideNetworkName
+                else
+                    # We have no network name to override, going with the default override
+                    # Set computer name to the following format:
+                    # EXA-USERID-MODELYY
+                    # example:
+                    # EXA-JG6XV-MBP20
+                    # Getting the year is unfortunately difficult and requires a lot of code, which changes
+                    #   based on whether the device is ARM or Intel.
+                    # if ARM, collecting Marketing model string from ioreg
+                    # if com.apple.SystemProfiler.plist does not exist, create it
+                    # if Intel, collect Marketing Model string from com.apple.SystemProfiler.plist
+                    if [ "$(/usr/sbin/sysctl -in hw.optional.arm64)" = 1 ] && /usr/sbin/sysctl -n machdep.cpu.brand_string | /usr/bin/grep -q 'Apple' && /usr/bin/uname -v | /usr/bin/grep -q 'ARM64'
+                    then
+                        marketModel="$(/usr/libexec/PlistBuddy -c 'print 0:product-name' /dev/stdin <<< "$(/usr/sbin/ioreg -ar -k product-name)")"
+                    else
+                        if ! [ -e "$plistsp" ]
+                        then
+                            # This is a REALLY stupid way of doing it, but the model name doesn't get filled in unless
+                            #   'About This Mac' gets opened.
+                            /usr/bin/open '/System/Library/CoreServices/Applications/About This Mac.app'; /bin/sleep 1
+                            /usr/bin/pkill -ail 'System Information'; /bin/sleep 1
+                            /usr/bin/killall cfprefsd; /bin/sleep 1
+                        fi
+                        marketModel="$(/usr/libexec/PlistBuddy -c "print 'CPU Names':$srlnmbr-en-US_US" "$plistsp" 2> /dev/null)"
+                    fi
+
+                    # If the above didn't work, print to log
+                    if [ -z "$marketModel" ]
+                    then
+                        updateScriptLog "EXA - Market Model not found! Model Identifier: <result>$(/usr/sbin/sysctl -n hw.model)</result>"
+                    fi
+
+                    updateScriptLog "EXA - Market Model is reporting as \"$marketModel\"."
+                    # parse the Marketing Model string for the year and only grab the last two digits
+                    modelYear="$(echo "$marketModel" | /usr/bin/sed 's/)//;s/(//;s/,//' | /usr/bin/grep -E -o '2[0-9]{3}' | /usr/bin/grep -E -o '\d{2}$' )"
+                    updateScriptLog "EXA - Last two digits of marketing model appear to be \"$modelYear\"."
+
+                    # parse model
+                    # Macbook Pro = MBP
+                    # Mac Mini = MM
+                    # iMac = IM
+                    # Macbook Air = MBA
+
+                    computerModel="UNKMDL" # set default name (for errors)
+                    updateScriptLog "EXA - Attempting to parse and shorten device model..."
+                    MBPRegex="^MacBook Pro.*"
+                    MBARegex="^MacBook Air.*"
+                    MMRegex="^Mac Mini.*"
+
+                    if [[ "$marketModel" =~ $MBPRegex ]]; then
+                        computerModel="MBP"
+                    elif [[ "$marketModel" =~ $MBARegex ]]; then
+                        computerModel="MBA"
+                    elif [[ "$marketModel" =~ \^iMac.* ]]; then
+                        computerModel="IM"
+                    elif [[ "$marketModel" =~ $MMRegex ]]; then
+                        computerModel="MM"
+                    fi
+
+                    updateScriptLog "EXA - Shortened device model appears to be \"$computerModel\"."
+
+                    # Rename computer properly
+                    capsUserName=$(echo "$userName" | awk '{print toupper($0)}')
+                    updateScriptLog "EXA - Uppercase UserID: $capsUserName"
+                    updateScriptLog "EXA - Model year: $modelYear"
+                    updateScriptLog "EXA - Setting Computer Name to $computerName"
+                    computerName="EXA-$capsUserName-$computerModel$modelYear"
+
+                    # TODO: Add logic for loaners, override default network name if network name field is filled out
+                fi
+
+            fi
+            ###
+            # END UVA LOGIC
+            ###
+
 
 
             ###
@@ -2532,7 +2706,11 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
 
             updateScriptLog "WELCOME DIALOG: • Computer Name: $computerName"
-            updateScriptLog "WELCOME DIALOG: • User Name: $userName"
+            if [ "$UVALogic" = true ]; then
+                updateScriptLog "WELCOME DIALOG: • User ID: $userName"
+            else
+                updateScriptLog "WELCOME DIALOG: • User Name: $userName"
+            fi
             updateScriptLog "WELCOME DIALOG: • Real Name: $realName"
             updateScriptLog "WELCOME DIALOG: • E-mail: $email"
             updateScriptLog "WELCOME DIALOG: • Asset Tag: $assetTag"
@@ -2541,6 +2719,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             updateScriptLog "WELCOME DIALOG: • Building: $building"
             updateScriptLog "WELCOME DIALOG: • Room: $room"
             updateScriptLog "WELCOME DIALOG: • Position: $position"
+            updateScriptLog "WELCOME DIALOG: EXA - Override Network Name: $overrideNetworkName "
 
 
             ###
@@ -2572,7 +2751,21 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                 if [[ "${debugMode}" == "true" ]] || [[ "${debugMode}" == "verbose" ]] ; then
 
                     updateScriptLog "WELCOME DIALOG: DEBUG MODE: Would have renamed computer from: \"${currentComputerName}\" to \"${computerName}\" "
-                    updateScriptLog "WELCOME DIALOG: DEBUG MODE: Would have renamed LocalHostName from: \"${currentLocalHostName}\" to \"${newLocalHostName}\" "
+
+                    ###
+                    # UVA LOGIC
+                    ###
+                    
+                    if [ "$UVALogic" = true ]; then
+                        updateScriptLog "WELCOME DIALOG: DEBUG MODE: EXA - Would have renamed LocalHostName from: \"${currentLocalHostName}\" to \"${computerName}\" "
+                    else
+                        updateScriptLog "WELCOME DIALOG: DEBUG MODE: Would have renamed LocalHostName from: \"${currentLocalHostName}\" to \"${newLocalHostName}\" "
+                    fi
+                    
+
+                    ###
+                    # END UVA LOGIC
+                    ###
 
                 else
 
@@ -2580,7 +2773,23 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     scutil --set ComputerName "${computerName}"
 
                     # Set the LocalHostName to `newLocalHostName`
-                    scutil --set LocalHostName "${newLocalHostName}"
+
+                    ###
+                    # UVA LOGIC
+                    ###
+
+                    # uncomment the following line to return to the original logic
+                    if [ "$UVALogic" = true ]; then
+                        scutil --set LocalHostName "${computerName}"
+                    else
+                        scutil --set LocalHostName "${newLocalHostName}"
+                    fi
+
+                    ###
+                    # END UVA LOGIC
+                    ###
+
+
 
                     # Delay required to reflect change …
                     # … side-effect is a delay in the "Setup Your Mac" dialog appearing
