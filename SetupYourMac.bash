@@ -116,7 +116,7 @@ brandingIconLight="https://i.imgur.com/16ceGWv.png"
 brandingIconDark="https://i.imgur.com/16ceGWv.png"
 
 # [SYM-Helper] IT Support Variables - Use these if the default text is fine but you want your org's info inserted instead
-supportTeamName="Exectech"
+supportTeamName="ExecTech"
 supportTeamPhone="+1 (434) 924-8324"
 supportTeamEmail="exectech@virginia.edu"
 supportTeamWebsite="https://exectech.president.virginia.edu"
@@ -562,7 +562,11 @@ failureCommandFile=$( mktemp -u /var/tmp/dialogCommandFileFailure.XXX )
 # "Welcome" dialog Title, Message and Icon
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-welcomeTitle="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
+if [ "$ExecTechLogic" = true ]; then
+    welcomeTitle="University of Virginia | ExecTech"
+else
+    welcomeTitle="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
+fi
 
 welcomeMessage="Please enter the **required** information for your ${modelName}, select your preferred **Configuration** then click **Continue** to start applying settings to your new Mac. \n\nOnce completed, the **Wait** button will be enabled and you‘ll be able to review the results before restarting your ${modelName}."
 
