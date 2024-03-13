@@ -916,7 +916,7 @@ dialogSetupYourMacCMD="$dialogBinary \
 --infotext \"$scriptVersion\" \
 --titlefont 'shadow=true, size=36, colour=#FFFDF4' \
 --messagefont 'size=14' \
---height '800' \
+--height '700' \
 --position 'centre' \
 --blurscreen \
 --ontop \
