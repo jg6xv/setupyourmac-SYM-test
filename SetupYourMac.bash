@@ -678,11 +678,12 @@ welcomeVideo="--title \"$welcomeTitle\" \
 --button1text \"Continue …\" \
 --autoplay \
 --moveable \
---ontop \
+
 --width '800' \
 --height '600' \
 --commandfile \"$welcomeCommandFile\" "
 
+# Removing --ontop so we can actually see the popups
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
