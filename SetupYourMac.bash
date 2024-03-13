@@ -2707,7 +2707,20 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     scutil --set ComputerName "${computerName}"
 
                     # Set the LocalHostName to `newLocalHostName`
-                    scutil --set LocalHostName "${newLocalHostName}"
+
+                    ###
+                    # EXECTECH LOGIC
+                    ###
+
+                    if [ "$ExecTechLogic" = true ]; then
+                        scutil --set LocalHostName "${computerName}"
+                    else
+                        scutil --set LocalHostName "${newLocalHostName}"
+                    fi
+
+                    ###
+                    # END EXECTECH LOGIC
+                    ###
 
                     # Delay required to reflect change …
                     # … side-effect is a delay in the "Setup Your Mac" dialog appearing
