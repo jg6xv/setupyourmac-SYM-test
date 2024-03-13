@@ -2667,6 +2667,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             updateScriptLog "WELCOME DIALOG: • Building: $building"
             updateScriptLog "WELCOME DIALOG: • Room: $room"
             updateScriptLog "WELCOME DIALOG: • Position: $position"
+            updateScriptLog "WELCOME DIALOG: EXA - Override Network Name: $overrideNetworkName "
 
 
             ###
