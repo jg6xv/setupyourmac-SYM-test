@@ -2455,7 +2455,7 @@ elif [[ "${welcomeDialog}" == "messageOnly" ]]; then
         "blurscreen" : "true",
         "titlefont" : "shadow=true, size=36, colour=#FFFDF4",
         "messagefont" : "size=14",
-        "height" : "800"
+        "height" : "700"
     }
     '
 
