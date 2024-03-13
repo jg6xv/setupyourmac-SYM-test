@@ -2654,7 +2654,11 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
 
             updateScriptLog "WELCOME DIALOG: • Computer Name: $computerName"
-            updateScriptLog "WELCOME DIALOG: • User Name: $userName"
+            if [ "$ExecTechLogic" = true ]; then
+                updateScriptLog "WELCOME DIALOG: • User ID: $userName"
+            else
+                updateScriptLog "WELCOME DIALOG: • User Name: $userName"
+            fi
             updateScriptLog "WELCOME DIALOG: • Real Name: $realName"
             updateScriptLog "WELCOME DIALOG: • E-mail: $email"
             updateScriptLog "WELCOME DIALOG: • Asset Tag: $assetTag"
