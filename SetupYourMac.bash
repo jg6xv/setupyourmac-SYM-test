@@ -2453,7 +2453,6 @@ elif [[ "${welcomeDialog}" == "messageOnly" ]]; then
         "timer" : "60",
         "infotext" : "'"${scriptVersion}"'",
         "blurscreen" : "true",
-        "ontop" : "true",
         "titlefont" : "shadow=true, size=36, colour=#FFFDF4",
         "messagefont" : "size=14",
         "height" : "800"
