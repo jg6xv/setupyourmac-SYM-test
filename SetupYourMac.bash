@@ -2560,6 +2560,93 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                 position=$(get_json_value_welcomeDialog "$welcomeResults" "Position")
             fi
 
+            ###
+            # EXECTECH LOGIC
+            ###
+
+            if [ "$ExecTechLogic" = true ]; then
+                # overrideNetworkName=$(get_json_value_welcomeDialog "$welcomeResults" "Network Name Override")
+                # Set email to userID@virginia.edu
+                email="$userName@virginia.edu"
+
+                if [ ! -z $overrideNetworkName ]; then
+                    # Someone entered text in the Network Name field, so we must give priority
+                    updateScriptLog  "EXA - Setting Network Name to \"$overrideNetworkName\"..."
+                    computerName=$overrideNetworkName
+                else
+                    # We have no network name to override, going with the default override
+                    # Set computer name to the following format:
+                    # EXA-USERID-MODELYY
+                    # example:
+                    # EXA-JG6XV-MBP20
+                    # Getting the year is unfortunately difficult and requires a lot of code, which changes
+                    #   based on whether the device is ARM or Intel.
+                    # if ARM, collecting Marketing model string from ioreg
+                    # if com.apple.SystemProfiler.plist does not exist, create it
+                    # if Intel, collect Marketing Model string from com.apple.SystemProfiler.plist
+                    if [ "$(/usr/sbin/sysctl -in hw.optional.arm64)" = 1 ] && /usr/sbin/sysctl -n machdep.cpu.brand_string | /usr/bin/grep -q 'Apple' && /usr/bin/uname -v | /usr/bin/grep -q 'ARM64'
+                    then
+                        marketModel="$(/usr/libexec/PlistBuddy -c 'print 0:product-name' /dev/stdin <<< "$(/usr/sbin/ioreg -ar -k product-name)")"
+                    else
+                        if ! [ -e "$plistsp" ]
+                        then
+                            # This is a REALLY stupid way of doing it, but the model name doesn't get filled in unless
+                            #   'About This Mac' gets opened.
+                            /usr/bin/open '/System/Library/CoreServices/Applications/About This Mac.app'; /bin/sleep 1
+                            /usr/bin/pkill -ail 'System Information'; /bin/sleep 1
+                            /usr/bin/killall cfprefsd; /bin/sleep 1
+                        fi
+                        marketModel="$(/usr/libexec/PlistBuddy -c "print 'CPU Names':$srlnmbr-en-US_US" "$plistsp" 2> /dev/null)"
+                    fi
+
+                    # If the above didn't work, print to log
+                    if [ -z "$marketModel" ]
+                    then
+                        updateScriptLog "EXA - Market Model not found! Model Identifier: <result>$(/usr/sbin/sysctl -n hw.model)</result>"
+                    fi
+
+                    updateScriptLog "EXA - Market Model is reporting as \"$marketModel\"."
+                    # parse the Marketing Model string for the year and only grab the last two digits
+                    modelYear="$(echo "$marketModel" | /usr/bin/sed 's/)//;s/(//;s/,//' | /usr/bin/grep -E -o '2[0-9]{3}' | /usr/bin/grep -E -o '\d{2}$' )"
+                    updateScriptLog "EXA - Last two digits of marketing model appear to be \"$modelYear\"."
+
+                    # parse model
+                    # Macbook Pro = MBP
+                    # Mac Mini = MM
+                    # iMac = IM
+                    # Macbook Air = MBA
+
+                    computerModel="UNKMDL" # set default name (for errors)
+                    updateScriptLog "EXA - Attempting to parse and shorten device model..."
+                    MBPRegex="^MacBook Pro.*"
+                    MBARegex="^MacBook Air.*"
+                    MMRegex="^Mac Mini.*"
+
+                    if [[ "$marketModel" =~ $MBPRegex ]]; then
+                        computerModel="MBP"
+                    elif [[ "$marketModel" =~ $MBARegex ]]; then
+                        computerModel="MBA"
+                    elif [[ "$marketModel" =~ \^iMac.* ]]; then
+                        computerModel="IM"
+                    elif [[ "$marketModel" =~ $MMRegex ]]; then
+                        computerModel="MM"
+                    fi
+
+                    updateScriptLog "EXA - Shortened device model appears to be \"$computerModel\"."
+
+                    # Rename computer properly
+                    capsUserName=$(echo "$userName" | awk '{print toupper($0)}')
+                    updateScriptLog "EXA - Uppercase UserID: $capsUserName"
+                    updateScriptLog "EXA - Model year: $modelYear"
+                    updateScriptLog "EXA - Setting Computer Name to $computerName"
+                    computerName="EXA-$capsUserName-$computerModel$modelYear"
+
+                fi
+
+            fi
+            ###
+            # END EXECTECH LOGIC
+            ###
 
 
             ###
