@@ -2540,7 +2540,11 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
 
             computerName=$(get_json_value_welcomeDialog "$welcomeResults" "Computer Name")
-            userName=$(get_json_value_welcomeDialog "$welcomeResults" "User Name")
+            if [ "$ExecTechLogic" = true ]; then
+                userName=$(get_json_value_welcomeDialog "$welcomeResults" "User ID")
+            else
+                userName=$(get_json_value_welcomeDialog "$welcomeResults" "User Name")
+            fi
             realName=$(get_json_value_welcomeDialog "$welcomeResults" "Full Name")
             email=$(get_json_value_welcomeDialog "$welcomeResults" "E-mail")
             assetTag=$(get_json_value_welcomeDialog "$welcomeResults" "Asset Tag")
