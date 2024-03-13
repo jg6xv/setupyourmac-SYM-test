@@ -602,7 +602,11 @@ fi
 
 
 if [[ "${brandingBannerDisplayText}" == "true" ]]; then
-    welcomeBannerText="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
+    if [ "$ExecTechLogic" = true ]; then
+        welcomeBannerText="University of Virginia | ExecTech"
+    else
+        welcomeBannerText="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
+    fi
 else
     welcomeBannerText=" "
 fi
