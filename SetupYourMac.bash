@@ -735,13 +735,12 @@ fi
 # END ExecTech LOGIC
 ###
 
-if [ "$UVALogic" = true ]; then
+if [ "$ExecTechLogic" = true ]; then
     textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}${overrideNetworkNameJSON}"
 else
     textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}"
 fi
 
-textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}"
 textFieldJSON=$( echo ${textFieldJSON} | sed 's/,$//' )
 
 # Dropdowns
