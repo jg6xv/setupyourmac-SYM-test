@@ -719,6 +719,28 @@ fi
 if [ "$promptForRoom" == "true" ]; then roomJSON='{ "title" : "Room","required" : false,"prompt" : "Optional" },'; fi
 if [[ "$promptForPosition" == "true" && -z "$positionListRaw" ]]; then positionJSON='{ "title" : "Position","required" : false,"prompt" : "Position" },'; fi
 
+###
+# ExecTech LOGIC
+###
+
+if [ "$ExecTechLogic" = true ]; then
+    overrideNetworkNameJSON='{
+        "title" : "Network Name Override",
+        "required" : false,
+        "prompt" : "Loaners use EXA-LOANUSERID"
+    }'
+fi
+
+###
+# END ExecTech LOGIC
+###
+
+if [ "$UVALogic" = true ]; then
+    textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}${overrideNetworkNameJSON}"
+else
+    textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}"
+fi
+
 textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}"
 textFieldJSON=$( echo ${textFieldJSON} | sed 's/,$//' )
 
