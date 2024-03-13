@@ -919,7 +919,6 @@ dialogSetupYourMacCMD="$dialogBinary \
 --height '700' \
 --position 'centre' \
 --blurscreen \
---ontop \
 --overlayicon \"$overlayicon\" \
 --quitkey k \
 --commandfile \"$setupYourMacCommandFile\" "
