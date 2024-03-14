@@ -2595,12 +2595,21 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                         if [ "$debugMode" = "verbose" ]; then
                             updateScriptLog "EXA - Intel detected!"
                         fi
+                        # Setting variables
+                        currentUser="$(/usr/bin/stat -f %Su /dev/console)"
+                        plistsp="/Users/$currentUser/Library/Preferences/com.apple.SystemProfiler.plist"
+                        IOProductName="$(/usr/sbin/ioreg -ar -d1 -k product-name)"
                         if ! [ -e "$plistsp" ]
                         then
+                            marketModel=($(/usr/libexec/PlistBuddy -c 'print 0:product-name' /dev/stdin <<< "$IOProductName"))
                             if [ "$debugMode" = "verbose" ]; then
-                                updateScriptLog "EXA - Marketing plist not detected! Opening About This Mac..."
+                                updateScriptLog "EXA - System Profiler plist detected! Marketing Model reporting as \"$marketModel\""
                             fi
-                            # This is a REALLY stupid way of doing it, but the model name doesn't get filled in unless
+                        else
+                            if [ "$debugMode" = "verbose" ]; then
+                                updateScriptLog "EXA - System Profiler plist not detected! Opening About This Mac..."
+                            fi
+                            # This is a REALLY stupid way of doing it, but the plist doesn't get generated unless
                             #   'About This Mac' gets opened.
                             /usr/bin/open '/System/Library/CoreServices/Applications/About This Mac.app'; /bin/sleep 5
                             if [ "$debugMode" = "verbose" ]; then
@@ -2611,8 +2620,8 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                                 updateScriptLog "EXA - Killing tasks..."
                             fi
                             /usr/bin/killall cfprefsd; /bin/sleep 5
+                            marketModel="$(/usr/libexec/PlistBuddy -c "print 'CPU Names':$serialNumber-en-US_US" "$plistsp" 2> /dev/null)"
                         fi
-                        marketModel="$(/usr/libexec/PlistBuddy -c "print 'CPU Names':$srlnmbr-en-US_US" "$plistsp" 2> /dev/null)"
                         if [ "$debugMode" = "verbose" ]; then
                             updateScriptLog "EXA - Fetching Marketing Model..."
                             updateScriptLog "EXA - Marketing Model reporting as \"$marketModel\""
