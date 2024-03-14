@@ -2565,13 +2565,14 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
 
             if [ "$ExecTechLogic" = true ]; then
-                # overrideNetworkName=$(get_json_value_welcomeDialog "$welcomeResults" "Network Name Override")
+                overrideNetworkName=$(get_json_value_welcomeDialog "$welcomeResults" "Network Name Override")
                 # Set email to userID@virginia.edu
                 email="$userName@virginia.edu"
 
                 if [ ! -z $overrideNetworkName ]; then
                     # Someone entered text in the Network Name field, so we must give priority
-                    updateScriptLog  "EXA - Setting Network Name to \"$overrideNetworkName\"..."
+                    updateScriptLog "EXA - Override Network Name Detected..."
+                    updateScriptLog "EXA - Setting Computer Name to \"$overrideNetworkName\"..."
                     computerName=$overrideNetworkName
                 else
                     # We have no network name to override, going with the default override
