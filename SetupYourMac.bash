@@ -2602,7 +2602,6 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                         if [ "$debugMode" = "verbose" ]; then
                             updateScriptLog "EXA - CurrentUser is reporting as \"$currentUser\""
                             updateScriptLog "EXA - plist path is reporting as \"$plistsp\""
-                            updateScriptLog "EXA - IOProductName is reporting as \"$IOProductName\""
                         fi
                         if [ -e "$plistsp" ]
                         then
@@ -2615,17 +2614,23 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                             fi
                             # This is a REALLY stupid way of doing it, but the plist doesn't get generated unless
                             #   'About This Mac' gets opened.
-                            /usr/bin/open '/System/Library/CoreServices/Applications/About This Mac.app'; /bin/sleep 5
                             if [ "$debugMode" = "verbose" ]; then
-                                updateScriptLog "EXA - Opening System Information..."
+                                updateScriptLog "EXA - Opening System Information and About This Mac..."
                             fi
-                            /usr/bin/pkill -ail 'System Information'; /bin/sleep 5
+                            /usr/bin/open '/System/Applications/Utilities/System Information.app'
+                            /usr/bin/open '/System/Library/CoreServices/Applications/About This Mac.app'; /bin/sleep 5
                             if [ "$debugMode" = "verbose" ]; then
                                 updateScriptLog "EXA - Killing tasks..."
                             fi
+                            /usr/bin/pkill -ail 'System Information'; /bin/sleep 5
                             /usr/bin/killall cfprefsd; /bin/sleep 1
                         fi
-                        marketModel="$(/usr/libexec/PlistBuddy -c "print 'CPU Names':$serialNumber-en-US_US" "$plistsp" 2> /dev/null)"
+
+                        # This does not appear to grab the correct item as the plist is only using the last 4 of the serial
+                        #marketModel="$(/usr/libexec/PlistBuddy -c "print 'CPU Names':$serialNumber-en-US_US" "$plistsp" 2> /dev/null)"
+                        # Let's try grabbing the last 4 of the serial and using that instead
+                        lastFourSerialNumber="$( echo "$serialNumber" | /usr/bin/grep -E -o '.{4}$' )"
+                        marketModel="$(/usr/libexec/PlistBuddy -c "print 'CPU Names':$lastFourSerialNumber-en-US_US" "$plistsp" 2> /dev/null)"
                         if [ "$debugMode" = "verbose" ]; then
                             updateScriptLog "EXA - Fetching Marketing Model..."
                             updateScriptLog "EXA - Marketing Model reporting as \"$marketModel\""
