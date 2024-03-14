@@ -2610,14 +2610,14 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                             fi
                         else
                             if [ "$debugMode" = "verbose" ]; then
-                                updateScriptLog "EXA - System Profiler plist not detected! Opening About This Mac..."
+                                updateScriptLog "EXA - System Profiler plist not detected!"
                             fi
                             # This is a REALLY stupid way of doing it, but the plist doesn't get generated unless
                             #   'About This Mac' gets opened.
                             if [ "$debugMode" = "verbose" ]; then
                                 updateScriptLog "EXA - Opening System Information and About This Mac..."
                             fi
-                            /usr/bin/open '/System/Applications/Utilities/System Information.app'
+                            /usr/bin/open '/System/Applications/Utilities/System Information.app'; /bin/sleep 5
                             /usr/bin/open '/System/Library/CoreServices/Applications/About This Mac.app'; /bin/sleep 5
                             if [ "$debugMode" = "verbose" ]; then
                                 updateScriptLog "EXA - Killing tasks..."
