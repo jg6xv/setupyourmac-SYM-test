@@ -2593,8 +2593,8 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                             # This is a REALLY stupid way of doing it, but the model name doesn't get filled in unless
                             #   'About This Mac' gets opened.
                             /usr/bin/open '/System/Library/CoreServices/Applications/About This Mac.app'; /bin/sleep 1
-                            /usr/bin/pkill -ail 'System Information'; /bin/sleep 1
-                            /usr/bin/killall cfprefsd; /bin/sleep 1
+                            /usr/bin/pkill -ail 'System Information'; /bin/sleep 5
+                            /usr/bin/killall cfprefsd; /bin/sleep 5
                         fi
                         marketModel="$(/usr/libexec/PlistBuddy -c "print 'CPU Names':$srlnmbr-en-US_US" "$plistsp" 2> /dev/null)"
                     fi
@@ -2637,8 +2637,8 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     # Rename computer properly
                     capsUserName=$(echo "$userName" | awk '{print toupper($0)}')
                     updateScriptLog "EXA - Uppercase UserID: $capsUserName"
-                    updateScriptLog "EXA - Model year: $modelYear"
-                    updateScriptLog "EXA - Setting Computer Name to $computerName"
+                    updateScriptLog "EXA - Model year: \"$modelYear\""
+                    updateScriptLog "EXA - Setting Computer Name to \"$computerName\""
                     computerName="EXA-$capsUserName-$computerModel$modelYear"
 
                 fi
