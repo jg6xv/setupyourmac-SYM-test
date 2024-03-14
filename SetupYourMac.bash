@@ -2678,8 +2678,8 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     capsUserName=$(echo "$userName" | awk '{print toupper($0)}')
                     updateScriptLog "EXA - Uppercase UserID: $capsUserName"
                     updateScriptLog "EXA - Model year: \"$modelYear\""
-                    updateScriptLog "EXA - Setting Computer Name to \"$computerName\""
                     computerName="EXA-$capsUserName-$computerModel$modelYear"
+                    updateScriptLog "EXA - Setting Computer Name to \"$computerName\""
 
                 fi
 
