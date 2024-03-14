@@ -2623,10 +2623,8 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     if [ -z "$marketModel" ]
                     then
                         updateScriptLog "EXA - Market Model not found! Model Identifier: <result>$(/usr/sbin/sysctl -n hw.model)</result>"
-                    elif
-                        if [ "$debugMode" = "verbose" ]; then
-                            updateScriptLog "EXA - Marketing model string is not null."
-                        fi
+                    elif [ "$debugMode" = "verbose" ]; then
+                        updateScriptLog "EXA - Marketing model string is not null."
                     fi
 
                     updateScriptLog "EXA - Market Model is reporting as \"$marketModel\"."
