@@ -2599,11 +2599,15 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                         currentUser="$(/usr/bin/stat -f %Su /dev/console)"
                         plistsp="/Users/$currentUser/Library/Preferences/com.apple.SystemProfiler.plist"
                         IOProductName="$(/usr/sbin/ioreg -ar -d1 -k product-name)"
+                        if [ "$debugMode" = "verbose" ]; then
+                            updateScriptLog "EXA - CurrentUser is reporting as \"$currentUser\""
+                            updateScriptLog "EXA - plist path is reporting as \"$plistsp\""
+                            updateScriptLog "EXA - IOProductName is reporting as \"$IOProductName\""
+                        fi
                         if [ -e "$plistsp" ]
                         then
-                            marketModel=($(/usr/libexec/PlistBuddy -c 'print 0:product-name' /dev/stdin <<< "$IOProductName"))
                             if [ "$debugMode" = "verbose" ]; then
-                                updateScriptLog "EXA - System Profiler plist detected! Marketing Model reporting as \"$marketModel\""
+                                updateScriptLog "EXA - System Profiler plist detected!"
                             fi
                         else
                             if [ "$debugMode" = "verbose" ]; then
@@ -2619,9 +2623,9 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                             if [ "$debugMode" = "verbose" ]; then
                                 updateScriptLog "EXA - Killing tasks..."
                             fi
-                            /usr/bin/killall cfprefsd; /bin/sleep 5
-                            marketModel="$(/usr/libexec/PlistBuddy -c "print 'CPU Names':$serialNumber-en-US_US" "$plistsp" 2> /dev/null)"
+                            /usr/bin/killall cfprefsd; /bin/sleep 1
                         fi
+                        marketModel="$(/usr/libexec/PlistBuddy -c "print 'CPU Names':$serialNumber-en-US_US" "$plistsp" 2> /dev/null)"
                         if [ "$debugMode" = "verbose" ]; then
                             updateScriptLog "EXA - Fetching Marketing Model..."
                             updateScriptLog "EXA - Marketing Model reporting as \"$marketModel\""
