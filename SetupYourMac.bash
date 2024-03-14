@@ -2599,7 +2599,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                         currentUser="$(/usr/bin/stat -f %Su /dev/console)"
                         plistsp="/Users/$currentUser/Library/Preferences/com.apple.SystemProfiler.plist"
                         IOProductName="$(/usr/sbin/ioreg -ar -d1 -k product-name)"
-                        if ! [ -e "$plistsp" ]
+                        if [ -e "$plistsp" ]
                         then
                             marketModel=($(/usr/libexec/PlistBuddy -c 'print 0:product-name' /dev/stdin <<< "$IOProductName"))
                             if [ "$debugMode" = "verbose" ]; then
