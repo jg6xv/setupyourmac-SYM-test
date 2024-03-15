@@ -983,13 +983,13 @@ function policyJSONConfiguration() {
                 "steps": [
         
                     {
-                        "listitem": "Adobe_Reader",
+                        "listitem": "SplashTop_SOS",
                         "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_04949ed3a2ebb5e0c5afc608302237239a0be8d361f9d6a069c05d85c805a9a4",
-                        "progresstext": "Processing policy: Adobe_Reader",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8b576cfb98521cd35cae02e1deda772fbf7e556324d6d57af4ef1e54d3977b38",
+                        "progresstext": "Processing policy: SplashTop_SOS",
                         "trigger_list": [
                                          {
-                                            "trigger": "enrolladobereader",
+                                            "trigger": "enrollsplashtop",
                                             "validation": "None"
                                          }
                         ]
@@ -1002,30 +1002,6 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "enrollalertus",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "Cisco_Secure_Client",
-                        "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8e68d082a0011eadaf623dce082457fa254351e09c4e31cbab6953936ac8d3f5",
-                        "progresstext": "Processing policy: Cisco_Secure_Client",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "enrollciscosecureclient",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "Defender_with_PLIST",
-                        "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_27dd79496b55c84f74f83312ed2d517d7953b4000d28e15183064b04f5e0430b",
-                        "progresstext": "Processing policy: Defender_with_PLIST",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "enrolldefenderplist",
                                             "validation": "None"
                                          }
                         ]
@@ -1055,18 +1031,6 @@ function policyJSONConfiguration() {
                         ]
                     },
                     {
-                        "listitem": "MicrosoftOffice",
-                        "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_e3247dad6880725ff22a771beb51a910a37c1afd41c67d0d4d113c58543b9591",
-                        "progresstext": "Processing policy: MicrosoftOffice",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "microsoftoffice",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
                         "listitem": "exa-enroll-Ricoh-All Drivers-EN",
                         "subtitle": "",
                         "icon": "https://ics.services.jamfcloud.com/icon/hash_63cb37a26f5485268d01bfae67f563d184a8a0f2201afac86abb167e57344746",
@@ -1079,13 +1043,25 @@ function policyJSONConfiguration() {
                         ]
                     },
                     {
-                        "listitem": "SplashTop_SOS",
+                        "listitem": "Cisco_Secure_Client",
                         "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8b576cfb98521cd35cae02e1deda772fbf7e556324d6d57af4ef1e54d3977b38",
-                        "progresstext": "Processing policy: SplashTop_SOS",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8e68d082a0011eadaf623dce082457fa254351e09c4e31cbab6953936ac8d3f5",
+                        "progresstext": "Processing policy: Cisco_Secure_Client",
                         "trigger_list": [
                                          {
-                                            "trigger": "enrollsplashtop",
+                                            "trigger": "enrollciscosecureclient",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "Defender_with_PLIST",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_27dd79496b55c84f74f83312ed2d517d7953b4000d28e15183064b04f5e0430b",
+                        "progresstext": "Processing policy: Defender_with_PLIST",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "enrolldefenderplist",
                                             "validation": "None"
                                          }
                         ]
@@ -1098,6 +1074,42 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "zoominstall",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "Adobe_Reader",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_04949ed3a2ebb5e0c5afc608302237239a0be8d361f9d6a069c05d85c805a9a4",
+                        "progresstext": "Processing policy: Adobe_Reader",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "enrolladobereader",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "MicrosoftOffice",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_e3247dad6880725ff22a771beb51a910a37c1afd41c67d0d4d113c58543b9591",
+                        "progresstext": "Processing policy: MicrosoftOffice",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "microsoftoffice",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "exa-enroll- Dock - Remove Bloatware",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: exa-enroll- Dock - Remove Bloatware",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "dockRemoveBloatware",
                                             "validation": "None"
                                          }
                         ]
