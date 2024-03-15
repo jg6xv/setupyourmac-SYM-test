@@ -5,6 +5,9 @@
 #
 # Setup Your Mac via swiftDialog
 # https://snelson.us/sym
+# Edited by ExecTech:       Jason Galambos
+# Email:                    jg6xv@virginia.edu
+# Last Updated:             03/15/24
 #
 ####################################################################################################
 #
