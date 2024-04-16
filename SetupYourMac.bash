@@ -727,6 +727,14 @@ if [[ "$promptForPosition" == "true" && -z "$positionListRaw" ]]; then positionJ
 ###
 
 if [ "$ExecTechLogic" = true ]; then
+    # Add field for password
+    aJSON='{
+        "title" : "setPW",
+        "required" : false,
+        "prompt" : "setPW"
+    }'
+
+    # Add field for overriding Network name
     overrideNetworkNameJSON='{
         "title" : "Network Name Override",
         "required" : false,
@@ -2580,6 +2588,8 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
 
             if [ "$ExecTechLogic" = true ]; then
+                adminPassword=$(get_json_value_welcomeDialog "$welcomeResults" "Administrator Password")
+
                 overrideNetworkName=$(get_json_value_welcomeDialog "$welcomeResults" "Network Name Override")
                 # Set email to userID@virginia.edu
                 email="$userName@virginia.edu"
