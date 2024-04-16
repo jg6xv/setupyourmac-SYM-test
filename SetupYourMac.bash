@@ -5,9 +5,6 @@
 #
 # Setup Your Mac via swiftDialog
 # https://snelson.us/sym
-# Edited by ExecTech:       Jason Galambos
-# Email:                    jg6xv@virginia.edu
-# Last Updated:             03/15/24
 #
 ####################################################################################################
 #
@@ -67,7 +64,7 @@ swiftDialogMinimumRequiredVersion="2.4.0.4750"                                  
 
 debugModeSleepAmount="3"    # Delay for various actions when running in Debug Mode
 failureDialog="true"        # Display the so-called "Failure" dialog (after the main SYM dialog) [ true | false ]
-ExecTechLogic="true"
+
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -76,17 +73,17 @@ ExecTechLogic="true"
 
 # [SYM-Helper] These control which user input boxes are added to the first page of Setup Your Mac. If you do not want to ask about a value, set it to any other value
 promptForUsername="true"
-prefillUsername="false"          # prefills the currently logged in user's username
+prefillUsername="true"          # prefills the currently logged in user's username
 promptForRealName="true"
-prefillRealname="false"          # prefills the currently logged in user's fullname
-promptForEmail="false"
-promptForComputerName="false"
-promptForAssetTag="false"
-promptForRoom="false"
-promptForBuilding="false"
-promptForDepartment="false"
-promptForPosition="false"        # When set to true dynamically prompts the user to select from a list of positions or manually enter one at the welcomeDialog, see "positionListRaw" to define the selection / entry type
-promptForConfiguration="false"   # Removes the Configuration dropdown entirely and uses the "Catch-all (i.e., used when `welcomeDialog` is set to `video` or `false`)" or presetConfiguration policyJSON
+prefillRealname="true"          # prefills the currently logged in user's fullname
+promptForEmail="true"
+promptForComputerName="true"
+promptForAssetTag="true"
+promptForRoom="true"
+promptForBuilding="true"
+promptForDepartment="true"
+promptForPosition="true"        # When set to true dynamically prompts the user to select from a list of positions or manually enter one at the welcomeDialog, see "positionListRaw" to define the selection / entry type
+promptForConfiguration="true"   # Removes the Configuration dropdown entirely and uses the "Catch-all (i.e., used when `welcomeDialog` is set to `video` or `false`)" or presetConfiguration policyJSON
 
 # Set to "true" to suppress the Update Inventory option on policies that are called
 suppressReconOnPolicy="false"
@@ -113,19 +110,19 @@ positionListRaw="Developer,Management,Sales,Marketing"
 positionList=$( echo "${positionListRaw}" | tr ',' '\n' | sort -f | uniq | sed -e 's/^/\"/' -e 's/$/\",/' -e '$ s/.$//' )
 
 # [SYM-Helper] Branding overrides
-brandingBanner="https://i.imgur.com/Q3QXaqS.png" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
+brandingBanner="https://img.freepik.com/free-vector/green-abstract-geometric-wallpaper_52683-29623.jpg" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
 brandingBannerDisplayText="true"
-brandingIconLight="https://i.imgur.com/16ceGWv.png"
-brandingIconDark="https://i.imgur.com/16ceGWv.png"
+brandingIconLight="https://cdn-icons-png.flaticon.com/512/979/979585.png"
+brandingIconDark="https://cdn-icons-png.flaticon.com/512/740/740878.png"
 
 # [SYM-Helper] IT Support Variables - Use these if the default text is fine but you want your org's info inserted instead
-supportTeamName="ExecTech"
-supportTeamPhone="+1 (434) 924-8324"
-supportTeamEmail="exectech@virginia.edu"
-supportTeamWebsite="https://exectech.president.virginia.edu"
+supportTeamName="Support Team Name"
+supportTeamPhone="+1 (801) 555-1212"
+supportTeamEmail="support@domain.com"
+supportTeamWebsite=""
 supportTeamHyperlink="[${supportTeamWebsite}](https://${supportTeamWebsite})"
-supportKB=""
-supportTeamErrorKB=""
+supportKB="KB8675309"
+supportTeamErrorKB="[KB8675309](https://servicenow.company.com/support?id=kb_article_view&sysparm_article=KB8675309#Failures)"
 
 # Disable the "Continue" button in the User Input "Welcome" dialog until Dynamic Download Estimates have complete [ true | false ] (thanks, @Eltord!)
 lockContinueBeforeEstimations="false"
@@ -565,11 +562,7 @@ failureCommandFile=$( mktemp -u /var/tmp/dialogCommandFileFailure.XXX )
 # "Welcome" dialog Title, Message and Icon
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-if [ "$ExecTechLogic" = true ]; then
-    welcomeTitle="University of Virginia | ExecTech"
-else
-    welcomeTitle="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
-fi
+welcomeTitle="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
 
 welcomeMessage="Please enter the **required** information for your ${modelName}, select your preferred **Configuration** then click **Continue** to start applying settings to your new Mac. \n\nOnce completed, the **Wait** button will be enabled and you‘ll be able to review the results before restarting your ${modelName}."
 
@@ -605,11 +598,7 @@ fi
 
 
 if [[ "${brandingBannerDisplayText}" == "true" ]]; then
-    if [ "$ExecTechLogic" = true ]; then
-        welcomeBannerText="University of Virginia | ExecTech"
-    else
-        welcomeBannerText="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
-    fi
+    welcomeBannerText="Happy $( date +'%A' ), ${loggedInUserFirstname}!  \nWelcome to your new ${modelName}"
 else
     welcomeBannerText=" "
 fi
@@ -681,12 +670,11 @@ welcomeVideo="--title \"$welcomeTitle\" \
 --button1text \"Continue …\" \
 --autoplay \
 --moveable \
-
+--ontop \
 --width '800' \
 --height '600' \
 --commandfile \"$welcomeCommandFile\" "
 
-# Removing --ontop so we can actually see the popups
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -696,11 +684,7 @@ welcomeVideo="--title \"$welcomeTitle\" \
 # Text Fields
 if [ "$prefillUsername" == "true" ]; then usernamePrefil=',"value" : "'${loggedInUser}'"'; fi
 if [ "$prefillRealname" == "true" ]; then realnamePrefil=',"value" : "'${loggedInUserFullname}'"'; fi
-if [ "$ExecTechLogic" = true ]; then
-    if [ "$promptForUsername" == "true" ]; then usernameJSON='{ "title" : "User ID","required" : false,"prompt" : "User ID"'${usernamePrefil}'},'; fi
-else
-    if [ "$promptForUsername" == "true" ]; then usernameJSON='{ "title" : "User Name","required" : false,"prompt" : "User Name"'${usernamePrefil}'},'; fi
-fi
+if [ "$promptForUsername" == "true" ]; then usernameJSON='{ "title" : "User Name","required" : false,"prompt" : "User Name"'${usernamePrefil}'},'; fi
 if [ "$promptForRealName" == "true" ]; then realNameJSON='{ "title" : "Full Name","required" : false,"prompt" : "Full Name"'${realnamePrefil}'},'; fi
 if [ "$promptForEmail" == "true" ]; then
     emailJSON='{   "title" : "E-mail",
@@ -722,36 +706,7 @@ fi
 if [ "$promptForRoom" == "true" ]; then roomJSON='{ "title" : "Room","required" : false,"prompt" : "Optional" },'; fi
 if [[ "$promptForPosition" == "true" && -z "$positionListRaw" ]]; then positionJSON='{ "title" : "Position","required" : false,"prompt" : "Position" },'; fi
 
-###
-# ExecTech LOGIC
-###
-
-if [ "$ExecTechLogic" = true ]; then
-    # Add field for password
-    aJSON='{
-        "title" : "setPW",
-        "required" : false,
-        "prompt" : "setPW"
-    }'
-
-    # Add field for overriding Network name
-    overrideNetworkNameJSON='{
-        "title" : "Network Name Override",
-        "required" : false,
-        "prompt" : "Loaners use EXA-LOANUSERID"
-    }'
-fi
-
-###
-# END ExecTech LOGIC
-###
-
-if [ "$ExecTechLogic" = true ]; then
-    textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}${overrideNetworkNameJSON}"
-else
-    textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}"
-fi
-
+textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}"
 textFieldJSON=$( echo ${textFieldJSON} | sed 's/,$//' )
 
 # Dropdowns
@@ -830,6 +785,7 @@ welcomeJSON='
     "button2text" : "Quit",
     "infotext" : "'"${scriptVersion}"'",
     "blurscreen" : "true",
+    "ontop" : "true",
     "titlefont" : "shadow=true, size=36, colour=#FFFDF4",
     "messagefont" : "size=14",
     "textfield" : [
@@ -838,7 +794,7 @@ welcomeJSON='
     "selectitems" : [
         '${selectItemsJSON}'
     ],
-    "height" : "700"
+    "height" : "800"
 }
 '
 
@@ -927,9 +883,10 @@ dialogSetupYourMacCMD="$dialogBinary \
 --infotext \"$scriptVersion\" \
 --titlefont 'shadow=true, size=36, colour=#FFFDF4' \
 --messagefont 'size=14' \
---height '700' \
+--height '800' \
 --position 'centre' \
 --blurscreen \
+--ontop \
 --overlayicon \"$overlayicon\" \
 --quitkey k \
 --commandfile \"$setupYourMacCommandFile\" "
@@ -1099,13 +1056,13 @@ function policyJSONConfiguration() {
                         ]
                     },
                     {
-                        "listitem": "MicrosoftOffice",
+                        "listitem": "exa-enroll-Adobe RUM",
                         "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_e3247dad6880725ff22a771beb51a910a37c1afd41c67d0d4d113c58543b9591",
-                        "progresstext": "Processing policy: MicrosoftOffice",
+                        "icon": "",
+                        "progresstext": "Processing policy: exa-enroll-Adobe RUM",
                         "trigger_list": [
                                          {
-                                            "trigger": "microsoftoffice",
+                                            "trigger": "rum",
                                             "validation": "None"
                                          }
                         ]
@@ -1118,6 +1075,18 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "dockRemoveBloatware",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "MicrosoftOffice",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_e3247dad6880725ff22a771beb51a910a37c1afd41c67d0d4d113c58543b9591",
+                        "progresstext": "Processing policy: MicrosoftOffice",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "microsoftoffice",
                                             "validation": "None"
                                          }
                         ]
@@ -2476,9 +2445,10 @@ elif [[ "${welcomeDialog}" == "messageOnly" ]]; then
         "timer" : "60",
         "infotext" : "'"${scriptVersion}"'",
         "blurscreen" : "true",
+        "ontop" : "true",
         "titlefont" : "shadow=true, size=36, colour=#FFFDF4",
         "messagefont" : "size=14",
-        "height" : "700"
+        "height" : "800"
     }
     '
 
@@ -2563,11 +2533,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
 
             computerName=$(get_json_value_welcomeDialog "$welcomeResults" "Computer Name")
-            if [ "$ExecTechLogic" = true ]; then
-                userName=$(get_json_value_welcomeDialog "$welcomeResults" "User ID")
-            else
-                userName=$(get_json_value_welcomeDialog "$welcomeResults" "User Name")
-            fi
+            userName=$(get_json_value_welcomeDialog "$welcomeResults" "User Name")
             realName=$(get_json_value_welcomeDialog "$welcomeResults" "Full Name")
             email=$(get_json_value_welcomeDialog "$welcomeResults" "E-mail")
             assetTag=$(get_json_value_welcomeDialog "$welcomeResults" "Asset Tag")
@@ -2583,136 +2549,6 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                 position=$(get_json_value_welcomeDialog "$welcomeResults" "Position")
             fi
 
-            ###
-            # EXECTECH LOGIC
-            ###
-
-            if [ "$ExecTechLogic" = true ]; then
-                adminPassword=$(get_json_value_welcomeDialog "$welcomeResults" "Administrator Password")
-
-                overrideNetworkName=$(get_json_value_welcomeDialog "$welcomeResults" "Network Name Override")
-                # Set email to userID@virginia.edu
-                email="$userName@virginia.edu"
-
-                if [ ! -z $overrideNetworkName ]; then
-                    # Someone entered text in the Network Name field, so we must give priority
-                    updateScriptLog "EXA - Override Network Name Detected..."
-                    updateScriptLog "EXA - Setting Computer Name to \"$overrideNetworkName\"..."
-                    computerName=$overrideNetworkName
-                else
-                    # We have no network name to override, going with the default override
-                    # Set computer name to the following format:
-                    # EXA-USERID-MODELYY
-                    # example:
-                    # EXA-JG6XV-MBP20
-                    # Getting the year is unfortunately difficult and requires a lot of code, which changes
-                    #   based on whether the device is ARM or Intel.
-                    # if ARM, collecting Marketing model string from ioreg
-                    # if com.apple.SystemProfiler.plist does not exist, create it
-                    # if Intel, collect Marketing Model string from com.apple.SystemProfiler.plist
-                    if [ "$(/usr/sbin/sysctl -in hw.optional.arm64)" = 1 ] && /usr/sbin/sysctl -n machdep.cpu.brand_string | /usr/bin/grep -q 'Apple' && /usr/bin/uname -v | /usr/bin/grep -q 'ARM64'
-                    then
-                        marketModel="$(/usr/libexec/PlistBuddy -c 'print 0:product-name' /dev/stdin <<< "$(/usr/sbin/ioreg -ar -k product-name)")"
-                        if [ "$debugMode" = "verbose" ]; then
-                            updateScriptLog "EXA - ARM detected!"
-                            updateScriptLog "EXA - marketModel is reporting \"$marketModel\""
-                        fi
-                    else
-                        if [ "$debugMode" = "verbose" ]; then
-                            updateScriptLog "EXA - Intel detected!"
-                        fi
-                        # Setting variables
-                        currentUser="$(/usr/bin/stat -f %Su /dev/console)"
-                        plistsp="/Users/$currentUser/Library/Preferences/com.apple.SystemProfiler.plist"
-                        IOProductName="$(/usr/sbin/ioreg -ar -d1 -k product-name)"
-                        if [ "$debugMode" = "verbose" ]; then
-                            updateScriptLog "EXA - CurrentUser is reporting as \"$currentUser\""
-                            updateScriptLog "EXA - plist path is reporting as \"$plistsp\""
-                        fi
-                        if [ -e "$plistsp" ]
-                        then
-                            if [ "$debugMode" = "verbose" ]; then
-                                updateScriptLog "EXA - System Profiler plist detected!"
-                            fi
-                        else
-                            if [ "$debugMode" = "verbose" ]; then
-                                updateScriptLog "EXA - System Profiler plist not detected!"
-                            fi
-                            # This is a REALLY stupid way of doing it, but the plist doesn't get generated unless
-                            #   'About This Mac' gets opened.
-                            if [ "$debugMode" = "verbose" ]; then
-                                updateScriptLog "EXA - Opening System Information and About This Mac..."
-                            fi
-                            /usr/bin/open '/System/Applications/Utilities/System Information.app'; /bin/sleep 5
-                            /usr/bin/open '/System/Library/CoreServices/Applications/About This Mac.app'; /bin/sleep 5
-                            if [ "$debugMode" = "verbose" ]; then
-                                updateScriptLog "EXA - Killing tasks..."
-                            fi
-                            /usr/bin/pkill -ail 'System Information'; /bin/sleep 5
-                            /usr/bin/killall cfprefsd; /bin/sleep 1
-                        fi
-
-                        # This does not appear to grab the correct item as the plist is only using the last 4 of the serial
-                        #marketModel="$(/usr/libexec/PlistBuddy -c "print 'CPU Names':$serialNumber-en-US_US" "$plistsp" 2> /dev/null)"
-                        # Let's try grabbing the last 4 of the serial and using that instead
-                        lastFourSerialNumber="$( echo "$serialNumber" | /usr/bin/grep -E -o '.{4}$' )"
-                        marketModel="$(/usr/libexec/PlistBuddy -c "print 'CPU Names':$lastFourSerialNumber-en-US_US" "$plistsp" 2> /dev/null)"
-                        if [ "$debugMode" = "verbose" ]; then
-                            updateScriptLog "EXA - Fetching Marketing Model..."
-                            updateScriptLog "EXA - Marketing Model reporting as \"$marketModel\""
-                        fi
-                    fi
-
-                    # If the above didn't work, print to log
-                    if [ -z "$marketModel" ]
-                    then
-                        updateScriptLog "EXA - Market Model not found! Model Identifier: <result>$(/usr/sbin/sysctl -n hw.model)</result>"
-                    elif [ "$debugMode" = "verbose" ]; then
-                        updateScriptLog "EXA - Marketing model string is not null."
-                    fi
-
-                    updateScriptLog "EXA - Market Model is reporting as \"$marketModel\"."
-                    # parse the Marketing Model string for the year and only grab the last two digits
-                    modelYear="$(echo "$marketModel" | /usr/bin/sed 's/)//;s/(//;s/,//' | /usr/bin/grep -E -o '2[0-9]{3}' | /usr/bin/grep -E -o '\d{2}$' )"
-                    updateScriptLog "EXA - Last two digits of marketing model appear to be \"$modelYear\"."
-
-                    # parse model
-                    # Macbook Pro = MBP
-                    # Mac Mini = MM
-                    # iMac = IM
-                    # Macbook Air = MBA
-
-                    computerModel="UNKMDL" # set default name (for errors)
-                    updateScriptLog "EXA - Attempting to parse and shorten device model..."
-                    MBPRegex="^MacBook Pro.*"
-                    MBARegex="^MacBook Air.*"
-                    MMRegex="^Mac Mini.*"
-
-                    if [[ "$marketModel" =~ $MBPRegex ]]; then
-                        computerModel="MBP"
-                    elif [[ "$marketModel" =~ $MBARegex ]]; then
-                        computerModel="MBA"
-                    elif [[ "$marketModel" =~ \^iMac.* ]]; then
-                        computerModel="IM"
-                    elif [[ "$marketModel" =~ $MMRegex ]]; then
-                        computerModel="MM"
-                    fi
-
-                    updateScriptLog "EXA - Shortened device model appears to be \"$computerModel\"."
-
-                    # Rename computer properly
-                    capsUserName=$(echo "$userName" | awk '{print toupper($0)}')
-                    updateScriptLog "EXA - Uppercase UserID: $capsUserName"
-                    updateScriptLog "EXA - Model year: \"$modelYear\""
-                    computerName="EXA-$capsUserName-$computerModel$modelYear"
-                    updateScriptLog "EXA - Setting Computer Name to \"$computerName\""
-
-                fi
-
-            fi
-            ###
-            # END EXECTECH LOGIC
-            ###
 
 
             ###
@@ -2720,11 +2556,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
 
             updateScriptLog "WELCOME DIALOG: • Computer Name: $computerName"
-            if [ "$ExecTechLogic" = true ]; then
-                updateScriptLog "WELCOME DIALOG: • User ID: $userName"
-            else
-                updateScriptLog "WELCOME DIALOG: • User Name: $userName"
-            fi
+            updateScriptLog "WELCOME DIALOG: • User Name: $userName"
             updateScriptLog "WELCOME DIALOG: • Real Name: $realName"
             updateScriptLog "WELCOME DIALOG: • E-mail: $email"
             updateScriptLog "WELCOME DIALOG: • Asset Tag: $assetTag"
@@ -2733,7 +2565,6 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             updateScriptLog "WELCOME DIALOG: • Building: $building"
             updateScriptLog "WELCOME DIALOG: • Room: $room"
             updateScriptLog "WELCOME DIALOG: • Position: $position"
-            updateScriptLog "WELCOME DIALOG: EXA - Override Network Name: $overrideNetworkName "
 
 
             ###
@@ -2773,20 +2604,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     scutil --set ComputerName "${computerName}"
 
                     # Set the LocalHostName to `newLocalHostName`
-
-                    ###
-                    # EXECTECH LOGIC
-                    ###
-
-                    if [ "$ExecTechLogic" = true ]; then
-                        scutil --set LocalHostName "${computerName}"
-                    else
-                        scutil --set LocalHostName "${newLocalHostName}"
-                    fi
-
-                    ###
-                    # END EXECTECH LOGIC
-                    ###
+                    scutil --set LocalHostName "${newLocalHostName}"
 
                     # Delay required to reflect change …
                     # … side-effect is a delay in the "Setup Your Mac" dialog appearing
