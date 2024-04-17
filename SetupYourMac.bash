@@ -2890,6 +2890,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                 fi
 
             fi
+
             ###
             # END EXECTECH LOGIC
             ###
@@ -2914,6 +2915,18 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             updateScriptLog "WELCOME DIALOG: • Room: $room"
             updateScriptLog "WELCOME DIALOG: • Position: $position"
             updateScriptLog "WELCOME DIALOG: EXA - Override Network Name: $overrideNetworkName "
+            updateScriptLog "WELCOME DIALOG: EXA - Creating User Profile "
+            if [ "$debugMode" = "verbose" ]; then
+                updateScriptLog "WELCOME DIALOG: DEBUG MODE EXA - Would have created $userName profile"
+            else
+                jamf createAccount -username "$userName" -realname "$realName" -secureTokenAllowed
+            
+                if id "$userName" >/dev/null 2>&1; then
+                    updateScriptLog "WELCOME DIALOG: EXA - User Profile $userName successfully created!"
+                else
+                    updateScriptLog "WELCOME DIALOG: EXA - User Profile $userName not found. Please manually create!"
+                fi
+            fi
 
 
             ###
