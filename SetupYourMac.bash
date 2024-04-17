@@ -976,20 +976,210 @@ function policyJSONConfiguration() {
 
     case ${symConfiguration} in
 
-        * ) # Catch-all )
+        "Default2" )
 
             policyJSON='
             {
                 "steps": [
         
                     {
-                        "listitem": "SplashTop_SOS",
+                        "listitem": "",
                         "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8b576cfb98521cd35cae02e1deda772fbf7e556324d6d57af4ef1e54d3977b38",
-                        "progresstext": "Processing policy: SplashTop_SOS",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
                         "trigger_list": [
                                          {
-                                            "trigger": "enrollsplashtop",
+                                            "trigger": "1768",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "1765",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "1810",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "1793",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "1764",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "1794",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "1799",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "1766",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "1847",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "1767",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "1771",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "981",
+                                            "validation": "None"
+                                         }
+                        ]
+                    }
+                ]
+            }
+            '
+            ;;
+
+    "test" )
+
+            policyJSON='
+            {
+                "steps": [
+        
+                    {
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "1823",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "",
+                        "subtitle": "",
+                        "icon": "",
+                        "progresstext": "Processing policy: ",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "489",
+                                            "validation": "None"
+                                         }
+                        ]
+                    }
+                ]
+            }
+            '
+            ;;
+
+    * ) # Catch-all )
+
+            policyJSON='
+            {
+                "steps": [
+        
+                    {
+                        "listitem": "Adobe_Reader",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_04949ed3a2ebb5e0c5afc608302237239a0be8d361f9d6a069c05d85c805a9a4",
+                        "progresstext": "Processing policy: Adobe_Reader",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "enrolladobereader",
                                             "validation": "None"
                                          }
                         ]
@@ -1002,42 +1192,6 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "enrollalertus",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "EXA-DeployUVABranding",
-                        "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_493dc86b9c89618238ff5ac77d974fc7ba1c4edb441b7e891607c711c32b0a7f",
-                        "progresstext": "Processing policy: EXA-DeployUVABranding",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "deployUVABranding",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "GoogleChrome",
-                        "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_ad65a11c8dc65711f96c1411404bc0210cd4c80c606b6f2351c578592aa5a2c5",
-                        "progresstext": "Processing policy: GoogleChrome",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "chrome",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "exa-enroll-Ricoh-All Drivers-EN",
-                        "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_63cb37a26f5485268d01bfae67f563d184a8a0f2201afac86abb167e57344746",
-                        "progresstext": "Processing policy: exa-enroll-Ricoh-All Drivers-EN",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "enrollRicohAllDrivers",
                                             "validation": "None"
                                          }
                         ]
@@ -1067,6 +1221,42 @@ function policyJSONConfiguration() {
                         ]
                     },
                     {
+                        "listitem": "EXA-DeployUVABranding",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_493dc86b9c89618238ff5ac77d974fc7ba1c4edb441b7e891607c711c32b0a7f",
+                        "progresstext": "Processing policy: EXA-DeployUVABranding",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "deployUVABranding",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "GoogleChrome",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_ad65a11c8dc65711f96c1411404bc0210cd4c80c606b6f2351c578592aa5a2c5",
+                        "progresstext": "Processing policy: GoogleChrome",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "chrome",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "SplashTop_SOS",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8b576cfb98521cd35cae02e1deda772fbf7e556324d6d57af4ef1e54d3977b38",
+                        "progresstext": "Processing policy: SplashTop_SOS",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "enrollsplashtop",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
                         "listitem": "Zoom",
                         "subtitle": "",
                         "icon": "https://ics.services.jamfcloud.com/icon/hash_718973185fd616241746a55e28a8c103ff404dba356c1e708a7baa06b4700799",
@@ -1074,18 +1264,6 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "zoominstall",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "Adobe_Reader",
-                        "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_04949ed3a2ebb5e0c5afc608302237239a0be8d361f9d6a069c05d85c805a9a4",
-                        "progresstext": "Processing policy: Adobe_Reader",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "enrolladobereader",
                                             "validation": "None"
                                          }
                         ]
@@ -1105,11 +1283,23 @@ function policyJSONConfiguration() {
                     {
                         "listitem": "exa-enroll- Dock - Remove Bloatware",
                         "subtitle": "",
-                        "icon": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_493dc86b9c89618238ff5ac77d974fc7ba1c4edb441b7e891607c711c32b0a7f",
                         "progresstext": "Processing policy: exa-enroll- Dock - Remove Bloatware",
                         "trigger_list": [
                                          {
                                             "trigger": "dockRemoveBloatware",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "exa-enroll-Adobe RUM",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_08a0669f6a849bdab86963b46c504587ced220050802cef16e806fe117e61661",
+                        "progresstext": "Processing policy: exa-enroll-Adobe RUM",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "rum",
                                             "validation": "None"
                                          }
                         ]
