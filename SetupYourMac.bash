@@ -7,7 +7,7 @@
 # https://snelson.us/sym
 # Edited by ExecTech:       Jason Galambos
 # Email:                    jg6xv@virginia.edu
-# Last Updated:             03/15/24
+# Last Updated:             04/16/24
 #
 ####################################################################################################
 #
@@ -68,6 +68,7 @@ swiftDialogMinimumRequiredVersion="2.4.0.4750"                                  
 debugModeSleepAmount="3"    # Delay for various actions when running in Debug Mode
 failureDialog="true"        # Display the so-called "Failure" dialog (after the main SYM dialog) [ true | false ]
 ExecTechLogic="true"
+
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -688,7 +689,6 @@ welcomeVideo="--title \"$welcomeTitle\" \
 
 # Removing --ontop so we can actually see the popups
 
-
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # "Welcome" JSON Conditionals (thanks, @rougegoat!)
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -727,10 +727,18 @@ if [[ "$promptForPosition" == "true" && -z "$positionListRaw" ]]; then positionJ
 ###
 
 if [ "$ExecTechLogic" = true ]; then
+    # Add field for password
+    aJSON='{
+        "title" : "setPW",
+        "required" : false,
+        "prompt" : "setPW"
+    }'
+
+    # Add field for overriding Network name
     overrideNetworkNameJSON='{
         "title" : "Network Name Override",
         "required" : false,
-        "prompt" : "Loaners use EXA-LOANUSERID"
+        "prompt" : "Loaners use EXA-LOAN##### with last 5 digits of serial number"
     }'
 fi
 
@@ -822,6 +830,7 @@ welcomeJSON='
     "button2text" : "Quit",
     "infotext" : "'"${scriptVersion}"'",
     "blurscreen" : "true",
+   
     "titlefont" : "shadow=true, size=36, colour=#FFFDF4",
     "messagefont" : "size=14",
     "textfield" : [
@@ -922,6 +931,7 @@ dialogSetupYourMacCMD="$dialogBinary \
 --height '700' \
 --position 'centre' \
 --blurscreen \
+
 --overlayicon \"$overlayicon\" \
 --quitkey k \
 --commandfile \"$setupYourMacCommandFile\" "
@@ -1239,19 +1249,19 @@ function policyJSONConfiguration() {
                         "progresstext": "Processing policy: GoogleChrome",
                         "trigger_list": [
                                          {
-                                            "trigger": "chrome",
+                                            "trigger": "enrolladobereader",
                                             "validation": "None"
                                          }
                         ]
                     },
                     {
-                        "listitem": "SplashTop_SOS",
+                        "listitem": "exa-enroll-Adobe RUM",
                         "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8b576cfb98521cd35cae02e1deda772fbf7e556324d6d57af4ef1e54d3977b38",
-                        "progresstext": "Processing policy: SplashTop_SOS",
+                        "icon": "",
+                        "progresstext": "Processing policy: exa-enroll-Adobe RUM",
                         "trigger_list": [
                                          {
-                                            "trigger": "enrollsplashtop",
+                                            "trigger": "rum",
                                             "validation": "None"
                                          }
                         ]
@@ -1269,21 +1279,9 @@ function policyJSONConfiguration() {
                         ]
                     },
                     {
-                        "listitem": "MicrosoftOffice",
+                        "listitem": "exa-enroll-Adobe RUM",
                         "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_e3247dad6880725ff22a771beb51a910a37c1afd41c67d0d4d113c58543b9591",
-                        "progresstext": "Processing policy: MicrosoftOffice",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "microsoftoffice",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "exa-enroll- Dock - Remove Bloatware",
-                        "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_493dc86b9c89618238ff5ac77d974fc7ba1c4edb441b7e891607c711c32b0a7f",
+                        "icon": "",
                         "progresstext": "Processing policy: exa-enroll- Dock - Remove Bloatware",
                         "trigger_list": [
                                          {
@@ -1293,13 +1291,13 @@ function policyJSONConfiguration() {
                         ]
                     },
                     {
-                        "listitem": "exa-enroll-Adobe RUM",
+                        "listitem": "MicrosoftOffice",
                         "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_08a0669f6a849bdab86963b46c504587ced220050802cef16e806fe117e61661",
-                        "progresstext": "Processing policy: exa-enroll-Adobe RUM",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_e3247dad6880725ff22a771beb51a910a37c1afd41c67d0d4d113c58543b9591",
+                        "progresstext": "Processing policy: MicrosoftOffice",
                         "trigger_list": [
                                          {
-                                            "trigger": "rum",
+                                            "trigger": "microsoftoffice",
                                             "validation": "None"
                                          }
                         ]
@@ -2658,6 +2656,7 @@ elif [[ "${welcomeDialog}" == "messageOnly" ]]; then
         "timer" : "60",
         "infotext" : "'"${scriptVersion}"'",
         "blurscreen" : "true",
+
         "titlefont" : "shadow=true, size=36, colour=#FFFDF4",
         "messagefont" : "size=14",
         "height" : "700"
@@ -2750,6 +2749,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             else
                 userName=$(get_json_value_welcomeDialog "$welcomeResults" "User Name")
             fi
+            userName=$(get_json_value_welcomeDialog "$welcomeResults" "User Name")
             realName=$(get_json_value_welcomeDialog "$welcomeResults" "Full Name")
             email=$(get_json_value_welcomeDialog "$welcomeResults" "E-mail")
             assetTag=$(get_json_value_welcomeDialog "$welcomeResults" "Asset Tag")
@@ -2770,6 +2770,8 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
 
             if [ "$ExecTechLogic" = true ]; then
+                adminPassword=$(get_json_value_welcomeDialog "$welcomeResults" "Administrator Password")
+
                 overrideNetworkName=$(get_json_value_welcomeDialog "$welcomeResults" "Network Name Override")
                 # Set email to userID@virginia.edu
                 email="$userName@virginia.edu"
@@ -2893,6 +2895,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
             # END EXECTECH LOGIC
             ###
+
 
 
             ###
