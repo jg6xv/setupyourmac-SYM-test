@@ -730,7 +730,7 @@ if [ "$ExecTechLogic" = true ]; then
     overrideNetworkNameJSON='{
         "title" : "Network Name Override",
         "required" : false,
-        "prompt" : "Loaners use EXA-LOANUSERID"
+        "prompt" : "Loaners use EXA-LOAN##### with last 5 digits of Serial Number"
     }'
 fi
 
