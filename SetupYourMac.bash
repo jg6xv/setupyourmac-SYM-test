@@ -2919,7 +2919,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             if [ "$debugMode" = "verbose" ]; then
                 updateScriptLog "WELCOME DIALOG: DEBUG MODE EXA - Would have created $userName profile"
             else
-                jamf createAccount -username "$userName" -realname "$realName" -secureTokenAllowed
+                /usr/local/bin/jamf createAccount -username "$userName" -realname "$realName" -secureTokenAllowed
             
                 if id "$userName" >/dev/null 2>&1; then
                     updateScriptLog "WELCOME DIALOG: EXA - User Profile $userName successfully created!"
