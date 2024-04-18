@@ -2923,6 +2923,8 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             
                 if id "$userName" >/dev/null 2>&1; then
                     updateScriptLog "WELCOME DIALOG: EXA - User Profile $userName successfully created!"
+                    updateScriptLog "WELCOME DIALOG: EXA - Setting Profile $userName's password to expire on login"
+                    pwpolicy -a exectech -u $userName -setpolicy "newPasswordRequired=1"
                 else
                     updateScriptLog "WELCOME DIALOG: EXA - User Profile $userName not found. Please manually create!"
                 fi
