@@ -157,18 +157,18 @@ correctionCoefficient="1.01"                # "Fudge factor" (to help estimate m
 configurationCatchAllSize="34"              # Catch-all Configuration in Gibibits (i.e., Total File Size in Gigabytes * 7.451)
 configurationCatchAllInstallBuffer="0"      # Buffer time added to estimates to include installation time of packages, in seconds. Set to 0 to disable. 
 
-configurationOneName="Required"
-configurationOneDescription="Minimum organization apps"
+configurationOneName="Default"
+configurationOneDescription="Default apps with Acrobat Reader and O365"
 configurationOneSize="34"                   # Configuration One in Gibibits (i.e., Total File Size in Gigabytes * 7.451)
 configurationOneInstallBuffer="0"           # Buffer time added to estimates to include installation time of packages, in seconds. Set to 0 to disable. 
 
-configurationTwoName="Recommended"
-configurationTwoDescription="Required apps and Microsoft 365"
-configurationTwoSize="62"                   # Configuration Two in Gibibits (i.e., Total File Size in Gigabytes * 7.451) 
+configurationTwoName="Loaner"
+configurationTwoDescription="Just default apps"
+configurationTwoSize="34"                   # Configuration Two in Gibibits (i.e., Total File Size in Gigabytes * 7.451) 
 configurationTwoInstallBuffer="0"           # Buffer time added to estimates to include installation time of packages, in seconds. Set to 0 to disable. 
 
-configurationThreeName="Complete"
-configurationThreeDescription="Recommended apps, Adobe Acrobat Reader and Google Chrome"
+configurationThreeName="Test"
+configurationThreeDescription="Unused for now"
 configurationThreeSize="106"                # Configuration Three in Gibibits (i.e., Total File Size in Gigabytes * 7.451) 
 configurationThreeInstallBuffer="0"         # Buffer time added to estimates to include installation time of packages, in seconds. Set to 0 to disable. 
 
