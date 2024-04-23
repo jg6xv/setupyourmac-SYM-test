@@ -730,7 +730,7 @@ if [ "$ExecTechLogic" = true ]; then
     overrideNetworkNameJSON='{
         "title" : "Network Name Override",
         "required" : false,
-        "prompt" : "Loaners use EXA-LOAN##### with last 5 digits of Serial Number"
+        "prompt" : "Loaners use EXA-LOANUSERID"
     }'
 fi
 
@@ -1233,6 +1233,18 @@ function policyJSONConfiguration() {
                         ]
                     },
                     {
+                        "listitem": "exa-enroll-Adobe RUM",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_08a0669f6a849bdab86963b46c504587ced220050802cef16e806fe117e61661",
+                        "progresstext": "Processing policy: exa-enroll-Adobe RUM",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "rum",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
                         "listitem": "GoogleChrome",
                         "subtitle": "",
                         "icon": "https://ics.services.jamfcloud.com/icon/hash_ad65a11c8dc65711f96c1411404bc0210cd4c80c606b6f2351c578592aa5a2c5",
@@ -1269,18 +1281,6 @@ function policyJSONConfiguration() {
                         ]
                     },
                     {
-                        "listitem": "MicrosoftOffice",
-                        "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_e3247dad6880725ff22a771beb51a910a37c1afd41c67d0d4d113c58543b9591",
-                        "progresstext": "Processing policy: MicrosoftOffice",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "microsoftoffice",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
                         "listitem": "exa-enroll- Dock - Remove Bloatware",
                         "subtitle": "",
                         "icon": "https://ics.services.jamfcloud.com/icon/hash_493dc86b9c89618238ff5ac77d974fc7ba1c4edb441b7e891607c711c32b0a7f",
@@ -1293,13 +1293,25 @@ function policyJSONConfiguration() {
                         ]
                     },
                     {
-                        "listitem": "exa-enroll-Adobe RUM",
+                        "listitem": "MicrosoftOffice",
                         "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_08a0669f6a849bdab86963b46c504587ced220050802cef16e806fe117e61661",
-                        "progresstext": "Processing policy: exa-enroll-Adobe RUM",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_e3247dad6880725ff22a771beb51a910a37c1afd41c67d0d4d113c58543b9591",
+                        "progresstext": "Processing policy: MicrosoftOffice",
                         "trigger_list": [
                                          {
-                                            "trigger": "rum",
+                                            "trigger": "microsoftoffice",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "Microsoft Teams NEW",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_0d9f8a84a873191514cbf6659806093a6682b6c8c0ca4cbefa9f600780746644",
+                        "progresstext": "Processing policy: Microsoft Teams NEW",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "microsoftteamsnew",
                                             "validation": "None"
                                          }
                         ]
@@ -2890,7 +2902,6 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                 fi
 
             fi
-
             ###
             # END EXECTECH LOGIC
             ###
@@ -2915,20 +2926,6 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             updateScriptLog "WELCOME DIALOG: • Room: $room"
             updateScriptLog "WELCOME DIALOG: • Position: $position"
             updateScriptLog "WELCOME DIALOG: EXA - Override Network Name: $overrideNetworkName "
-            updateScriptLog "WELCOME DIALOG: EXA - Creating User Profile "
-            if [ "$debugMode" = "verbose" ]; then
-                updateScriptLog "WELCOME DIALOG: DEBUG MODE EXA - Would have created $userName profile"
-            else
-                /usr/local/bin/jamf createAccount -username "$userName" -realname "$realName" -secureTokenAllowed
-            
-                if id "$userName" >/dev/null 2>&1; then
-                    updateScriptLog "WELCOME DIALOG: EXA - User Profile $userName successfully created!"
-                    # updateScriptLog "WELCOME DIALOG: EXA - Setting Profile $userName's password to expire on login"
-                    # pwpolicy -u $userName -setpolicy "newPasswordRequired=1"
-                else
-                    updateScriptLog "WELCOME DIALOG: EXA - User Profile $userName not found. Please manually create!"
-                fi
-            fi
 
 
             ###
