@@ -726,20 +726,21 @@ if [[ "$promptForPosition" == "true" && -z "$positionListRaw" ]]; then positionJ
 # ExecTech LOGIC
 ###
 
-if [ "$ExecTechLogic" = true ]; then
-    overrideNetworkNameJSON='{
-        "title" : "Network Name Override",
-        "required" : false,
-        "prompt" : "Loaners use EXA-LOANUSERID"
-    }'
-fi
+# if [ "$ExecTechLogic" = true ]; then
+#     overrideNetworkNameJSON='{
+#         "title" : "Network Name Override",
+#         "required" : false,
+#         "prompt" : "Loaners use EXA-LOANUSERID"
+#     }'
+# fi
 
 ###
 # END ExecTech LOGIC
 ###
 
 if [ "$ExecTechLogic" = true ]; then
-    textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}${overrideNetworkNameJSON}"
+    # textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}${overrideNetworkNameJSON}"
+    textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}
 else
     textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}"
 fi
