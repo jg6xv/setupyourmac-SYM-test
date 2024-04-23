@@ -740,7 +740,7 @@ if [[ "$promptForPosition" == "true" && -z "$positionListRaw" ]]; then positionJ
 
 if [ "$ExecTechLogic" = true ]; then
     # textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}${overrideNetworkNameJSON}"
-    textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}
+    textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}"
 else
     textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}"
 fi
@@ -2987,7 +2987,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                 elif [[ $symConfiguration = "Loaner" ]]; then
                     computerName="EXA-LOAN"
                     # get last 5 digits of SN
-                    lastFiveSerialNumber="$( echo "$serialNumber" | /usr/bin/grep -E -o '.{4}$' )"
+                    lastFiveSerialNumber="$( echo "$serialNumber" | /usr/bin/grep -E -o '.{5}$' )"
                     updateScriptLog "EXA - Last five digits of Serial Number appear to be \"$lastFiveSerialNumber\""
                     computerName=$("EXA-LOAN$lastFiveSerialNumber")
                     updateScriptLog "EXA - Setting Computer Name to \"$computerName\""
