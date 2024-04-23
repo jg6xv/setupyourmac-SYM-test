@@ -2989,7 +2989,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     # get last 5 digits of SN
                     lastFiveSerialNumber="$( echo "$serialNumber" | /usr/bin/grep -E -o '.{5}$' )"
                     updateScriptLog "EXA - Last five digits of Serial Number appear to be \"$lastFiveSerialNumber\""
-                    computerName=$("EXA-LOAN$lastFiveSerialNumber")
+                    computerName="EXA-LOAN$lastFiveSerialNumber"
                     updateScriptLog "EXA - Setting Computer Name to \"$computerName\""
                 fi
 
