@@ -2865,16 +2865,17 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             ###
 
             if [ "$ExecTechLogic" = true ]; then
-                overrideNetworkName=$(get_json_value_welcomeDialog "$welcomeResults" "Network Name Override")
+                # overrideNetworkName=$(get_json_value_welcomeDialog "$welcomeResults" "Network Name Override")
                 # Set email to userID@virginia.edu
                 email="$userName@virginia.edu"
 
-                if [ ! -z $overrideNetworkName ]; then
-                    # Someone entered text in the Network Name field, so we must give priority
-                    updateScriptLog "EXA - Override Network Name Detected..."
-                    updateScriptLog "EXA - Setting Computer Name to \"$overrideNetworkName\"..."
-                    computerName=$overrideNetworkName
-                else
+                # if [ ! -z $overrideNetworkName ]; then
+                #     # Someone entered text in the Network Name field, so we must give priority
+                #     updateScriptLog "EXA - Override Network Name Detected..."
+                #     updateScriptLog "EXA - Setting Computer Name to \"$overrideNetworkName\"..."
+                #     computerName=$overrideNetworkName
+                # else
+                if [[ $symConfiguration = "Default" ]]; then
                     # We have no network name to override, going with the default override
                     # Set computer name to the following format:
                     # EXA-USERID-MODELYY
@@ -2982,6 +2983,13 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     computerName="EXA-$capsUserName-$computerModel$modelYear"
                     updateScriptLog "EXA - Setting Computer Name to \"$computerName\""
 
+                elif [[ $symConfiguration = "Loaner" ]]; then
+                    computerName="EXA-LOAN"
+                    # get last 5 digits of SN
+                    lastFiveSerialNumber="$( echo "$serialNumber" | /usr/bin/grep -E -o '.{4}$' )"
+                    updateScriptLog "EXA - Last five digits of Serial Number appear to be \"$lastFiveSerialNumber\""
+                    computerName=$("EXA-LOAN$lastFiveSerialNumber")
+                    updateScriptLog "EXA - Setting Computer Name to \"$computerName\""
                 fi
 
             fi
