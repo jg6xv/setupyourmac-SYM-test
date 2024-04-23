@@ -86,7 +86,7 @@ promptForRoom="false"
 promptForBuilding="false"
 promptForDepartment="false"
 promptForPosition="false"        # When set to true dynamically prompts the user to select from a list of positions or manually enter one at the welcomeDialog, see "positionListRaw" to define the selection / entry type
-promptForConfiguration="false"   # Removes the Configuration dropdown entirely and uses the "Catch-all (i.e., used when `welcomeDialog` is set to `video` or `false`)" or presetConfiguration policyJSON
+promptForConfiguration="true"   # Removes the Configuration dropdown entirely and uses the "Catch-all (i.e., used when `welcomeDialog` is set to `video` or `false`)" or presetConfiguration policyJSON
 
 # Set to "true" to suppress the Update Inventory option on policies that are called
 suppressReconOnPolicy="false"
@@ -1122,6 +1122,89 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "981",
+                                            "validation": "None"
+                                         }
+                        ]
+                    }
+                ]
+            }
+            '
+            ;;
+
+    "Loaner" )
+
+            policyJSON='
+            {
+                "steps": [
+        
+                    {
+                        "listitem": "Alertus_210",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_9395d6c52b5a933979e385ac546375ef53ceec024386f3314ce03fde04986bb3",
+                        "progresstext": "Processing policy: Alertus_210",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "enrollalertus",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "Cisco_Secure_Client",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8e68d082a0011eadaf623dce082457fa254351e09c4e31cbab6953936ac8d3f5",
+                        "progresstext": "Processing policy: Cisco_Secure_Client",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "enrollciscosecureclient",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "Defender_with_PLIST",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_27dd79496b55c84f74f83312ed2d517d7953b4000d28e15183064b04f5e0430b",
+                        "progresstext": "Processing policy: Defender_with_PLIST",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "enrolldefenderplist",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "EXA-DeployUVABranding",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_493dc86b9c89618238ff5ac77d974fc7ba1c4edb441b7e891607c711c32b0a7f",
+                        "progresstext": "Processing policy: EXA-DeployUVABranding",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "deployUVABranding",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "SplashTop_SOS",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8b576cfb98521cd35cae02e1deda772fbf7e556324d6d57af4ef1e54d3977b38",
+                        "progresstext": "Processing policy: SplashTop_SOS",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "enrollsplashtop",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "Zoom",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_718973185fd616241746a55e28a8c103ff404dba356c1e708a7baa06b4700799",
+                        "progresstext": "Processing policy: Zoom",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "zoominstall",
                                             "validation": "None"
                                          }
                         ]
