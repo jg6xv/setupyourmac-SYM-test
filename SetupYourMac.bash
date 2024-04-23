@@ -2842,12 +2842,22 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
 
             computerName=$(get_json_value_welcomeDialog "$welcomeResults" "Computer Name")
             if [ "$ExecTechLogic" = true ]; then
-                userName=$(get_json_value_welcomeDialog "$welcomeResults" "User ID")
+                if [ $symConfiguration = "Loaner" ]; then
+                    userName="ExectechLoaner"
+                else
+                    userName=$(get_json_value_welcomeDialog "$welcomeResults" "User ID")
+                fi
             else
                 userName=$(get_json_value_welcomeDialog "$welcomeResults" "User Name")
             fi
             realName=$(get_json_value_welcomeDialog "$welcomeResults" "Full Name")
-            email=$(get_json_value_welcomeDialog "$welcomeResults" "E-mail")
+            if [ "$ExecTechLogic" = true ]; then
+                if [ $symConfiguration = "Loaner" ]; then
+                    email=""
+                fi
+            else
+                email=$(get_json_value_welcomeDialog "$welcomeResults" "E-mail")
+            fi        
             assetTag=$(get_json_value_welcomeDialog "$welcomeResults" "Asset Tag")
             symConfiguration=$(get_json_value_welcomeDialog "$welcomeResults" "Configuration" "selectedValue")
             if [ -n "$presetConfiguration" ]; then symConfiguration="${presetConfiguration}"; fi
