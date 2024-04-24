@@ -2842,7 +2842,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
 
             computerName=$(get_json_value_welcomeDialog "$welcomeResults" "Computer Name")
             if [ "$ExecTechLogic" = true ]; then
-                if [ $symConfiguration = "Loaner" ]; then
+                if [ "$symConfiguration" = "Loaner" ]; then
                     userName="ExectechLoaner"
                     realName="Exectech Loaner"
                 else
@@ -2990,12 +2990,15 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     updateScriptLog "EXA - Setting Computer Name to \"$computerName\""
 
                 elif [[ $symConfiguration = "Loaner" ]]; then
+                    updateScriptLog "EXA - Loaner configuration logic"
                     computerName="EXA-LOAN"
                     # get last 5 digits of SN
                     lastFiveSerialNumber="$( echo "$serialNumber" | /usr/bin/grep -E -o '.{5}$' )"
                     updateScriptLog "EXA - Last five digits of Serial Number appear to be \"$lastFiveSerialNumber\""
                     computerName="EXA-LOAN$lastFiveSerialNumber"
                     updateScriptLog "EXA - Setting Computer Name to \"$computerName\""
+                    userName="ExectechLoaner"
+                    realName="Exectech Loaner"
                 fi
 
             fi
@@ -3023,7 +3026,18 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             updateScriptLog "WELCOME DIALOG: • Room: $room"
             updateScriptLog "WELCOME DIALOG: • Position: $position"
             updateScriptLog "WELCOME DIALOG: EXA - Override Network Name: $overrideNetworkName "
-
+            
+            if [ "$debugMode" = "verbose" ]; then
+                updateScriptLog "WELCOME DIALOG: DEBUG MODE EXA - Would have created $userName profile"
+            else
+                /usr/local/bin/jamf createAccount -username "$userName" -realname "$realName" -secureTokenAllowed
+            
+                if id "$userName" >/dev/null 2>&1; then
+                    updateScriptLog "WELCOME DIALOG: EXA - User Profile $userName successfully created!"
+                else
+                    updateScriptLog "WELCOME DIALOG: EXA - User Profile $userName not found. Please manually create!"
+                fi
+            fi
 
             ###
             # Select `policyJSON` based on selected Configuration
