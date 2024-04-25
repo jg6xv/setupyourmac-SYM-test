@@ -734,12 +734,15 @@ if [[ "$promptForPosition" == "true" && -z "$positionListRaw" ]]; then positionJ
 #     }'
 # fi
 
+# Removing this logic as part of an effort to migrate to "configurations".
+
 ###
 # END ExecTech LOGIC
 ###
 
 if [ "$ExecTechLogic" = true ]; then
     # textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}${overrideNetworkNameJSON}"
+    # Removing this extra field as part of an effort to migrate to "configurations".
     textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}"
 else
     textFieldJSON="${usernameJSON}${realNameJSON}${emailJSON}${compNameJSON}${assetTagJSON}${positionJSON}${roomJSON}"
@@ -2877,16 +2880,16 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
 
                 # if [ ! -z $overrideNetworkName ]; then
                 #     # Someone entered text in the Network Name field, so we must give priority
-                #     updateScriptLog "EXA - Override Network Name Detected..."
-                #     updateScriptLog "EXA - Setting Computer Name to \"$overrideNetworkName\"..."
+                #     updateScriptLog "WELCOME DIALOG: EXA - Override Network Name Detected..."
+                #     updateScriptLog "WELCOME DIALOG: EXA - Setting Computer Name to \"$overrideNetworkName\"..."
                 #     computerName=$overrideNetworkName
                 # else
                 if [[ $symConfiguration = "Default" ]]; then
-                    # We have no network name to override, going with the default override
-                    # Set computer name to the following format:
+                    # We have a default configuration, meaning we must name the device according to the following convention:
                     # EXA-USERID-MODELYY
                     # example:
                     # EXA-JG6XV-MBP20
+                    
                     # Getting the year is unfortunately difficult and requires a lot of code, which changes
                     #   based on whether the device is ARM or Intel.
                     # if ARM, collecting Marketing model string from ioreg
@@ -2896,39 +2899,39 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     then
                         marketModel="$(/usr/libexec/PlistBuddy -c 'print 0:product-name' /dev/stdin <<< "$(/usr/sbin/ioreg -ar -k product-name)")"
                         if [ "$debugMode" = "verbose" ]; then
-                            updateScriptLog "EXA - ARM detected!"
-                            updateScriptLog "EXA - marketModel is reporting \"$marketModel\""
+                            updateScriptLog "WELCOME DIALOG: EXA - ARM detected!"
+                            updateScriptLog "WELCOME DIALOG: EXA - marketModel is reporting \"$marketModel\""
                         fi
                     else
                         if [ "$debugMode" = "verbose" ]; then
-                            updateScriptLog "EXA - Intel detected!"
+                            updateScriptLog "WELCOME DIALOG: EXA - Intel detected!"
                         fi
                         # Setting variables
                         currentUser="$(/usr/bin/stat -f %Su /dev/console)"
                         plistsp="/Users/$currentUser/Library/Preferences/com.apple.SystemProfiler.plist"
                         IOProductName="$(/usr/sbin/ioreg -ar -d1 -k product-name)"
                         if [ "$debugMode" = "verbose" ]; then
-                            updateScriptLog "EXA - CurrentUser is reporting as \"$currentUser\""
-                            updateScriptLog "EXA - plist path is reporting as \"$plistsp\""
+                            updateScriptLog "WELCOME DIALOG: EXA - CurrentUser is reporting as \"$currentUser\""
+                            updateScriptLog "WELCOME DIALOG: EXA - plist path is reporting as \"$plistsp\""
                         fi
                         if [ -e "$plistsp" ]
                         then
                             if [ "$debugMode" = "verbose" ]; then
-                                updateScriptLog "EXA - System Profiler plist detected!"
+                                updateScriptLog "WELCOME DIALOG: EXA - System Profiler plist detected!"
                             fi
                         else
                             if [ "$debugMode" = "verbose" ]; then
-                                updateScriptLog "EXA - System Profiler plist not detected!"
+                                updateScriptLog "WELCOME DIALOG: EXA - System Profiler plist not detected!"
                             fi
                             # This is a REALLY stupid way of doing it, but the plist doesn't get generated unless
                             #   'About This Mac' gets opened.
                             if [ "$debugMode" = "verbose" ]; then
-                                updateScriptLog "EXA - Opening System Information and About This Mac..."
+                                updateScriptLog "WELCOME DIALOG: EXA - Opening System Information and About This Mac..."
                             fi
                             /usr/bin/open '/System/Applications/Utilities/System Information.app'; /bin/sleep 5
                             /usr/bin/open '/System/Library/CoreServices/Applications/About This Mac.app'; /bin/sleep 5
                             if [ "$debugMode" = "verbose" ]; then
-                                updateScriptLog "EXA - Killing tasks..."
+                                updateScriptLog "WELCOME DIALOG: EXA - Killing tasks..."
                             fi
                             /usr/bin/pkill -ail 'System Information'; /bin/sleep 5
                             /usr/bin/killall cfprefsd; /bin/sleep 1
@@ -2940,23 +2943,23 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                         lastFourSerialNumber="$( echo "$serialNumber" | /usr/bin/grep -E -o '.{4}$' )"
                         marketModel="$(/usr/libexec/PlistBuddy -c "print 'CPU Names':$lastFourSerialNumber-en-US_US" "$plistsp" 2> /dev/null)"
                         if [ "$debugMode" = "verbose" ]; then
-                            updateScriptLog "EXA - Fetching Marketing Model..."
-                            updateScriptLog "EXA - Marketing Model reporting as \"$marketModel\""
+                            updateScriptLog "WELCOME DIALOG: EXA - Fetching Marketing Model..."
+                            updateScriptLog "WELCOME DIALOG: EXA - Marketing Model reporting as \"$marketModel\""
                         fi
                     fi
 
                     # If the above didn't work, print to log
                     if [ -z "$marketModel" ]
                     then
-                        updateScriptLog "EXA - Market Model not found! Model Identifier: <result>$(/usr/sbin/sysctl -n hw.model)</result>"
+                        updateScriptLog "WELCOME DIALOG: EXA - Market Model not found! Model Identifier: <result>$(/usr/sbin/sysctl -n hw.model)</result>"
                     elif [ "$debugMode" = "verbose" ]; then
-                        updateScriptLog "EXA - Marketing model string is not null."
+                        updateScriptLog "WELCOME DIALOG: EXA - Marketing model string is not null."
                     fi
 
-                    updateScriptLog "EXA - Market Model is reporting as \"$marketModel\"."
+                    updateScriptLog "WELCOME DIALOG: EXA - Market Model is reporting as \"$marketModel\"."
                     # parse the Marketing Model string for the year and only grab the last two digits
                     modelYear="$(echo "$marketModel" | /usr/bin/sed 's/)//;s/(//;s/,//' | /usr/bin/grep -E -o '2[0-9]{3}' | /usr/bin/grep -E -o '\d{2}$' )"
-                    updateScriptLog "EXA - Last two digits of marketing model appear to be \"$modelYear\"."
+                    updateScriptLog "WELCOME DIALOG: EXA - Last two digits of marketing model appear to be \"$modelYear\"."
 
                     # parse model
                     # Macbook Pro = MBP
@@ -2965,7 +2968,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     # Macbook Air = MBA
 
                     computerModel="UNKMDL" # set default name (for errors)
-                    updateScriptLog "EXA - Attempting to parse and shorten device model..."
+                    updateScriptLog "WELCOME DIALOG: EXA - Attempting to parse and shorten device model..."
                     MBPRegex="^MacBook Pro.*"
                     MBARegex="^MacBook Air.*"
                     MMRegex="^Mac Mini.*"
@@ -2980,25 +2983,31 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                         computerModel="MM"
                     fi
 
-                    updateScriptLog "EXA - Shortened device model appears to be \"$computerModel\"."
+                    updateScriptLog "WELCOME DIALOG: EXA - Shortened device model appears to be \"$computerModel\"."
 
                     # Rename computer properly
                     capsUserName=$(echo "$userName" | awk '{print toupper($0)}')
-                    updateScriptLog "EXA - Uppercase UserID: $capsUserName"
-                    updateScriptLog "EXA - Model year: \"$modelYear\""
+                    updateScriptLog "WELCOME DIALOG: EXA - Uppercase UserID: $capsUserName"
+                    updateScriptLog "WELCOME DIALOG: EXA - Model year: \"$modelYear\""
                     computerName="EXA-$capsUserName-$computerModel$modelYear"
-                    updateScriptLog "EXA - Setting Computer Name to \"$computerName\""
+                    updateScriptLog "WELCOME DIALOG: EXA - Setting Computer Name to \"$computerName\""
 
                 elif [[ $symConfiguration = "Loaner" ]]; then
-                    updateScriptLog "EXA - Loaner configuration logic"
+                    # We have a loaner configuration, meaning we have to name the device according to the following convention:
+                    # EXA-LOAN#####
+                    # ##### means the last 5 digits of the device's serial number.
+                    # We are also ignoring whatever the user put in for userID and real name, because we are only 
+                    #  creating a loaner profile, not one customized to the user.
+                    #  The profile created is: ExecTech Loaner with shortname ExecTechLoaner
+                    updateScriptLog "WELCOME DIALOG: EXA - Loaner configuration logic"
                     computerName="EXA-LOAN"
                     # get last 5 digits of SN
                     lastFiveSerialNumber="$( echo "$serialNumber" | /usr/bin/grep -E -o '.{5}$' )"
-                    updateScriptLog "EXA - Last five digits of Serial Number appear to be \"$lastFiveSerialNumber\""
+                    updateScriptLog "WELCOME DIALOG: EXA - Last five digits of Serial Number appear to be \"$lastFiveSerialNumber\""
                     computerName="EXA-LOAN$lastFiveSerialNumber"
-                    updateScriptLog "EXA - Setting Computer Name to \"$computerName\""
-                    userName="ExectechLoaner"
-                    realName="Exectech Loaner"
+                    updateScriptLog "WELCOME DIALOG: EXA - Setting Computer Name to \"$computerName\""
+                    userName="exectechloaner"
+                    realName="ExecTech Loaner"
                 fi
 
             fi
@@ -3013,6 +3022,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
 
             updateScriptLog "WELCOME DIALOG: • Computer Name: $computerName"
             if [ "$ExecTechLogic" = true ]; then
+                # Change User Name to User ID to feel more familiar to the UVA environment
                 updateScriptLog "WELCOME DIALOG: • User ID: $userName"
             else
                 updateScriptLog "WELCOME DIALOG: • User Name: $userName"
@@ -3025,11 +3035,13 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             updateScriptLog "WELCOME DIALOG: • Building: $building"
             updateScriptLog "WELCOME DIALOG: • Room: $room"
             updateScriptLog "WELCOME DIALOG: • Position: $position"
-            updateScriptLog "WELCOME DIALOG: EXA - Override Network Name: $overrideNetworkName "
+            # updateScriptLog "WELCOME DIALOG: EXA - Override Network Name: $overrideNetworkName "
+            # Removing this line as part of the effort to move to "configurations".
             
             if [ "$debugMode" = "verbose" ]; then
                 updateScriptLog "WELCOME DIALOG: DEBUG MODE EXA - Would have created $userName profile"
             else
+                # Create the actual user profile using either the default "Loaner" information or the information entered in the welcome dialog
                 /usr/local/bin/jamf createAccount -username "$userName" -realname "$realName" -secureTokenAllowed
             
                 if id "$userName" >/dev/null 2>&1; then
