@@ -980,167 +980,24 @@ function policyJSONConfiguration() {
 
     case ${symConfiguration} in
 
-        "Default2" )
+        "Loaner" )
 
             policyJSON='
             {
                 "steps": [
         
                     {
-                        "listitem": "",
+                        "listitem": "Inventory Check In",
                         "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_05649d1586a736d9245e9b44cacacfb578098527ab8c58760ad90997d72a5818",
+                        "progresstext": "Processing policy: Inventory Check In",
                         "trigger_list": [
                                          {
-                                            "trigger": "1768",
+                                            "trigger": "inventoryCheckIn",
                                             "validation": "None"
                                          }
                         ]
                     },
-                    {
-                        "listitem": "",
-                        "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "1765",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "",
-                        "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "1810",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "",
-                        "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "1793",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "",
-                        "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "1764",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "",
-                        "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "1794",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "",
-                        "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "1799",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "",
-                        "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "1766",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "",
-                        "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "1847",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "",
-                        "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "1767",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "",
-                        "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "1771",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
-                        "listitem": "",
-                        "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "981",
-                                            "validation": "None"
-                                         }
-                        ]
-                    }
-                ]
-            }
-            '
-            ;;
-
-    "Loaner" )
-
-            policyJSON='
-            {
-                "steps": [
-        
                     {
                         "listitem": "Alertus_210",
                         "subtitle": "",
@@ -1212,38 +1069,63 @@ function policyJSONConfiguration() {
                                             "validation": "None"
                                          }
                         ]
-                    }
-                ]
-            }
-            '
-            ;;
-
-    "test" )
-
-            policyJSON='
-            {
-                "steps": [
-        
+                    },
                     {
-                        "listitem": "",
+                        "listitem": "Adobe_Reader",
                         "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_04949ed3a2ebb5e0c5afc608302237239a0be8d361f9d6a069c05d85c805a9a4",
+                        "progresstext": "Processing policy: Adobe_Reader",
                         "trigger_list": [
                                          {
-                                            "trigger": "1823",
+                                            "trigger": "enrolladobereader",
                                             "validation": "None"
                                          }
                         ]
                     },
                     {
-                        "listitem": "",
+                        "listitem": "Microsoft Excel",
                         "subtitle": "",
-                        "icon": "",
-                        "progresstext": "Processing policy: ",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_47b16c524f57020290de1a510a7abeb3aa992b15a583c2db74c4e28f3caf7e77",
+                        "progresstext": "Processing policy: Microsoft Excel",
                         "trigger_list": [
                                          {
-                                            "trigger": "489",
+                                            "trigger": "microsoftExcel",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "Microsoft PowerPoint",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_faed8a53e1a41098812245665c544cac4607f1eb29d1337afe075f80607a6a8e",
+                        "progresstext": "Processing policy: Microsoft PowerPoint",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "microsoftPowerPoint",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "Microsoft Word",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_02d85f833abb84627237d2109ca240ca9ee4dc8d9db299996d45363e3034166d",
+                        "progresstext": "Processing policy: Microsoft Word",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "microsoftWord",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "exa-enroll- Dock - Remove Bloatware",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_493dc86b9c89618238ff5ac77d974fc7ba1c4edb441b7e891607c711c32b0a7f",
+                        "progresstext": "Processing policy: exa-enroll- Dock - Remove Bloatware",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "dockRemoveBloatwareLoaner",
                                             "validation": "None"
                                          }
                         ]
@@ -1259,6 +1141,18 @@ function policyJSONConfiguration() {
             {
                 "steps": [
         
+                    {
+                        "listitem": "Inventory Check In",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_05649d1586a736d9245e9b44cacacfb578098527ab8c58760ad90997d72a5818",
+                        "progresstext": "Processing policy: Inventory Check In",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "inventoryCheckIn",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
                     {
                         "listitem": "Adobe_Reader",
                         "subtitle": "",
@@ -1368,18 +1262,6 @@ function policyJSONConfiguration() {
                         ]
                     },
                     {
-                        "listitem": "exa-enroll- Dock - Remove Bloatware",
-                        "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_493dc86b9c89618238ff5ac77d974fc7ba1c4edb441b7e891607c711c32b0a7f",
-                        "progresstext": "Processing policy: exa-enroll- Dock - Remove Bloatware",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "dockRemoveBloatware",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
                         "listitem": "MicrosoftOffice",
                         "subtitle": "",
                         "icon": "https://ics.services.jamfcloud.com/icon/hash_e3247dad6880725ff22a771beb51a910a37c1afd41c67d0d4d113c58543b9591",
@@ -1399,6 +1281,18 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "microsoftteamsnew",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "exa-enroll- Dock - Remove Bloatware",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_493dc86b9c89618238ff5ac77d974fc7ba1c4edb441b7e891607c711c32b0a7f",
+                        "progresstext": "Processing policy: exa-enroll- Dock - Remove Bloatware",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "dockRemoveBloatware",
                                             "validation": "None"
                                          }
                         ]
