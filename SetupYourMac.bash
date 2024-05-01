@@ -68,6 +68,7 @@ swiftDialogMinimumRequiredVersion="2.4.0.4750"                                  
 debugModeSleepAmount="3"    # Delay for various actions when running in Debug Mode
 failureDialog="true"        # Display the so-called "Failure" dialog (after the main SYM dialog) [ true | false ]
 ExecTechLogic="true"
+LoanerPassword="Loan_laptop1!"
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -2783,6 +2784,9 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     # EXA-USERID-MODELYY
                     # example:
                     # EXA-JG6XV-MBP20
+
+                    # We also want to set the password as empty so the user can simply log in:
+                    setPassword=""
                     
                     # Getting the year is unfortunately difficult and requires a lot of code, which changes
                     #   based on whether the device is ARM or Intel.
@@ -2900,8 +2904,9 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     updateScriptLog "WELCOME DIALOG: EXA - Last five digits of Serial Number appear to be \"$lastFiveSerialNumber\""
                     computerName="EXA-LOAN$lastFiveSerialNumber"
                     updateScriptLog "WELCOME DIALOG: EXA - Setting Computer Name to \"$computerName\""
-                    userName="exectechloaner"
+                    userName="loaner"
                     realName="ExecTech Loaner"
+                    setPassword="$LoanerPassword"
                 fi
 
             fi
@@ -2936,7 +2941,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                 updateScriptLog "WELCOME DIALOG: DEBUG MODE EXA - Would have created $userName profile"
             else
                 # Create the actual user profile using either the default "Loaner" information or the information entered in the welcome dialog
-                /usr/local/bin/jamf createAccount -username "$userName" -realname "$realName" -secureTokenAllowed
+                /usr/local/bin/jamf createAccount -username "$userName" -realname "$realName" -password "$setPassword" -secureTokenAllowed
             
                 if id "$userName" >/dev/null 2>&1; then
                     updateScriptLog "WELCOME DIALOG: EXA - User Profile $userName successfully created!"
