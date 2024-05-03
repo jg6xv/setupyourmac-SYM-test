@@ -2741,7 +2741,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
             computerName=$(get_json_value_welcomeDialog "$welcomeResults" "Computer Name")
             if [ "$ExecTechLogic" = true ]; then
                 if [ "$symConfiguration" = "Loaner" ]; then
-                    userName="ExectechLoaner"
+                    userName="loaner"
                     realName="Exectech Loaner"
                 else
                     userName=$(get_json_value_welcomeDialog "$welcomeResults" "User ID")
@@ -2896,7 +2896,7 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     # ##### means the last 5 digits of the device's serial number.
                     # We are also ignoring whatever the user put in for userID and real name, because we are only 
                     #  creating a loaner profile, not one customized to the user.
-                    #  The profile created is: ExecTech Loaner with shortname ExecTechLoaner
+                    #  The profile created is: ExecTech Loaner with shortname loaner
                     updateScriptLog "WELCOME DIALOG: EXA - Loaner configuration logic"
                     computerName="EXA-LOAN"
                     # get last 5 digits of SN
