@@ -114,10 +114,10 @@ positionListRaw="Developer,Management,Sales,Marketing"
 positionList=$( echo "${positionListRaw}" | tr ',' '\n' | sort -f | uniq | sed -e 's/^/\"/' -e 's/$/\",/' -e '$ s/.$//' )
 
 # [SYM-Helper] Branding overrides
-brandingBanner="https://i.imgur.com/Q3QXaqS.png" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
+brandingBanner="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-05/ExecTech%20-%20SYM-banner_2.jpg" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
 brandingBannerDisplayText="true"
-brandingIconLight="https://i.imgur.com/16ceGWv.png"
-brandingIconDark="https://i.imgur.com/16ceGWv.png"
+brandingIconLight="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-05/ExecTech%20-%20SYM-icon_1.png"
+brandingIconDark="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-05/ExecTech%20-%20SYM-icon_1.png"
 
 # [SYM-Helper] IT Support Variables - Use these if the default text is fine but you want your org's info inserted instead
 supportTeamName="ExecTech"
