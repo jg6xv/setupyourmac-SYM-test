@@ -7,7 +7,7 @@
 # https://snelson.us/sym
 # Edited by ExecTech:       Jason Galambos
 # Email:                    jg6xv@virginia.edu
-# Last Updated:             05/17/24
+# Last Updated:             03/15/24
 #
 ####################################################################################################
 #
@@ -114,10 +114,10 @@ positionListRaw="Developer,Management,Sales,Marketing"
 positionList=$( echo "${positionListRaw}" | tr ',' '\n' | sort -f | uniq | sed -e 's/^/\"/' -e 's/$/\",/' -e '$ s/.$//' )
 
 # [SYM-Helper] Branding overrides
-brandingBanner="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-05/ExecTech%20-%20SYM-banner_2.jpg" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
+brandingBanner="https://i.imgur.com/Q3QXaqS.png" # [Image by benzoix on Freepik](https://www.freepik.com/author/benzoix)
 brandingBannerDisplayText="true"
-brandingIconLight="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-05/ExecTech%20-%20SYM-icon_1.png"
-brandingIconDark="https://exectech.president.virginia.edu/sites/g/files/jsddwu906/files/2024-05/ExecTech%20-%20SYM-icon_1.png"
+brandingIconLight="https://i.imgur.com/16ceGWv.png"
+brandingIconDark="https://i.imgur.com/16ceGWv.png"
 
 # [SYM-Helper] IT Support Variables - Use these if the default text is fine but you want your org's info inserted instead
 supportTeamName="ExecTech"
@@ -1019,7 +1019,7 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "enrollciscosecureclient",
-                                            "validation": "None"
+                                            "validation": "/Applications/Cisco/Cisco Secure Client.app"
                                          }
                         ]
                     },
@@ -1031,7 +1031,19 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "enrolldefenderplist",
-                                            "validation": "None"
+                                            "validation": "/Library/Application Support/Microsoft/Defender/com.microsoft.wdav.atp.plist"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "Microsoft Defender - PLIST Only",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_27dd79496b55c84f74f83312ed2d517d7953b4000d28e15183064b04f5e0430b",
+                        "progresstext": "Processing policy: Microsoft Defender - PLIST Only",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "1921",
+                                            "validation": "/Library/Application Support/Microsoft/Defender/com.microsoft.wdav.atp.plist"
                                          }
                         ]
                     },
@@ -1055,7 +1067,7 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "enrollsplashtop",
-                                            "validation": "None"
+                                            "validation": "/Applications/Splashtop SOS.app"
                                          }
                         ]
                     },
@@ -1067,7 +1079,7 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "zoominstall",
-                                            "validation": "None"
+                                            "validation": "/Applications/zoom.us.app"
                                          }
                         ]
                     },
@@ -1091,7 +1103,7 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "microsoftExcel",
-                                            "validation": "None"
+                                            "validation": "/Applications/Microsoft Excel.app"
                                          }
                         ]
                     },
@@ -1103,7 +1115,7 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "microsoftPowerPoint",
-                                            "validation": "None"
+                                            "validation": "/Applications/Microsoft PowerPoint.app"
                                          }
                         ]
                     },
@@ -1115,18 +1127,18 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "microsoftWord",
-                                            "validation": "None"
+                                            "validation": "/Applications/Microsoft Word.app"
                                          }
                         ]
                     },
                     {
-                        "listitem": "exa-enroll- Dock - Remove Bloatware",
+                        "listitem": "Dock - Refresh",
                         "subtitle": "",
                         "icon": "https://ics.services.jamfcloud.com/icon/hash_493dc86b9c89618238ff5ac77d974fc7ba1c4edb441b7e891607c711c32b0a7f",
-                        "progresstext": "Processing policy: exa-enroll- Dock - Remove Bloatware",
+                        "progresstext": "Processing policy: Dock - Refresh",
                         "trigger_list": [
                                          {
-                                            "trigger": "dockRemoveBloatwareLoaner",
+                                            "trigger": "dockRemoveBloatware",
                                             "validation": "None"
                                          }
                         ]
@@ -1186,7 +1198,7 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "enrollciscosecureclient",
-                                            "validation": "None"
+                                            "validation": "/Applications/Cisco/Cisco Secure Client.app/Contents/Info.plist"
                                          }
                         ]
                     },
@@ -1198,7 +1210,19 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "enrolldefenderplist",
-                                            "validation": "None"
+                                            "validation": "/Library/Application Support/Microsoft/Defender/com.microsoft.wdav.atp.plist"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "Microsoft Defender - PLIST Only",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_27dd79496b55c84f74f83312ed2d517d7953b4000d28e15183064b04f5e0430b",
+                        "progresstext": "Processing policy: Microsoft Defender - PLIST Only",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "1921",
+                                            "validation": "/Library/Application Support/Microsoft/Defender/com.microsoft.wdav.atp.plist"
                                          }
                         ]
                     },
@@ -1210,6 +1234,18 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "deployUVABranding",
+                                            "validation": "/Library/Application Support/JAMF/UVA Branding/icons/PNG/UVA.png"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "GoogleChrome",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_ad65a11c8dc65711f96c1411404bc0210cd4c80c606b6f2351c578592aa5a2c5",
+                        "progresstext": "Processing policy: GoogleChrome",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "chrome",
                                             "validation": "None"
                                          }
                         ]
@@ -1227,18 +1263,6 @@ function policyJSONConfiguration() {
                         ]
                     },
                     {
-                        "listitem": "GoogleChrome",
-                        "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_ad65a11c8dc65711f96c1411404bc0210cd4c80c606b6f2351c578592aa5a2c5",
-                        "progresstext": "Processing policy: GoogleChrome",
-                        "trigger_list": [
-                                         {
-                                            "trigger": "chrome",
-                                            "validation": "None"
-                                         }
-                        ]
-                    },
-                    {
                         "listitem": "SplashTop_SOS",
                         "subtitle": "",
                         "icon": "https://ics.services.jamfcloud.com/icon/hash_8b576cfb98521cd35cae02e1deda772fbf7e556324d6d57af4ef1e54d3977b38",
@@ -1246,7 +1270,7 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "enrollsplashtop",
-                                            "validation": "None"
+                                            "validation": "/Applications/Splashtop SOS.app"
                                          }
                         ]
                     },
@@ -1258,19 +1282,55 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "zoominstall",
-                                            "validation": "None"
+                                            "validation": "/Applications/zoom.us.app"
                                          }
                         ]
                     },
                     {
-                        "listitem": "MicrosoftOffice",
+                        "listitem": "Outlook",
                         "subtitle": "",
-                        "icon": "https://ics.services.jamfcloud.com/icon/hash_e3247dad6880725ff22a771beb51a910a37c1afd41c67d0d4d113c58543b9591",
-                        "progresstext": "Processing policy: MicrosoftOffice",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_b96ae8bdcb09597bff8b2e82ec3b64d0a2d17f33414dbd7d9a48e5186de7fd93",
+                        "progresstext": "Processing policy: Outlook",
                         "trigger_list": [
                                          {
-                                            "trigger": "microsoftoffice",
-                                            "validation": "None"
+                                            "trigger": "installoutlook",
+                                            "validation": "/Applications/Microsoft Outlook.app"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "Microsoft Excel",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_47b16c524f57020290de1a510a7abeb3aa992b15a583c2db74c4e28f3caf7e77",
+                        "progresstext": "Processing policy: Microsoft Excel",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "microsoftExcel",
+                                            "validation": "/Applications/Microsoft Excel.app"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "Microsoft PowerPoint",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_faed8a53e1a41098812245665c544cac4607f1eb29d1337afe075f80607a6a8e",
+                        "progresstext": "Processing policy: Microsoft PowerPoint",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "microsoftPowerPoint",
+                                            "validation": "/Applications/Microsoft PowerPoint.app"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "Microsoft Word",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_02d85f833abb84627237d2109ca240ca9ee4dc8d9db299996d45363e3034166d",
+                        "progresstext": "Processing policy: Microsoft Word",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "microsoftWord",
+                                            "validation": "/Applications/Microsoft Word.app"
                                          }
                         ]
                     },
@@ -1282,15 +1342,15 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "microsoftteamsnew",
-                                            "validation": "None"
+                                            "validation": "/Applications/Microsoft Teams (work or school).app"
                                          }
                         ]
                     },
                     {
-                        "listitem": "exa-enroll- Dock - Remove Bloatware",
+                        "listitem": "Dock - Refresh",
                         "subtitle": "",
                         "icon": "https://ics.services.jamfcloud.com/icon/hash_493dc86b9c89618238ff5ac77d974fc7ba1c4edb441b7e891607c711c32b0a7f",
-                        "progresstext": "Processing policy: exa-enroll- Dock - Remove Bloatware",
+                        "progresstext": "Processing policy: Dock - Refresh",
                         "trigger_list": [
                                          {
                                             "trigger": "dockRemoveBloatware",
