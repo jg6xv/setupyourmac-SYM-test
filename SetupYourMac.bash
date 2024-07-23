@@ -1342,7 +1342,7 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "microsoftteamsnew",
-                                            "validation": "/Applications/Microsoft Teams (work or school).app"
+                                            "validation": "/Applications/Microsoft Teams.app"
                                          }
                         ]
                     },
