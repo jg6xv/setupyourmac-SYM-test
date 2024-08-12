@@ -1133,6 +1133,18 @@ function policyJSONConfiguration() {
                         ]
                     },
                     {
+                        "listitem": "OneDrive",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8122896a17bc835f66ed629f109d0ba6776b74f2c686f4c37890c324bb338814",
+                        "progresstext": "Processing policy: OneDrive",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "1727",
+                                            "validation": "None"
+                                         }
+                        ]
+                    },
+                    {
                         "listitem": "Dock - Refresh",
                         "subtitle": "",
                         "icon": "https://ics.services.jamfcloud.com/icon/hash_493dc86b9c89618238ff5ac77d974fc7ba1c4edb441b7e891607c711c32b0a7f",
@@ -1344,6 +1356,18 @@ function policyJSONConfiguration() {
                                          {
                                             "trigger": "microsoftteamsnew",
                                             "validation": "/Applications/Microsoft Teams.app"
+                                         }
+                        ]
+                    },
+                    {
+                        "listitem": "OneDrive",
+                        "subtitle": "",
+                        "icon": "https://ics.services.jamfcloud.com/icon/hash_8122896a17bc835f66ed629f109d0ba6776b74f2c686f4c37890c324bb338814",
+                        "progresstext": "Processing policy: OneDrive",
+                        "trigger_list": [
+                                         {
+                                            "trigger": "1727",
+                                            "validation": "None"
                                          }
                         ]
                     },
