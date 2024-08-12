@@ -69,6 +69,7 @@ debugModeSleepAmount="3"    # Delay for various actions when running in Debug Mo
 failureDialog="true"        # Display the so-called "Failure" dialog (after the main SYM dialog) [ true | false ]
 ExecTechLogic="true"
 LoanerPassword="Loan_laptop1!"
+DefaultUserPassword="exectech"
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -2845,8 +2846,8 @@ elif [[ "${welcomeDialog}" == "userInput" ]]; then
                     # example:
                     # EXA-JG6XV-MBP20
 
-                    # We also want to set the password as empty so the user can simply log in:
-                    setPassword=""
+                    # We also want to set a non-blank password so the Kerberos password sync works smoothly:
+                    setPassword="$DefaultUserPassword"
                     
                     # Getting the year is unfortunately difficult and requires a lot of code, which changes
                     #   based on whether the device is ARM or Intel.
