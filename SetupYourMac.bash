@@ -1140,7 +1140,7 @@ function policyJSONConfiguration() {
                         "trigger_list": [
                                          {
                                             "trigger": "1727",
-                                            "validation": "None"
+                                            "validation": "/Applications/OneDrive.app"
                                          }
                         ]
                     },
